@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -q
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
@@ -53,6 +53,15 @@ html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
+update: html
+	git add .
+	-git commit -m 'update doc'
+	git pull origin master
+	git push
+	@echo "upload html to ghp-pages branch"
+	touch build/html/.nojekyll
+	ghp-import -p build/html
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml

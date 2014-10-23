@@ -2,7 +2,7 @@
 
 
 python manager.py 命令
-=========
+========================================
 
 
 1.  python manage.py diffsettings
