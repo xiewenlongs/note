@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.3. mapper &mdash; notebook 0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="notebook 0 documentation" href="../index.html" />
+    <link rel="up" title="2. Hadoop documentation" href="index.html" />
+    <link rel="next" title="2.7. this is a test" href="test.html" />
+    <link rel="prev" title="2.2. HDFS 接口" href="interface.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="test.html" title="2.7. this is a test"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="interface.html" title="2.2. HDFS 接口"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">notebook 0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">2. Hadoop documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mapper">
+<h1>2.3. mapper<a class="headerlink" href="#mapper" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">一个类要作为mapper, 需继承MapReduceBase 基类, 并实现 Mapper 接口</p>
+<p>void configure (JobConfjob)</p>
+<p>void close ()</p>
+<dl class="docutils">
+<dt>void map (K1 key,</dt>
+<dd><p class="first last">V1 value,
+OutputCollector &lt;K2, V2&gt; output,
+Reporter reporter) throws IOException</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="partitioner">
+<h1>2.4. partitioner<a class="headerlink" href="#partitioner" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">一个定制的patitioner, 只需要实现 configure () 和 getPartition () 函数</p>
+<p>configure: 将hadoop对作业的配置应用到patitioner 上</p>
+<p>getPartition: 返回一个介于0和reduce任务数之间的整数，指向将要发送到的reducer</p>
+</li>
+</ul>
+</div>
+<div class="section" id="reduce">
+<h1>2.5. reduce<a class="headerlink" href="#reduce" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">需要继承 MapReduceBase 基类</p>
+<dl class="docutils">
+<dt>void reducer (K1 key,</dt>
+<dd><p class="first last">V1 value,
+OutputCollector &lt;K2, V2&gt; output,
+Reporter reporter) throws IOException</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h1>2.6. 运行<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">启动mapreduce</p>
+<p>&gt; hadoop jar &lt;jar包&gt; &lt;主类&gt; &lt;输入路径&gt; &lt;输出路径&gt;</p>
+<p>如果只运行map, 可以跟参数 -D mapred.reduce.tasks=0</p>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2.3. mapper</a></li>
+<li><a class="reference internal" href="#partitioner">2.4. partitioner</a></li>
+<li><a class="reference internal" href="#reduce">2.5. reduce</a></li>
+<li><a class="reference internal" href="#id1">2.6. 运行</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="interface.html"
+                        title="previous chapter">2.2. HDFS 接口</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="test.html"
+                        title="next chapter">2.7. this is a test</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/hadoop/mapreduce.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="test.html" title="2.7. this is a test"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="interface.html" title="2.2. HDFS 接口"
+             >previous</a> |</li>
+        <li><a href="../index.html">notebook 0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >2. Hadoop documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, evershelden.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

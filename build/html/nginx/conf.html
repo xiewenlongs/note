@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5.1. accept_mutex &mdash; notebook 0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="notebook 0 documentation" href="../index.html" />
+    <link rel="up" title="5. nginx documentation" href="index.html" />
+    <link rel="next" title="6. opensource documentation" href="../opensource/index.html" />
+    <link rel="prev" title="5. nginx documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../opensource/index.html" title="6. opensource documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="5. nginx documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">notebook 0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">5. nginx documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="accept-mutex">
+<h1>5.1. accept_mutex<a class="headerlink" href="#accept-mutex" title="Permalink to this headline">¶</a></h1>
+<p>两个作用:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>避免惊群效果</strong> (每个 accept 上一把锁)</li>
+<li><strong>负载平衡</strong> (如果当前worker有任务，则不参与竞争，直接返回处理当前任务)</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="worker-connections">
+<h1>5.2. worker_connections<a class="headerlink" href="#worker-connections" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>每个worker 的连接池大小。 所以nginx能接收的总的连接数 = worker_connections * worker_processes</div></blockquote>
+</div>
+<div class="section" id="unknown">
+<h1>5.3. unknown<a class="headerlink" href="#unknown" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><strong>worker_rlimit_nofile</strong>    ?</li>
+<li><strong>keepalive_timeout</strong></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5.1. accept_mutex</a></li>
+<li><a class="reference internal" href="#worker-connections">5.2. worker_connections</a></li>
+<li><a class="reference internal" href="#unknown">5.3. unknown</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">5. nginx documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../opensource/index.html"
+                        title="next chapter">6. opensource documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/nginx/conf.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../opensource/index.html" title="6. opensource documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="5. nginx documentation"
+             >previous</a> |</li>
+        <li><a href="../index.html">notebook 0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >5. nginx documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, evershelden.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

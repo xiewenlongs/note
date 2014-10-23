@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4.4. 机制 &mdash; notebook 0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="notebook 0 documentation" href="../index.html" />
+    <link rel="up" title="4. mongo documentation" href="index.html" />
+    <link rel="next" title="5. nginx documentation" href="../nginx/index.html" />
+    <link rel="prev" title="4.2. issue about mongo performance" href="monitor.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../nginx/index.html" title="5. nginx documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="monitor.html" title="4.2. issue about mongo performance"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">notebook 0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">4. mongo documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>4.4. 机制<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>master 把接收的请求，写入 oplog 表里。 oplog 表记录了所有的操作，也就是说，master</div></blockquote>
+<dl class="docutils">
+<dt>和 slave 之间传递的是 oplog里的记录</dt>
+<dd>oplog 是一个 capped 表，它的大小，可以配置的，可以用 <tt class="docutils literal"><span class="pre">db.printReplicationInfo()</span></tt> 查看</dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h1>4.5. 步骤<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">有两天机器pc1, pc2, 保证两台机器的互通</p>
+</li>
+<li><p class="first">分别在pc1, pc2 上启动mongod</p>
+<blockquote>
+<div><p>pc1 &gt; mongod &#8211;port 12345 &#8211;dbpath /srv/mongodb/rs0-0 &#8211;replSet rs0 &#8211;smallfiles &#8211;oplogSize 128
+pc2 &gt; mongod &#8211;port 12346 &#8211;dbpath /srv/mongodb/rs0-0 &#8211;replSet rs0 &#8211;smallfiles &#8211;oplogSize 128</p>
+</div></blockquote>
+</li>
+<li><p class="first">在primary 上配置rs0</p>
+<blockquote>
+<div><p>pc1 &gt; mongo &#8211;port 12345
+mongo&gt; rsconf = {</p>
+<blockquote>
+<div><p>_id: &#8220;rs0&#8221;,
+members: [</p>
+<blockquote>
+<div><blockquote>
+<div><p>{
+_id: 0,
+host: &#8220;&lt;hostname&gt;:27017&#8221;        ===&gt; 别用 localhost ,用对外ip
+}</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>pc1 &gt; rs.initiate (rsconf)</p>
+<p>查看rs状态</p>
+<p>pc1 &gt; rs.status ()</p>
+</div></blockquote>
+</li>
+<li><p class="first">添加别的机器(pc2) 到 rs0</p>
+<blockquote>
+<div><p>pc1 &gt; mongo &#8211;port 12345
+mongo &gt; rs.add (&#8220;&lt;pc2的ip&gt;:port&#8221;)</p>
+</div></blockquote>
+</li>
+<li><p class="first">到此完成了，还可以添加 Arbiter 到 master 和 slave</p>
+</li>
+<li><p class="first">slave 不支持一般 mongo 操作，除非在slave上使用 <tt class="docutils literal"><span class="pre">rs.slaveOk</span> <span class="pre">()</span></tt> 才可以</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4.4. 机制</a></li>
+<li><a class="reference internal" href="#id2">4.5. 步骤</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="monitor.html"
+                        title="previous chapter">4.2. issue about mongo performance</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../nginx/index.html"
+                        title="next chapter">5. nginx documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/mongo/replication.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../nginx/index.html" title="5. nginx documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="monitor.html" title="4.2. issue about mongo performance"
+             >previous</a> |</li>
+        <li><a href="../index.html">notebook 0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >4. mongo documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, evershelden.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
