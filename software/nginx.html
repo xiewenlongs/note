@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>防火墙 &mdash; notebook 0 documentation</title>
+    <title>nginx &mdash; notebook 0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,9 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
-    <link rel="up" title="linux 笔记" href="index.html" />
-    <link rel="next" title="思考" href="../mind/index.html" />
-    <link rel="prev" title="linux 调优" href="tuning.html" />
+    <link rel="up" title="软件" href="index.html" />
+    <link rel="next" title="mongo" href="mongo.html" />
+    <link rel="prev" title="django" href="django.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -71,8 +71,8 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../software/index.html">软件</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">linux 笔记</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
@@ -88,9 +88,17 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">防火墙</a><ul>
-<li><a class="reference internal" href="#id2">开一个端口</a></li>
-<li><a class="reference internal" href="#id3">保存配置</a></li>
+<li><a class="reference internal" href="#">nginx</a><ul>
+<li><a class="reference internal" href="#id1">配置</a><ul>
+<li><a class="reference internal" href="#id2">基本配置</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">性能调优</a><ul>
+<li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
+<li><a class="reference internal" href="#id4">负载均衡</a></li>
+<li><a class="reference internal" href="#deferred">deferred</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -102,11 +110,11 @@
               
                 
   <li>
-    <a href="tuning.html" title="Previous Chapter: linux 调优"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; linux 调优</span>
+    <a href="django.html" title="Previous Chapter: django"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; django</span>
     </a>
   </li>
   <li>
-    <a href="../mind/index.html" title="Next Chapter: 思考"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">思考 &raquo;</span>
+    <a href="mongo.html" title="Next Chapter: mongo"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">mongo &raquo;</span>
     </a>
   </li>
               
@@ -134,9 +142,17 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">防火墙</a><ul>
-<li><a class="reference internal" href="#id2">开一个端口</a></li>
-<li><a class="reference internal" href="#id3">保存配置</a></li>
+<li><a class="reference internal" href="#">nginx</a><ul>
+<li><a class="reference internal" href="#id1">配置</a><ul>
+<li><a class="reference internal" href="#id2">基本配置</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">性能调优</a><ul>
+<li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
+<li><a class="reference internal" href="#id4">负载均衡</a></li>
+<li><a class="reference internal" href="#deferred">deferred</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -145,18 +161,79 @@
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="id1">
-<h1>防火墙<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="nginx">
+<h1>nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>配置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
-<h2>开一个端口<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>注意要用 -I, 因为如果 iptable 中设置了 reject ALL, 那么如果用-A 的话， reject 的优先级会在新的append之前:</p>
-<div class="highlight-python"><div class="highlight"><pre>$&gt; sudo iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 9003 -j ACCEPT
-</pre></div>
+<h3>基本配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="19%" />
+<col width="70%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">作用</th>
+<th class="head">推荐值</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>accept_mutex</td>
+<td><ol class="first last arabic simple">
+<li><code class="docutils literal"><span class="pre">避免惊群效果</span></code> (每个 accept 上一把锁);</li>
+<li><code class="docutils literal"><span class="pre">负载平衡</span></code> (如果当前worker有任务，则不参与竞争，直接返回处理当前任务)</li>
+</ol>
+</td>
+<td>true</td>
+</tr>
+<tr class="row-odd"><td>worker_connections</td>
+<td>每个worker 的连接池大小。 所以:
+<code class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></code></td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>timer_resolution</td>
+<td>默认情况下，每次内核事件调用，都要执行一次 gettimeofday,
+来更新nginx中的缓存时钟, 这个选项控制执行间隔</td>
+<td>100ms</td>
+</tr>
+<tr class="row-odd"><td>worker_cpu_affinity</td>
+<td>绑定CPU</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>sendfile on</td>
+<td>启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>worker_rlimit_nofile</td>
+<td>unknown</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>keepalive_timeout</td>
+<td>unknown</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="id3">
-<h2>保存配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>sudo iptables-save &gt; /etc/iptables.up.rule</p>
+<h2>性能调优<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="debug-nginx">
+<h3>debug nginx<a class="headerlink" href="#debug-nginx" title="Permalink to this headline">¶</a></h3>
+<p>方法1: 打开 &#8211;with-debug</p>
+<p>方法2: Debugging nginx with DTrace pid provider</p>
+<p>相关链接: <a class="reference external" href="http://nginx.org/en/docs/nginx_dtrace_pid_provider.html">http://nginx.org/en/docs/nginx_dtrace_pid_provider.html</a></p>
+</div>
+<div class="section" id="id4">
+<h3>负载均衡<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>nginx 使用upstream 分流</p>
+</div>
+<div class="section" id="deferred">
+<h3>deferred<a class="headerlink" href="#deferred" title="Permalink to this headline">¶</a></h3>
+<p>listen 80 deferred;</p>
+</div>
 </div>
 </div>
 
@@ -173,7 +250,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/linux/iptable.txt"
+  <a href="../_sources/software/nginx.txt"
      rel="nofollow">Source</a>
 </div>
       

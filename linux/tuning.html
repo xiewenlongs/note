@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>3.4. 通用调优 &mdash; notebook 0 documentation</title>
+    <title>linux 调优 &mdash; notebook 0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,9 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
-    <link rel="up" title="3. linux documentation" href="index.html" />
-    <link rel="next" title="3.5. vim 乱码" href="vim.html" />
-    <link rel="prev" title="3.1. history 在多终端下的表现" href="bash.html" />
+    <link rel="up" title="linux 笔记" href="index.html" />
+    <link rel="next" title="防火墙" href="iptable.html" />
+    <link rel="prev" title="bash" href="bash.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -70,13 +70,11 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../c/index.html">1. C documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hadoop/index.html">2. Hadoop documentation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. linux documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mongo/index.html">4. mongo documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nginx/index.html">5. nginx documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../opensource/index.html">6. opensource documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../unread/index.html">7. unread documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html">软件</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
 </li>
@@ -90,10 +88,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">3.4. 通用调优</a><ul>
-<li><a class="reference internal" href="#ulimit">3.4.1. ulimit 限制</a></li>
-<li><a class="reference internal" href="#id2">3.4.2. 查看系统当前的并发连接数</a></li>
-<li><a class="reference internal" href="#id3">3.4.3. 内核调优</a></li>
+<li><a class="reference internal" href="#">linux 调优</a><ul>
+<li><a class="reference internal" href="#id1">通用调优</a><ul>
+<li><a class="reference internal" href="#ulimit">ulimit 限制</a></li>
+<li><a class="reference internal" href="#id2">查看系统当前的并发连接数</a></li>
+<li><a class="reference internal" href="#id3">内核调优</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -105,11 +106,11 @@
               
                 
   <li>
-    <a href="bash.html" title="Previous Chapter: 3.1. history 在多终端下的表现"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 3.1. history 在多终...</span>
+    <a href="bash.html" title="Previous Chapter: bash"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; bash</span>
     </a>
   </li>
   <li>
-    <a href="vim.html" title="Next Chapter: 3.5. vim 乱码"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">3.5. vim 乱码 &raquo;</span>
+    <a href="iptable.html" title="Next Chapter: 防火墙"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">防火墙 &raquo;</span>
     </a>
   </li>
               
@@ -137,10 +138,13 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">3.4. 通用调优</a><ul>
-<li><a class="reference internal" href="#ulimit">3.4.1. ulimit 限制</a></li>
-<li><a class="reference internal" href="#id2">3.4.2. 查看系统当前的并发连接数</a></li>
-<li><a class="reference internal" href="#id3">3.4.3. 内核调优</a></li>
+<li><a class="reference internal" href="#">linux 调优</a><ul>
+<li><a class="reference internal" href="#id1">通用调优</a><ul>
+<li><a class="reference internal" href="#ulimit">ulimit 限制</a></li>
+<li><a class="reference internal" href="#id2">查看系统当前的并发连接数</a></li>
+<li><a class="reference internal" href="#id3">内核调优</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -149,10 +153,12 @@
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="id1">
-<h1>3.4. 通用调优<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="linux">
+<h1>linux 调优<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>通用调优<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="ulimit">
-<h2>3.4.1. ulimit 限制<a class="headerlink" href="#ulimit" title="Permalink to this headline">¶</a></h2>
+<h3>ulimit 限制<a class="headerlink" href="#ulimit" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>一般一台机器，先用 <cite>ulimit -a</cite> 看一下，系统是否有限制资源使用, 例如:</p>
 <div class="highlight-python"><div class="highlight"><pre>&gt; ulimit
@@ -178,7 +184,7 @@ file locks                      (-x) unlimited
 </div></blockquote>
 </div>
 <div class="section" id="id2">
-<h2>3.4.2. 查看系统当前的并发连接数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h3>查看系统当前的并发连接数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p>使用netstat 命令查看连接数:</p>
 <div class="highlight-python"><div class="highlight"><pre>&gt; netstat -n | awk &#39;/^tcp/ {++state[$NF]} END {for(key in state) print key,&quot;t&quot;,state[key]}&#39;
@@ -200,7 +206,7 @@ file locks                      (-x) unlimited
 </div></blockquote>
 </div>
 <div class="section" id="id3">
-<h2>3.4.3. 内核调优<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h3>内核调优<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><p><strong>高并发配置模板</strong></p>
 <ul>
@@ -376,6 +382,7 @@ unix socket 最大队列，默认为10, 明显不够</p>
 <blockquote>
 <div>socket 连接中，打开TCP_DEFER_ACCEPT 选项</div></blockquote>
 </div></blockquote>
+</div>
 </div>
 </div>
 

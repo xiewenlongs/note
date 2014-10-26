@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>linux 笔记 &mdash; notebook 0 documentation</title>
+    <title>vim &mdash; notebook 0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
-    <link rel="next" title="bash" href="bash.html" />
-    <link rel="prev" title="goaccess" href="../software/goaccess.html" />
+    <link rel="up" title="软件" href="index.html" />
+    <link rel="next" title="django" href="django.html" />
+    <link rel="prev" title="软件" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -70,8 +71,8 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../software/index.html">软件</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">linux 笔记</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
@@ -87,7 +88,18 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">linux 笔记</a></li>
+<li><a class="reference internal" href="#">vim</a><ul>
+<li><a class="reference internal" href="#id1">编码</a><ul>
+<li><a class="reference internal" href="#id2">文件编码转换</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">插件</a><ul>
+<li><a class="reference internal" href="#vundle">Vundle</a></li>
+<li><a class="reference internal" href="#snipmate">snipmate</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -97,11 +109,11 @@
               
                 
   <li>
-    <a href="../software/goaccess.html" title="Previous Chapter: goaccess"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; goaccess</span>
+    <a href="index.html" title="Previous Chapter: 软件"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 软件</span>
     </a>
   </li>
   <li>
-    <a href="bash.html" title="Next Chapter: bash"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">bash &raquo;</span>
+    <a href="django.html" title="Next Chapter: django"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">django &raquo;</span>
     </a>
   </li>
               
@@ -129,21 +141,61 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">linux 笔记</a></li>
+<li><a class="reference internal" href="#">vim</a><ul>
+<li><a class="reference internal" href="#id1">编码</a><ul>
+<li><a class="reference internal" href="#id2">文件编码转换</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">插件</a><ul>
+<li><a class="reference internal" href="#vundle">Vundle</a></li>
+<li><a class="reference internal" href="#snipmate">snipmate</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="linux">
-<h1>linux 笔记<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="bash.html">bash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">linux 调优</a></li>
-<li class="toctree-l1"><a class="reference internal" href="iptable.html">防火墙</a></li>
-</ul>
+  <div class="section" id="vim">
+<h1>vim<a class="headerlink" href="#vim" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>编码<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>首先查看本机vim是否支持unicode编码, 可以执行:</p>
+<div class="highlight-python"><div class="highlight"><pre>:version
+</pre></div>
+</div>
+<p>来查看 是否有 <code class="docutils literal"><span class="pre">+multi_byte</span></code> 选项，如果没有，说明编译vim的时候，没有加
+入 &#8211;with-features=big</p>
+<div class="section" id="id2">
+<h3>文件编码转换<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">其他编码</span></code> ==&gt; <code class="docutils literal"><span class="pre">utf-8</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>:set encoding=utf-8
+:w!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>插件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vundle">
+<h3>Vundle<a class="headerlink" href="#vundle" title="Permalink to this headline">¶</a></h3>
+<p>vim 插件安装容易，卸载麻烦。 vundle 是一款vim 插件，利用它可以管理其他vim插件,
+让更新、卸载plugin变的容易.  使用方法:</p>
+<div class="highlight-python"><div class="highlight"><pre>1. 在github 上搜索要安装的plugin名
+2. 把插件写在~/.vimrc 中: Plugin &#39;msanders/snipmate.vim&#39;
+3. 执行命令: vim +PluginInstall +qall,  插件就自动安装了
+</pre></div>
+</div>
+<p>相关链接: <a class="reference external" href="https://github.com/gmarik/Vundle.vim">https://github.com/gmarik/Vundle.vim</a></p>
+</div>
+<div class="section" id="snipmate">
+<h3>snipmate<a class="headerlink" href="#snipmate" title="Permalink to this headline">¶</a></h3>
+<p>根据文件扩展名， 进行代码片段补全. 只需要在 <code class="docutils literal"><span class="pre">~/.vim/bundle/snipmate.vim/snippets/</span></code>
+目录下创建响应的 xxx.snippets 文件， 在里面自定义片段即可</p>
+</div>
 </div>
 </div>
 
@@ -160,7 +212,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/linux/index.txt"
+  <a href="../_sources/software/vim.txt"
      rel="nofollow">Source</a>
 </div>
       

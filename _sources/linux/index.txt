@@ -1,13 +1,10 @@
-
-linux documentation
-=======================
-
-Contents:
+===============================================
+linux 笔记
+===============================================
 
 .. toctree::
    :maxdepth: 1
 
    bash
    tuning
-   vim
    iptable
