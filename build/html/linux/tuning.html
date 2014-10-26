@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -41,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -70,10 +69,10 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../c/index.html">1. C documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hadoop/index.html">2. Hadoop documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">3. linux documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. linux documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mongo/index.html">4. mongo documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nginx/index.html">5. nginx documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../opensource/index.html">6. opensource documentation</a></li>
@@ -156,7 +155,7 @@
 <h2>3.4.1. ulimit 限制<a class="headerlink" href="#ulimit" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><p>一般一台机器，先用 <cite>ulimit -a</cite> 看一下，系统是否有限制资源使用, 例如:</p>
-<div class="highlight-python"><pre>&gt; ulimit
+<div class="highlight-python"><div class="highlight"><pre>&gt; ulimit
 
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
@@ -173,7 +172,8 @@ stack size              (kbytes, -s) 8192
 cpu time               (seconds, -t) unlimited
 max user processes              (-u) 1024
 virtual memory          (kbytes, -v) unlimited
-file locks                      (-x) unlimited</pre>
+file locks                      (-x) unlimited
+</pre></div>
 </div>
 </div></blockquote>
 </div>
@@ -181,7 +181,7 @@ file locks                      (-x) unlimited</pre>
 <h2>3.4.2. 查看系统当前的并发连接数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><p>使用netstat 命令查看连接数:</p>
-<div class="highlight-python"><pre>&gt; netstat -n | awk '/^tcp/ {++state[$NF]} END {for(key in state) print key,"t",state[key]}'
+<div class="highlight-python"><div class="highlight"><pre>&gt; netstat -n | awk &#39;/^tcp/ {++state[$NF]} END {for(key in state) print key,&quot;t&quot;,state[key]}&#39;
 
     TIME_WAIT t 2727
     CLOSE_WAIT t 8
@@ -191,7 +191,8 @@ file locks                      (-x) unlimited</pre>
     ESTABLISHED t 6813
     SYN_RECV t 87
     CLOSING t 6
-    LAST_ACK t 130</pre>
+    LAST_ACK t 130
+</pre></div>
 </div>
 <p>查看网络状态：sar -n DEV 1
 查看IO状态：iostat 1
@@ -398,7 +399,7 @@ unix socket 最大队列，默认为10, 明显不够</p>
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
     </p>
   </div>
 </footer>
