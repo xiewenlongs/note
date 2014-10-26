@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>hadoop &mdash; notebook 0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../_static/logo.ico"/>
+    <link rel="top" title="notebook 0 documentation" href="../index.html" />
+    <link rel="up" title="软件" href="index.html" />
+    <link rel="next" title="goaccess" href="goaccess.html" />
+    <link rel="prev" title="mysql" href="mysql.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          notebook</a>
+        <span class="navbar-text navbar-version pull-left"><b>1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">hadoop</a><ul>
+<li><a class="reference internal" href="#web">Web 管理窗口</a><ul>
+<li><a class="reference internal" href="#hdfs">HDFS 接口</a></li>
+<li><a class="reference internal" href="#mapper">mapper</a></li>
+<li><a class="reference internal" href="#partitioner">partitioner</a></li>
+<li><a class="reference internal" href="#reduce">reduce</a></li>
+<li><a class="reference internal" href="#id1">运行</a><ul>
+<li><a class="reference internal" href="#this-is-a-test">this is a test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="mysql.html" title="Previous Chapter: mysql"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; mysql</span>
+    </a>
+  </li>
+  <li>
+    <a href="goaccess.html" title="Next Chapter: goaccess"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">goaccess &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">hadoop</a><ul>
+<li><a class="reference internal" href="#web">Web 管理窗口</a><ul>
+<li><a class="reference internal" href="#hdfs">HDFS 接口</a></li>
+<li><a class="reference internal" href="#mapper">mapper</a></li>
+<li><a class="reference internal" href="#partitioner">partitioner</a></li>
+<li><a class="reference internal" href="#reduce">reduce</a></li>
+<li><a class="reference internal" href="#id1">运行</a><ul>
+<li><a class="reference internal" href="#this-is-a-test">this is a test</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9">
+      
+  <div class="section" id="hadoop">
+<h1>hadoop<a class="headerlink" href="#hadoop" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>start hadoop</dt>
+<dd><p class="first last">sh bin/start-all.sh</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">exec wordcount</p>
+<blockquote>
+<div><ol class="loweralpha">
+<li><dl class="first docutils">
+<dt>put input into hdfs</dt>
+<dd><p class="first last">./bin/hadoop dfs -put input/a input</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>exec</dt>
+<dd><p class="first last">./bin/hadoop jar example.jar wordcount input output</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>get output from hdfs</dt>
+<dd><p class="first last">./bin/hadoop dfs -get output/part-r-00000 .</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div></blockquote>
+</li>
+</ol>
+<div class="section" id="web">
+<h2>Web 管理窗口<a class="headerlink" href="#web" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>HDFS 管理窗口
+localhost:50070</li>
+<li>JobTracker 管理窗口
+localhost:50030</li>
+</ul>
+</div></blockquote>
+<div class="section" id="hdfs">
+<h3>HDFS 接口<a class="headerlink" href="#hdfs" title="Permalink to this headline">¶</a></h3>
+<p>实例代码:</p>
+<div class="highlight-python"><div class="highlight"><pre>import org.apache.hadoop.fs.*;
+import org.apache.hadoop.conf.*;
+class Person
+{
+    public String talk() {
+    return &quot;Person —— &gt;&gt; talk()&quot; ;
+    }
+}
+
+public class a
+{
+    public static void main(String[] args) throws Exception
+    {
+        Configuration conf = new Configuration ();
+        FileSystem hdfs = FileSystem.get (conf);
+        FileSystem local = FileSystem.getLocal (conf);
+
+        Path inputDir = new Path (args[0]);
+        Path hdfsFile = new Path (args[1]);
+
+        FileStatus[] inputFiles = local.listStatus (inputDir);
+        FSDataOutputStream out = hdfs.create (hdfsFile);
+
+        for (int i = 0; i &lt; inputFiles.length; i++) {
+            FSDataInputStream in = local.open (inputFiles[i].getPath ());
+            byte buffer[] = new byte [256];
+            int bytesRead = 0;
+            while ((bytesRead = in.read (buffer)) &gt; 0) {
+                out.write (buffer, 0, bytesRead);
+            }
+            in.close ();
+            System.out.println (&quot;aaaa:&quot; + inputFiles[i].getPath ());
+        }
+        out.close ();
+        System.out.println(new Person().talk()) ;
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="mapper">
+<h3>mapper<a class="headerlink" href="#mapper" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">一个类要作为mapper, 需继承MapReduceBase 基类, 并实现 Mapper 接口</p>
+<p>void configure (JobConfjob)</p>
+<p>void close ()</p>
+<dl class="docutils">
+<dt>void map (K1 key,</dt>
+<dd><p class="first last">V1 value,
+OutputCollector &lt;K2, V2&gt; output,
+Reporter reporter) throws IOException</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="partitioner">
+<h3>partitioner<a class="headerlink" href="#partitioner" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">一个定制的patitioner, 只需要实现 configure () 和 getPartition () 函数</p>
+<p>configure: 将hadoop对作业的配置应用到patitioner 上</p>
+<p>getPartition: 返回一个介于0和reduce任务数之间的整数，指向将要发送到的reducer</p>
+</li>
+</ul>
+</div>
+<div class="section" id="reduce">
+<h3>reduce<a class="headerlink" href="#reduce" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">需要继承 MapReduceBase 基类</p>
+<dl class="docutils">
+<dt>void reducer (K1 key,</dt>
+<dd><p class="first last">V1 value,
+OutputCollector &lt;K2, V2&gt; output,
+Reporter reporter) throws IOException</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>运行<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">启动mapreduce</p>
+<p>&gt; hadoop jar &lt;jar包&gt; &lt;主类&gt; &lt;输入路径&gt; &lt;输出路径&gt;</p>
+<p>如果只运行map, 可以跟参数 -D mapred.reduce.tasks=0</p>
+</li>
+</ul>
+<div class="section" id="this-is-a-test">
+<h4>this is a test<a class="headerlink" href="#this-is-a-test" title="Permalink to this headline">¶</a></h4>
+<p>部署新版本</p>
+<blockquote>
+<div><ul class="simple">
+<li>10.18.10.20 为线上服务器，负责为sdk端提供服务。</li>
+<li>10.18.10.96 为离线服务器，负责离线脚本及队列workers的运行。</li>
+</ul>
+</div></blockquote>
+<p>umengplus的nginx 在 10.18.10.20 上，其配置在 /etc/nginx/sites-enabled/all 中:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">SimpleTest</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">json_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;/bar/get/</span><span class="si">%s</span><span class="s">/&#39;</span> <span class="o">%</span> <span class="n">TCT</span><span class="o">.</span><span class="n">ak</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">json_obj</span><span class="p">[</span><span class="s">&#39;st&#39;</span><span class="p">],</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/software/hadoop.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, evershelden.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

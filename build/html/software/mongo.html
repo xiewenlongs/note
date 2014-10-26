@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>mongo &mdash; notebook 0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../_static/logo.ico"/>
+    <link rel="top" title="notebook 0 documentation" href="../index.html" />
+    <link rel="up" title="软件" href="index.html" />
+    <link rel="next" title="mysql" href="mysql.html" />
+    <link rel="prev" title="nginx" href="nginx.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          notebook</a>
+        <span class="navbar-text navbar-version pull-left"><b>1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">mongo</a><ul>
+<li><a class="reference internal" href="#id1">性能调优</a><ul>
+<li><a class="reference internal" href="#id2">使用覆盖索引</a></li>
+<li><a class="reference internal" href="#id3">索引在内存中</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#replica-set">replica set</a><ul>
+<li><a class="reference internal" href="#id4">机制</a></li>
+<li><a class="reference internal" href="#id5">步骤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nginx.html" title="Previous Chapter: nginx"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; nginx</span>
+    </a>
+  </li>
+  <li>
+    <a href="mysql.html" title="Next Chapter: mysql"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">mysql &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">mongo</a><ul>
+<li><a class="reference internal" href="#id1">性能调优</a><ul>
+<li><a class="reference internal" href="#id2">使用覆盖索引</a></li>
+<li><a class="reference internal" href="#id3">索引在内存中</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#replica-set">replica set</a><ul>
+<li><a class="reference internal" href="#id4">机制</a></li>
+<li><a class="reference internal" href="#id5">步骤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9">
+      
+  <div class="section" id="mongo">
+<h1>mongo<a class="headerlink" href="#mongo" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>性能调优<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>mongo 性能相关的因素:</p>
+<ul class="simple">
+<li>RAM</li>
+<li>locks time</li>
+<li>page fault</li>
+<li>connections number</li>
+</ul>
+<div class="section" id="id2">
+<h3>使用覆盖索引<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id3">
+<h3>索引在内存中<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>最好确保 index 大小可以全部放入内存,否则连index都要 swap，就会比较慢, 使用:</p>
+<div class="highlight-python"><div class="highlight"><pre>$&gt; db.collection.totalIndexSize ()
+</pre></div>
+</div>
+<p>来查看单个表 index 大小</p>
+</div>
+</div>
+<div class="section" id="replica-set">
+<h2>replica set<a class="headerlink" href="#replica-set" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>机制<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>master 把接收的请求，写入 oplog 表里。 oplog 表记录了所有的操作，也就是说，master
+和slave 之间传递的是 oplog里的记录 oplog 是一个 capped 表，它的大小，可以配置的，
+可以用 <code class="docutils literal"><span class="pre">db.printReplicationInfo()</span></code> 查看</p>
+</div>
+<div class="section" id="id5">
+<h3>步骤<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">有两天机器pc1, pc2, 保证两台机器的互通</p>
+</li>
+<li><p class="first">分别在pc1, pc2 上启动mongod:</p>
+<div class="highlight-python"><div class="highlight"><pre>pc1 &gt; mongod --port 12345 --dbpath /srv/mongodb/rs0-0 --replSet rs0 --smallfiles --oplogSize 128
+pc2 &gt; mongod --port 12346 --dbpath /srv/mongodb/rs0-0 --replSet rs0 --smallfiles --oplogSize 128
+</pre></div>
+</div>
+</li>
+<li><p class="first">在primary 上配置rs0:</p>
+<div class="highlight-python"><div class="highlight"><pre>pc1 &gt; mongo --port 12345
+mongo&gt; rsconf = {
+                _id: &quot;rs0&quot;,
+                members: [
+                            {
+                            _id: 0,
+                            host: &quot;&lt;hostname&gt;:27017&quot;        ===&gt; 别用 localhost ,用对外ip
+                            }
+                    ]
+                }
+
+pc1 &gt; rs.initiate (rsconf)
+
+查看rs状态
+
+pc1 &gt; rs.status ()
+</pre></div>
+</div>
+</li>
+<li><p class="first">添加别的机器(pc2) 到 rs0:</p>
+<div class="highlight-python"><div class="highlight"><pre>pc1 &gt; mongo --port 12345
+mongo &gt; rs.add (&quot;&lt;pc2的ip&gt;:port&quot;)
+</pre></div>
+</div>
+</li>
+<li><p class="first">到此完成了，还可以添加 Arbiter 到 master 和 slave</p>
+</li>
+<li><p class="first">slave 不支持一般 mongo 操作，除非在slave上使用 <code class="docutils literal"><span class="pre">rs.slaveOk</span> <span class="pre">()</span></code> 才可以</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/software/mongo.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, evershelden.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

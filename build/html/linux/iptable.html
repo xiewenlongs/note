@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>3.7. 防火墙设置 &mdash; notebook 0 documentation</title>
+    <title>防火墙 &mdash; notebook 0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,9 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
-    <link rel="up" title="3. linux documentation" href="index.html" />
-    <link rel="next" title="4. mongo documentation" href="../mongo/index.html" />
-    <link rel="prev" title="3.5. vim 乱码" href="vim.html" />
+    <link rel="up" title="linux 笔记" href="index.html" />
+    <link rel="next" title="思考" href="../mind/index.html" />
+    <link rel="prev" title="linux 调优" href="tuning.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -70,13 +70,11 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../c/index.html">1. C documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../hadoop/index.html">2. Hadoop documentation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. linux documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mongo/index.html">4. mongo documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nginx/index.html">5. nginx documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../opensource/index.html">6. opensource documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../unread/index.html">7. unread documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html">软件</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
 </li>
@@ -90,9 +88,9 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">3.7. 防火墙设置</a><ul>
-<li><a class="reference internal" href="#id2">3.7.1. 开一个端口</a></li>
-<li><a class="reference internal" href="#id3">3.7.2. 保存配置</a></li>
+<li><a class="reference internal" href="#">防火墙</a><ul>
+<li><a class="reference internal" href="#id2">开一个端口</a></li>
+<li><a class="reference internal" href="#id3">保存配置</a></li>
 </ul>
 </li>
 </ul>
@@ -104,11 +102,11 @@
               
                 
   <li>
-    <a href="vim.html" title="Previous Chapter: 3.5. vim 乱码"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 3.5. vim 乱码</span>
+    <a href="tuning.html" title="Previous Chapter: linux 调优"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; linux 调优</span>
     </a>
   </li>
   <li>
-    <a href="../mongo/index.html" title="Next Chapter: 4. mongo documentation"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">4. mongo documen... &raquo;</span>
+    <a href="../mind/index.html" title="Next Chapter: 思考"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">思考 &raquo;</span>
     </a>
   </li>
               
@@ -136,9 +134,9 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">3.7. 防火墙设置</a><ul>
-<li><a class="reference internal" href="#id2">3.7.1. 开一个端口</a></li>
-<li><a class="reference internal" href="#id3">3.7.2. 保存配置</a></li>
+<li><a class="reference internal" href="#">防火墙</a><ul>
+<li><a class="reference internal" href="#id2">开一个端口</a></li>
+<li><a class="reference internal" href="#id3">保存配置</a></li>
 </ul>
 </li>
 </ul>
@@ -148,18 +146,17 @@
     <div class="col-md-9">
       
   <div class="section" id="id1">
-<h1>3.7. 防火墙设置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>防火墙<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2>3.7.1. 开一个端口<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>sudo iptables -I INPUT -p tcp -m state &#8211;state NEW -m tcp &#8211;dport 9003 -j ACCEPT</p>
-<p>注意要用 -I, 因为如果 iptable 中设置了 reject ALL, 那么如果用-A 的话， reject 的优先级会在新的append之前</p>
-</div></blockquote>
+<h2>开一个端口<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>注意要用 -I, 因为如果 iptable 中设置了 reject ALL, 那么如果用-A 的话， reject 的优先级会在新的append之前:</p>
+<div class="highlight-python"><div class="highlight"><pre>$&gt; sudo iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 9003 -j ACCEPT
+</pre></div>
+</div>
 </div>
 <div class="section" id="id3">
-<h2>3.7.2. 保存配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div>sudo iptables-save &gt; /etc/iptables.up.rule</div></blockquote>
+<h2>保存配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>sudo iptables-save &gt; /etc/iptables.up.rule</p>
 </div>
 </div>
 

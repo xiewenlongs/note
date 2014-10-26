@@ -1,4 +1,4 @@
 #!/bin/sh
 
 make html
-firefox build/html/index.html
+open build/html/index.html
