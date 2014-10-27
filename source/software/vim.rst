@@ -35,11 +35,26 @@ Vundle
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 vim 插件安装容易，卸载麻烦。 vundle 是一款vim 插件，利用它可以管理其他vim插件,
-让更新、卸载plugin变的容易.  使用方法::
+让更新、卸载plugin变的容易.
 
-    1. 在github 上搜索要安装的plugin名
-    2. 把插件写在~/.vimrc 中: Plugin 'msanders/snipmate.vim'
-    3. 执行命令: vim +PluginInstall +qall,  插件就自动安装了
+
+在github 上搜索要安装的plugin名. 把插件写在~/.vimrc 中::
+
+    Plugin 'msanders/snipmate.vim'
+
+执行安装命令::
+
+    :PluginInstall
+
+
+插件就自动安装了. 如果想搜索插件, 执行::
+
+    :PluginSearch! <插件名>
+
+列出已经安装的插件::
+
+    :PluginList
+
 
 相关链接: https://github.com/gmarik/Vundle.vim
 
