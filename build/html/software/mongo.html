@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -40,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -69,11 +70,12 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">软件</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -178,8 +180,7 @@
 <div class="section" id="id3">
 <h3>索引在内存中<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>最好确保 index 大小可以全部放入内存,否则连index都要 swap，就会比较慢, 使用:</p>
-<div class="highlight-python"><div class="highlight"><pre>$&gt; db.collection.totalIndexSize ()
-</pre></div>
+<div class="highlight-python"><pre>$&gt; db.collection.totalIndexSize ()</pre>
 </div>
 <p>来查看单个表 index 大小</p>
 </div>
@@ -190,7 +191,7 @@
 <h3>机制<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>master 把接收的请求，写入 oplog 表里。 oplog 表记录了所有的操作，也就是说，master
 和slave 之间传递的是 oplog里的记录 oplog 是一个 capped 表，它的大小，可以配置的，
-可以用 <code class="docutils literal"><span class="pre">db.printReplicationInfo()</span></code> 查看</p>
+可以用 <tt class="docutils literal"><span class="pre">db.printReplicationInfo()</span></tt> 查看</p>
 </div>
 <div class="section" id="id5">
 <h3>步骤<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
@@ -198,19 +199,18 @@
 <li><p class="first">有两天机器pc1, pc2, 保证两台机器的互通</p>
 </li>
 <li><p class="first">分别在pc1, pc2 上启动mongod:</p>
-<div class="highlight-python"><div class="highlight"><pre>pc1 &gt; mongod --port 12345 --dbpath /srv/mongodb/rs0-0 --replSet rs0 --smallfiles --oplogSize 128
-pc2 &gt; mongod --port 12346 --dbpath /srv/mongodb/rs0-0 --replSet rs0 --smallfiles --oplogSize 128
-</pre></div>
+<div class="highlight-python"><pre>pc1 &gt; mongod --port 12345 --dbpath /srv/mongodb/rs0-0 --replSet rs0 --smallfiles --oplogSize 128
+pc2 &gt; mongod --port 12346 --dbpath /srv/mongodb/rs0-0 --replSet rs0 --smallfiles --oplogSize 128</pre>
 </div>
 </li>
 <li><p class="first">在primary 上配置rs0:</p>
-<div class="highlight-python"><div class="highlight"><pre>pc1 &gt; mongo --port 12345
+<div class="highlight-python"><pre>pc1 &gt; mongo --port 12345
 mongo&gt; rsconf = {
-                _id: &quot;rs0&quot;,
+                _id: "rs0",
                 members: [
                             {
                             _id: 0,
-                            host: &quot;&lt;hostname&gt;:27017&quot;        ===&gt; 别用 localhost ,用对外ip
+                            host: "&lt;hostname&gt;:27017"        ===&gt; 别用 localhost ,用对外ip
                             }
                     ]
                 }
@@ -219,19 +219,17 @@ pc1 &gt; rs.initiate (rsconf)
 
 查看rs状态
 
-pc1 &gt; rs.status ()
-</pre></div>
+pc1 &gt; rs.status ()</pre>
 </div>
 </li>
 <li><p class="first">添加别的机器(pc2) 到 rs0:</p>
-<div class="highlight-python"><div class="highlight"><pre>pc1 &gt; mongo --port 12345
-mongo &gt; rs.add (&quot;&lt;pc2的ip&gt;:port&quot;)
-</pre></div>
+<div class="highlight-python"><pre>pc1 &gt; mongo --port 12345
+mongo &gt; rs.add ("&lt;pc2的ip&gt;:port")</pre>
 </div>
 </li>
 <li><p class="first">到此完成了，还可以添加 Arbiter 到 master 和 slave</p>
 </li>
-<li><p class="first">slave 不支持一般 mongo 操作，除非在slave上使用 <code class="docutils literal"><span class="pre">rs.slaveOk</span> <span class="pre">()</span></code> 才可以</p>
+<li><p class="first">slave 不支持一般 mongo 操作，除非在slave上使用 <tt class="docutils literal"><span class="pre">rs.slaveOk</span> <span class="pre">()</span></tt> 才可以</p>
 </li>
 </ol>
 </div>
@@ -258,7 +256,7 @@ mongo &gt; rs.add (&quot;&lt;pc2的ip&gt;:port&quot;)
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.<br/>
     </p>
   </div>
 </footer>
