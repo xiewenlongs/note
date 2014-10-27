@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -41,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -70,9 +69,9 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">软件</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">软件</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
@@ -153,15 +152,17 @@
 <div class="section" id="id1">
 <h2>第一步: 配置文件<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>书写 ~/.goaccessrc 文件，在其中配置日志的格式:</p>
-<div class="highlight-python"><pre>color_scheme 0
+<div class="highlight-python"><div class="highlight"><pre>color_scheme 0
 date_format %a %b %d %H:%M:%S %Y
-log_format {%^} {%^} [%^] %h %^[%d] %^ %r %^(%^ %s) %^</pre>
+log_format {%^} {%^} [%^] %h %^[%d] %^ %r %^(%^ %s) %^
+</pre></div>
 </div>
 </div>
 <div class="section" id="id2">
 <h2>第二步: 执行<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>使用命令:</p>
-<div class="highlight-python"><pre>$&gt; goaccess -f 日志路径 &gt; result.html</pre>
+<div class="highlight-python"><div class="highlight"><pre>$&gt; goaccess -f 日志路径 &gt; result.html
+</pre></div>
 </div>
 </div>
 </div>
@@ -186,7 +187,7 @@ log_format {%^} {%^} [%^] %h %^[%d] %^ %r %^(%^ %s) %^</pre>
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
     </p>
   </div>
 </footer>
