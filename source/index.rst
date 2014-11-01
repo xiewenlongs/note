@@ -8,6 +8,7 @@
    :glob:
 
    program_lang/index
+   network/index
    software/index
    linux/index
    mind/index
