@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 
@@ -40,7 +41,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -69,9 +70,10 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">软件</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">软件</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
@@ -211,12 +213,12 @@ localhost:50030</li>
 <div class="section" id="hdfs">
 <h3>HDFS 接口<a class="headerlink" href="#hdfs" title="Permalink to this headline">¶</a></h3>
 <p>实例代码:</p>
-<div class="highlight-python"><div class="highlight"><pre>import org.apache.hadoop.fs.*;
+<div class="highlight-python"><pre>import org.apache.hadoop.fs.*;
 import org.apache.hadoop.conf.*;
 class Person
 {
     public String talk() {
-    return &quot;Person —— &gt;&gt; talk()&quot; ;
+    return "Person —— &gt;&gt; talk()" ;
     }
 }
 
@@ -242,13 +244,12 @@ public class a
                 out.write (buffer, 0, bytesRead);
             }
             in.close ();
-            System.out.println (&quot;aaaa:&quot; + inputFiles[i].getPath ());
+            System.out.println ("aaaa:" + inputFiles[i].getPath ());
         }
         out.close ();
         System.out.println(new Person().talk()) ;
     }
-}
-</pre></div>
+}</pre>
 </div>
 </div>
 <div class="section" id="mapper">
@@ -343,7 +344,7 @@ Reporter reporter) throws IOException</p>
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.<br/>
     </p>
   </div>
 </footer>
