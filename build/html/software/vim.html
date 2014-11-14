@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -58,7 +58,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -169,11 +168,11 @@
 <div class="highlight-python"><div class="highlight"><pre>:version
 </pre></div>
 </div>
-<p>来查看 是否有 <code class="docutils literal"><span class="pre">+multi_byte</span></code> 选项，如果没有，说明编译vim的时候，没有加
+<p>来查看 是否有 <tt class="docutils literal"><span class="pre">+multi_byte</span></tt> 选项，如果没有，说明编译vim的时候，没有加
 入 &#8211;with-features=big</p>
 <div class="section" id="id2">
 <h3>文件编码转换<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal"><span class="pre">其他编码</span></code> ==&gt; <code class="docutils literal"><span class="pre">utf-8</span></code>:</p>
+<p><tt class="docutils literal"><span class="pre">其他编码</span></tt> ==&gt; <tt class="docutils literal"><span class="pre">utf-8</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre>:set encoding=utf-8
 :w!
 </pre></div>
@@ -206,7 +205,7 @@
 </div>
 <div class="section" id="snipmate">
 <h3>snipmate<a class="headerlink" href="#snipmate" title="Permalink to this headline">¶</a></h3>
-<p>根据文件扩展名， 进行代码片段补全. 只需要在 <code class="docutils literal"><span class="pre">~/.vim/bundle/snipmate.vim/snippets/</span></code>
+<p>根据文件扩展名， 进行代码片段补全. 只需要在 <tt class="docutils literal"><span class="pre">~/.vim/bundle/snipmate.vim/snippets/</span></tt>
 目录下创建响应的 xxx.snippets 文件， 在里面自定义片段即可</p>
 </div>
 </div>
@@ -232,7 +231,7 @@
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
 </footer>
