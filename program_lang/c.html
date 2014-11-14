@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
     <link rel="up" title="编程语言" href="index.html" />
-    <link rel="next" title="计算机网络" href="../network/index.html" />
+    <link rel="next" title="python" href="python.html" />
     <link rel="prev" title="编程语言" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -58,7 +58,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -118,7 +117,7 @@
     </a>
   </li>
   <li>
-    <a href="../network/index.html" title="Next Chapter: 计算机网络"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">计算机网络 &raquo;</span>
+    <a href="python.html" title="Next Chapter: python"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">python &raquo;</span>
     </a>
   </li>
               
@@ -173,35 +172,35 @@
 <h2>高级<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
 <h3>自实现锁<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>使用gcc 提供的 <code class="docutils literal"><span class="pre">__sync_bool_compare_and_swap</span></code>, 可以实现自己的锁，该函数是一个
+<p>使用gcc 提供的 <tt class="docutils literal"><span class="pre">__sync_bool_compare_and_swap</span></tt>, 可以实现自己的锁，该函数是一个
 原子操作:</p>
 <div class="highlight-c"><div class="highlight"><pre><span class="n">__sync_bool_compare_and_swap</span><span class="p">(</span><span class="n">lock</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">set</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>示例:  <a class="reference download internal" href="../_downloads/c_self_lock.c"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
+<p>示例:  <a class="reference download internal" href="../_downloads/c_self_lock.c"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
 </div>
 <div class="section" id="id3">
 <h3>内存池<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>nginx 的内存池实现</p>
-<p>示例:  <a class="reference download internal" href="../_downloads/palloc.c"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
+<p>示例:  <a class="reference download internal" href="../_downloads/palloc.c"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
 <p>相关链接: <a class="reference external" href="http://www.alidata.org/archives/1390">http://www.alidata.org/archives/1390</a></p>
 <p>相关链接: <a class="reference external" href="http://www.cnblogs.com/jzhlin/archive/2012/06/06/2537710.html">http://www.cnblogs.com/jzhlin/archive/2012/06/06/2537710.html</a></p>
 </div>
 <div class="section" id="id4">
 <h3>哈希表<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>glib 库(gnome基本库) 提供了一套 哈希表</p>
-<p>示例:  <a class="reference download internal" href="../_downloads/gnome_hash_table.c"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
+<p>示例:  <a class="reference download internal" href="../_downloads/gnome_hash_table.c"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
 <p>相关链接:  <a class="reference external" href="https://developer.gnome.org/glib/2.30/glib-Hash-Tables.html#g-hash-table-new">https://developer.gnome.org/glib/2.30/glib-Hash-Tables.html#g-hash-table-new</a></p>
 </div>
 <div class="section" id="ui">
 <h3>终端下UI库<a class="headerlink" href="#ui" title="Permalink to this headline">¶</a></h3>
 <p>curses 库</p>
-<p>示例:  <a class="reference download internal" href="../_downloads/c_term_graph_lib.c"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
+<p>示例:  <a class="reference download internal" href="../_downloads/c_term_graph_lib.c"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
 </div>
 <div class="section" id="id5">
 <h3>正则表达式<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>PCRE:  很多开源项目都用它来支持正则，如: nginx, apache</p>
-<p>示例:  <a class="reference download internal" href="../_downloads/c_pcre_lib.c"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
+<p>示例:  <a class="reference download internal" href="../_downloads/c_pcre_lib.c"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
 <p>相关链接:  <a class="reference external" href="http://www.pcre.org/pcre.txt">http://www.pcre.org/pcre.txt</a></p>
 </div>
 </div>
@@ -237,7 +236,7 @@
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
 </footer>

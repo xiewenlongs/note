@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -58,7 +58,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -192,7 +191,7 @@
 <h3>机制<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>master 把接收的请求，写入 oplog 表里。 oplog 表记录了所有的操作，也就是说，master
 和slave 之间传递的是 oplog里的记录 oplog 是一个 capped 表，它的大小，可以配置的，
-可以用 <code class="docutils literal"><span class="pre">db.printReplicationInfo()</span></code> 查看</p>
+可以用 <tt class="docutils literal"><span class="pre">db.printReplicationInfo()</span></tt> 查看</p>
 </div>
 <div class="section" id="id5">
 <h3>步骤<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
@@ -233,7 +232,7 @@ mongo &gt; rs.add (&quot;&lt;pc2的ip&gt;:port&quot;)
 </li>
 <li><p class="first">到此完成了，还可以添加 Arbiter 到 master 和 slave</p>
 </li>
-<li><p class="first">slave 不支持一般 mongo 操作，除非在slave上使用 <code class="docutils literal"><span class="pre">rs.slaveOk</span> <span class="pre">()</span></code> 才可以</p>
+<li><p class="first">slave 不支持一般 mongo 操作，除非在slave上使用 <tt class="docutils literal"><span class="pre">rs.slaveOk</span> <span class="pre">()</span></tt> 才可以</p>
 </li>
 </ol>
 </div>
@@ -260,7 +259,7 @@ mongo &gt; rs.add (&quot;&lt;pc2的ip&gt;:port&quot;)
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
 </footer>

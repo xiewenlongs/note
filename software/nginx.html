@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -58,7 +58,6 @@
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
-            <li class="divider-vertical"></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -184,15 +183,15 @@
 <tbody valign="top">
 <tr class="row-even"><td>accept_mutex</td>
 <td><ol class="first last arabic simple">
-<li><code class="docutils literal"><span class="pre">避免惊群效果</span></code> (每个 accept 上一把锁);</li>
-<li><code class="docutils literal"><span class="pre">负载平衡</span></code> (如果当前worker有任务，则不参与竞争，直接返回处理当前任务)</li>
+<li><tt class="docutils literal"><span class="pre">避免惊群效果</span></tt> (每个 accept 上一把锁);</li>
+<li><tt class="docutils literal"><span class="pre">负载平衡</span></tt> (如果当前worker有任务，则不参与竞争，直接返回处理当前任务)</li>
 </ol>
 </td>
 <td>true</td>
 </tr>
 <tr class="row-odd"><td>worker_connections</td>
 <td>每个worker 的连接池大小。 所以:
-<code class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></code></td>
+<tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt></td>
 <td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>timer_resolution</td>
@@ -259,7 +258,7 @@
     </p>
     <p>
         &copy; Copyright 2013, evershelden.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>
 </footer>

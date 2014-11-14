@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>python &mdash; notebook 0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../_static/logo.ico"/>
+    <link rel="top" title="notebook 0 documentation" href="../index.html" />
+    <link rel="up" title="编程语言" href="index.html" />
+    <link rel="next" title="计算机网络" href="../network/index.html" />
+    <link rel="prev" title="C语言" href="c.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          notebook</a>
+        <span class="navbar-text navbar-version pull-left"><b>1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">编程语言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">python</a><ul>
+<li><a class="reference internal" href="#id1">元编程</a><ul>
+<li><a class="reference internal" href="#id2">定义一个元类</a></li>
+<li><a class="reference internal" href="#id3">使用元类</a></li>
+<li><a class="reference internal" href="#id4">注意</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="c.html" title="Previous Chapter: C语言"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; C语言</span>
+    </a>
+  </li>
+  <li>
+    <a href="../network/index.html" title="Next Chapter: 计算机网络"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">计算机网络 &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">python</a><ul>
+<li><a class="reference internal" href="#id1">元编程</a><ul>
+<li><a class="reference internal" href="#id2">定义一个元类</a></li>
+<li><a class="reference internal" href="#id3">使用元类</a></li>
+<li><a class="reference internal" href="#id4">注意</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9">
+      
+  <div class="section" id="python">
+<h1>python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>元编程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>在python 中，普通Object 是类的实例， 类是元类的实例. 如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>定义了一个类A, 定义了一个实例a, 其中 a是类A的一个实例, 但其实类A也是实例( <tt class="docutils literal"><span class="pre">类也是实例</span></tt> ), 它
+是谁的实例呢，是元类的实例(默认所有类的元类是type)。 当解析器解析到 class A 时，就在内存中创建了
+一个对象 A, 只不过这个对象是 <tt class="docutils literal"><span class="pre">类对象</span></tt>, 它可以创造实例</p>
+<div class="section" id="id2">
+<h3>定义一个元类<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>默认所有类的元类是 type, 要定义一个元类，必须继承自type, 并重写__new__方法, __new__方法在解析到classs
+字段的时候会调用，也就是创建一个类的时候，会调用__new__:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Metaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        它有四个参数:</span>
+<span class="sd">        meta: 元类，这里是 MetaClass</span>
+<span class="sd">        name: &lt;要使用此元类的类&gt;的类名</span>
+<span class="sd">        bases: &lt;要使用此元类的类&gt;的基类</span>
+<span class="sd">        dct: &lt;要使用此元类的类&gt;的属性, 包括函数，类变量, 如: __init__函数</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dct</span><span class="p">[</span><span class="s">&#39;add_attr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;haha&#39;</span>
+
+        <span class="c"># 调用type(name, bases, dct) 来创建类</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>使用元类<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>这样就定义了一个元类, 要使用这个元类， 在普通类中增加 __metaclass__变量， 指向元类:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">Metaclass</span>
+    <span class="k">pass</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">a</span><span class="o">.</span><span class="n">add_attr</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>注意<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>元类可以被继承, 如果类A的__metaclass__为MetaClass, 类B继承自类A, 则创建类B的时候，
+也会用MetaClass类</p>
+<p>相关链接:</p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python">http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python</a></p>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/program_lang/python.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2013, evershelden.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
