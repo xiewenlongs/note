@@ -96,6 +96,10 @@
 <li><a class="reference internal" href="#id4">注意</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#magic">magic 方法</a><ul>
+<li><a class="reference internal" href="#get">__get__</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -144,6 +148,10 @@
 <li><a class="reference internal" href="#id2">定义一个元类</a></li>
 <li><a class="reference internal" href="#id3">使用元类</a></li>
 <li><a class="reference internal" href="#id4">注意</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#magic">magic 方法</a><ul>
+<li><a class="reference internal" href="#get">__get__</a></li>
 </ul>
 </li>
 </ul>
@@ -207,6 +215,34 @@
 也会用MetaClass类</p>
 <p>相关链接:</p>
 <p><a class="reference external" href="http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python">http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python</a></p>
+</div>
+</div>
+<div class="section" id="magic">
+<h2>magic 方法<a class="headerlink" href="#magic" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get">
+<h3>__get__<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
+<p>定义了__get__ 方法的类(object子类)的实例，作为另一个类的类变量时，方位这个变量时
+会调用__get__方法:</p>
+<div class="highlight-python"><div class="highlight"><pre>class attrCls(object):
+
+    default = list
+
+    def __get__(self, instance, owner):
+        &quot;&quot;&quot;
+        这个方法称为Descriptor
+        @instance: 调用这个属性的实例， 如果是通过类名调的， 这个值为None
+        @owner: 调用这个属性的类
+        &quot;&quot;&quot;
+        return self.default()
+
+class Cls:
+    objects = attrCls()
+
+print type(Cls.objects)  ==&gt; list
+Cls.objects.reverse()
+</pre></div>
+</div>
+<p>并且__get__方法会被继承, 如何attrCls的子类，也会有同样的效果</p>
 </div>
 </div>
 </div>
