@@ -65,3 +65,36 @@ python
 相关链接:
 
 http://stackoverflow.com/questions/100003/what-is-a-metaclass-in-python
+
+
+magic 方法
+---------------------------------------
+
+
+__get__
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
+定义了__get__ 方法的类(object子类)的实例，作为另一个类的类变量时，方位这个变量时
+会调用__get__方法::
+
+    class attrCls(object):
+
+        default = list
+
+        def __get__(self, instance, owner):
+            """
+            这个方法称为Descriptor
+            @instance: 调用这个属性的实例， 如果是通过类名调的， 这个值为None
+            @owner: 调用这个属性的类
+            """
+            return self.default()
+
+    class Cls:
+        objects = attrCls()
+
+    print type(Cls.objects)  ==> list
+    Cls.objects.reverse()
+
+
+并且__get__方法会被继承, 如何attrCls的子类，也会有同样的效果
