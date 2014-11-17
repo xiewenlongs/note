@@ -89,7 +89,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">mongoengine</a></li>
+<li><a class="reference internal" href="#">mongoengine</a><ul>
+<li><a class="reference internal" href="#id1">问题</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -131,7 +134,10 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">mongoengine</a></li>
+<li><a class="reference internal" href="#">mongoengine</a><ul>
+<li><a class="reference internal" href="#id1">问题</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -142,6 +148,17 @@
 <h1>mongoengine<a class="headerlink" href="#mongoengine" title="Permalink to this headline">¶</a></h1>
 <p>mongoengine 是纯python框架，实现了mongo的ORM, 整体结构如下</p>
 <img alt="../_images/mongoengine_design.png" class="align-center" src="../_images/mongoengine_design.png" />
+<p>为什么要使用 metaclass:</p>
+<div class="highlight-python"><div class="highlight"><pre>自定义文档(MyDocument) 继承自Document,  Document 很多函数都需要知道当前文档有哪些field,
+所以需要metaclass, 在创建MyDocument类的时候， 把所有自定义field 存放在 cls._fields 中，
+父类Document 中的方法访问cls._fields 就可以知道自定义了哪些field
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h2>问题<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>mongoengine 可以理解为对pymongo的封装，跟pymongo比，它最大的消耗在 <tt class="docutils literal"><span class="pre">从pymongo查询的结果，转换为Document实例</span></tt>,
+这确实很费资源</p>
+</div>
 </div>
 
 
