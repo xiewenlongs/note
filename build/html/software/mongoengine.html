@@ -158,6 +158,9 @@
 <h2>问题<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>mongoengine 可以理解为对pymongo的封装，跟pymongo比，它最大的消耗在 <tt class="docutils literal"><span class="pre">从pymongo查询的结果，转换为Document实例</span></tt>,
 这确实很费资源</p>
+<p>mongoengine 在文档实例save的时候，会调用validate来验证每一个field,  这步没有必要，比较耗时</p>
+<p>在使用queryset类时，同时用 as_pymongo() 和 only() 函数，对dict类的解析有问题， <tt class="docutils literal"><span class="pre">不能解析到dict内部(二级hash)</span></tt>,
+这是mongoengine 的问题 <a class="reference external" href="https://github.com/MongoEngine/mongoengine/issues/563">https://github.com/MongoEngine/mongoengine/issues/563</a>, 还未修复</p>
 </div>
 </div>
 
