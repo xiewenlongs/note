@@ -12,5 +12,6 @@
    :maxdepth: 2
    :titlesonly:
 
+   diary
    logion
    note
