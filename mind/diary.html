@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>思考 &mdash; notebook 0 documentation</title>
+    <title>感悟 &mdash; notebook 0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
-    <link rel="next" title="感悟" href="diary.html" />
-    <link rel="prev" title="防火墙" href="../linux/iptable.html" />
+    <link rel="up" title="思考" href="index.html" />
+    <link rel="next" title="箴言" href="logion.html" />
+    <link rel="prev" title="思考" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -72,7 +73,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">思考</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
@@ -88,7 +89,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">思考</a></li>
+<li><a class="reference internal" href="#">感悟</a><ul>
+<li><a class="reference internal" href="#id2">用户反馈时间戳错乱</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -98,11 +102,11 @@
               
                 
   <li>
-    <a href="../linux/iptable.html" title="Previous Chapter: 防火墙"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 防火墙</span>
+    <a href="index.html" title="Previous Chapter: 思考"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 思考</span>
     </a>
   </li>
   <li>
-    <a href="diary.html" title="Next Chapter: 感悟"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">感悟 &raquo;</span>
+    <a href="logion.html" title="Next Chapter: 箴言"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">箴言 &raquo;</span>
     </a>
   </li>
               
@@ -130,7 +134,10 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">思考</a></li>
+<li><a class="reference internal" href="#">感悟</a><ul>
+<li><a class="reference internal" href="#id2">用户反馈时间戳错乱</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -138,17 +145,28 @@
     <div class="col-md-9">
       
   <div class="section" id="id1">
-<h1>思考<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<font color="BlueViolet">变的比他强大，强大到不用在乎</font><div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="diary.html">感悟</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="logion.html">箴言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="note.html">读书笔记</a><ul class="simple">
-</ul>
-</li>
-</ul>
+<h1>感悟<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>用户反馈时间戳错乱<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>尝试使用mongoengine 的 singal 机制:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">pre_save</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;_id&#39;</span> <span class="ow">in</span> <span class="n">document</span> <span class="ow">or</span> <span class="n">document</span><span class="o">.</span><span class="n">_created</span><span class="p">:</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">UTILS</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
+        <span class="n">today</span> <span class="o">=</span> <span class="n">UTILS</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="n">document</span><span class="o">.</span><span class="n">created_at</span> <span class="o">=</span> <span class="n">timestamp</span>
+        <span class="n">document</span><span class="o">.</span><span class="n">updated_at</span> <span class="o">=</span> <span class="n">timestamp</span>
+        <span class="n">document</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">today</span>
+        <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
+            <span class="n">document</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>对mongoengine document对象的_created 变量没有过多了解，只是按字面意思理解, 导致
+所有save() 操作都会更新时间戳. 感悟:</p>
+<ol class="arabic simple">
+<li>事情对一个变量不了解，那么它很可能引发大得BUG, 不管这种可能性有多小，它总会发生, 而且在最糟糕的时候发生</li>
+<li>数据一定要备份</li>
+</ol>
 </div>
 </div>
 
@@ -165,7 +183,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/mind/index.txt"
+  <a href="../_sources/mind/diary.txt"
      rel="nofollow">Source</a>
 </div>
       
