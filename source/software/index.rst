@@ -6,6 +6,7 @@
    :titlesonly:
 
    django
+   github
    goaccess
    hadoop
    mongo
