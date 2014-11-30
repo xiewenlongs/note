@@ -32,8 +32,8 @@
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
     <link rel="up" title="技术" href="index.html" />
-    <link rel="next" title="django" href="django.html" />
-    <link rel="prev" title="技术" href="index.html" />
+    <link rel="next" title="linux 笔记" href="../linux/index.html" />
+    <link rel="prev" title="nginx" href="nginx.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -90,13 +90,15 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">vim</a><ul>
-<li><a class="reference internal" href="#id1">编码</a><ul>
-<li><a class="reference internal" href="#id2">文件编码转换</a></li>
+<li><a class="reference internal" href="#id1">vim命令</a></li>
+<li><a class="reference internal" href="#id2">编码</a><ul>
+<li><a class="reference internal" href="#id3">文件编码转换</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">插件</a><ul>
+<li><a class="reference internal" href="#id4">插件</a><ul>
 <li><a class="reference internal" href="#vundle">Vundle</a></li>
 <li><a class="reference internal" href="#snipmate">snipmate</a></li>
+<li><a class="reference internal" href="#python-mode">python-mode</a></li>
 </ul>
 </li>
 </ul>
@@ -110,11 +112,11 @@
               
                 
   <li>
-    <a href="index.html" title="Previous Chapter: 技术"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 技术</span>
+    <a href="nginx.html" title="Previous Chapter: nginx"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; nginx</span>
     </a>
   </li>
   <li>
-    <a href="django.html" title="Next Chapter: django"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">django &raquo;</span>
+    <a href="../linux/index.html" title="Next Chapter: linux 笔记"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">linux 笔记 &raquo;</span>
     </a>
   </li>
               
@@ -143,13 +145,15 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">vim</a><ul>
-<li><a class="reference internal" href="#id1">编码</a><ul>
-<li><a class="reference internal" href="#id2">文件编码转换</a></li>
+<li><a class="reference internal" href="#id1">vim命令</a></li>
+<li><a class="reference internal" href="#id2">编码</a><ul>
+<li><a class="reference internal" href="#id3">文件编码转换</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">插件</a><ul>
+<li><a class="reference internal" href="#id4">插件</a><ul>
 <li><a class="reference internal" href="#vundle">Vundle</a></li>
 <li><a class="reference internal" href="#snipmate">snipmate</a></li>
+<li><a class="reference internal" href="#python-mode">python-mode</a></li>
 </ul>
 </li>
 </ul>
@@ -163,15 +167,40 @@
   <div class="section" id="vim">
 <h1>vim<a class="headerlink" href="#vim" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>编码<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>vim命令<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="18%" />
+<col width="12%" />
+<col width="35%" />
+<col width="35%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">命令</th>
+<th class="head">作用</th>
+<th class="head">例子</th>
+<th class="head">例子说明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>map</td>
+<td>绑定vim快捷键</td>
+<td>:map &lt;F5&gt; i{&lt;Esc&gt;ea}&lt;Esc&gt;</td>
+<td>按F5 把 abc ==&gt; {abc}</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id2">
+<h2>编码<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>首先查看本机vim是否支持unicode编码, 可以执行:</p>
 <div class="highlight-python"><div class="highlight"><pre>:version
 </pre></div>
 </div>
 <p>来查看 是否有 <tt class="docutils literal"><span class="pre">+multi_byte</span></tt> 选项，如果没有，说明编译vim的时候，没有加
 入 &#8211;with-features=big</p>
-<div class="section" id="id2">
-<h3>文件编码转换<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>文件编码转换<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">其他编码</span></tt> ==&gt; <tt class="docutils literal"><span class="pre">utf-8</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre>:set encoding=utf-8
 :w!
@@ -179,8 +208,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>插件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>插件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="vundle">
 <h3>Vundle<a class="headerlink" href="#vundle" title="Permalink to this headline">¶</a></h3>
 <p>vim 插件安装容易，卸载麻烦。 vundle 是一款vim 插件，利用它可以管理其他vim插件,
@@ -201,12 +230,41 @@
 <div class="highlight-python"><div class="highlight"><pre>:PluginList
 </pre></div>
 </div>
+<p><strong>原理</strong></p>
+<p>安装Vundle后，需要在 vimrc 中添加以下配置:</p>
+<div class="highlight-python"><div class="highlight"><pre>set rtp+=~/.vim/bundle/Vundle.vim            &quot;修改vim 的runtimepath
+call vundle#begin()                          &quot;调用初始化函数(主要是定义一些命令，但没有调用)
+
+Plugin &#39;gmarik/Vundle.vim&#39;                   &quot;调用自定义的命令 Plugin, 把管理的插件，加入自己维护的变量中
+Plugin &#39;msanders/snipmate.vim&#39;
+Plugin &#39;scrooloose/nerdtree&#39;
+Plugin &#39;klen/python-mode&#39;
+
+call vundle#end()                            &quot;遍历插件列表(由上几行定义), 把这些插件路径加入 runtimepath
+filetype plugin indent on
+</pre></div>
+</div>
+<p>综上， Vundle 主要是维护了一个插件列表， 启动vim的时候，把每个插件的路径，加入到vim 的runtimepath, 其他的交给插件自己定义</p>
 <p>相关链接: <a class="reference external" href="https://github.com/gmarik/Vundle.vim">https://github.com/gmarik/Vundle.vim</a></p>
 </div>
 <div class="section" id="snipmate">
 <h3>snipmate<a class="headerlink" href="#snipmate" title="Permalink to this headline">¶</a></h3>
 <p>根据文件扩展名， 进行代码片段补全. 只需要在 <tt class="docutils literal"><span class="pre">~/.vim/bundle/snipmate.vim/snippets/</span></tt>
 目录下创建响应的 xxx.snippets 文件， 在里面自定义片段即可</p>
+</div>
+<div class="section" id="python-mode">
+<h3>python-mode<a class="headerlink" href="#python-mode" title="Permalink to this headline">¶</a></h3>
+<p>python 代码检测, rope支持等功能</p>
+<p>python-mode 插件本身也是用python写的(vim 自身可以解析python, 因为编译的时候有+python feature), 有时候python脚本会出问
+题，要调试的话，在vimrc中加入:</p>
+<div class="highlight-python"><div class="highlight"><pre>g:pymode_debug = 1
+</pre></div>
+</div>
+<p>曾遇到一个问题， 保存py文件的时候，报错:</p>
+<img alt="../_images/vim_pymode_error.png" class="align-center" src="../_images/vim_pymode_error.png" />
+<p>是因为rope会初始化项目下所有py文件， 由于这个项目下包含python整个目录，所以相对很大，导致rope初始化的.ropeproject文件有问题，
+解决的办法是禁用rope(因为使用rope太慢了, 要遍历整个python目录)</p>
+<p>相关链接: <a class="reference external" href="https://github.com/klen/python-mode">https://github.com/klen/python-mode</a></p>
 </div>
 </div>
 </div>
