@@ -26,3 +26,12 @@ history 设置
 - HISTTIMEFORMAT="%Y%m%d-%H:%M:%S: "   每个操作，加上时间戳
 - export HISTTIMEFORMAT
 - shopt -s histappend
+
+
+
+scripts example
+``````````````````````````````
+
+log 跨机器传输(retry): :download:`example </_src/decrypt_nginx_log.sh>`
+
+
