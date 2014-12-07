@@ -6,5 +6,6 @@ linux 笔记
    :maxdepth: 1
 
    bash
+   core
    tuning
    iptable
