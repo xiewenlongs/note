@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>计算机网络 &mdash; notebook 0 documentation</title>
+    <title>socket TCP 编程 &mdash; notebook 0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
-    <link rel="next" title="arp协议" href="arp.html" />
-    <link rel="prev" title="python" href="../program_lang/python.html" />
+    <link rel="up" title="计算机网络" href="index.html" />
+    <link rel="next" title="技术" href="../software/index.html" />
+    <link rel="prev" title="arp协议" href="arp.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -69,7 +70,7 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">计算机网络</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
@@ -88,7 +89,14 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">计算机网络</a></li>
+<li><a class="reference internal" href="#">socket TCP 编程</a><ul>
+<li><a class="reference internal" href="#id1">建立连接</a></li>
+<li><a class="reference internal" href="#id2">其他</a><ul>
+<li><a class="reference internal" href="#connection-reset-by-peer">Connection reset by peer</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -98,11 +106,11 @@
               
                 
   <li>
-    <a href="../program_lang/python.html" title="Previous Chapter: python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; python</span>
+    <a href="arp.html" title="Previous Chapter: arp协议"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; arp协议</span>
     </a>
   </li>
   <li>
-    <a href="arp.html" title="Next Chapter: arp协议"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">arp协议 &raquo;</span>
+    <a href="../software/index.html" title="Next Chapter: 技术"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">技术 &raquo;</span>
     </a>
   </li>
               
@@ -130,20 +138,113 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">计算机网络</a></li>
+<li><a class="reference internal" href="#">socket TCP 编程</a><ul>
+<li><a class="reference internal" href="#id1">建立连接</a></li>
+<li><a class="reference internal" href="#id2">其他</a><ul>
+<li><a class="reference internal" href="#connection-reset-by-peer">Connection reset by peer</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="id1">
-<h1>计算机网络<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="arp.html">arp协议</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">socket TCP 编程</a></li>
-</ul>
+  <div class="section" id="socket-tcp">
+<h1>socket TCP 编程<a class="headerlink" href="#socket-tcp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>建立连接<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>三次握手</p>
+<img alt="../_images/network_socket_tcp_connect.png" class="align-center" src="../_images/network_socket_tcp_connect.png" />
+<p>listen 函数的backlog</p>
+<img alt="../_images/network_socket_tcp_listen.png" class="align-center" src="../_images/network_socket_tcp_listen.png" />
+<p>服务端exampe:</p>
+<div class="highlight-python"><div class="highlight"><pre>int
+main(int argc, char **argv)
+{
+    int listenfd, connfd;
+    char    buf[MAXLINE];
+    ssize_t n;
+    pid_t   childpid;
+    socklen_t   clilen;
+    struct  sockaddr_in cliaddr, servaddr;
+
+    listenfd = socket(AF_INET, SOCK_STREAM, 0);                 // 1. socket
+    bzero(&amp;servaddr, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    servaddr.sin_port = htons(SERV_PORT);
+
+    bind(listenfd, (SA *) &amp;servaddr, sizeof(servaddr));         // 2. bind
+    listen(listenfd, LISTENQ);                                  // 3. listen
+
+    while(1) {
+        clilen = sizeof(cliaddr);
+        connfd = accept(listenfd, (SA *) &amp;cliaddr, &amp;clilen);    // 4. loop accept
+
+        while(1) {
+            if((n = read(connfd, buf, MAXLINE)) == 0)
+            break;
+            n = write(connfd,buf,n);
+        }
+        close(connfd);
+    }
+}
+</pre></div>
+</div>
+<p>客户端example:</p>
+<div class="highlight-python"><div class="highlight"><pre>int
+main(int argc, char **argv)
+{
+    char    buf[BUFFSIZE];
+    int     sockfd;
+    int     tffd;
+    char    time[64];
+    ssize_t n;
+    struct  sockaddr_in servaddr;
+
+    if(argc != 2){
+        printf(&quot;usage: cmd &lt;IPaddress&gt;/n&quot;);
+        exit(0);
+    }
+
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);               // 1. socket
+    bzero(&amp;servaddr, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_port = htons(SERV_PORT);
+    inet_pton(AF_INET, argv[1], &amp;servaddr.sin_addr);
+
+    connect(sockfd, (SA *) &amp;servaddr, sizeof(servaddr));    // 2. connect
+
+    while(1)
+        {
+        if((n = read(STDIN_FILENO,buf,BUFFSIZE)) == 0)
+            break;
+        n = write(sockfd, buf, n);
+        n = read(sockfd, buf, BUFFSIZE);
+        n = write(STDOUT_FILENO,buf,n);
+    }
+    exit(0);
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>其他<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="connection-reset-by-peer">
+<h3>Connection reset by peer<a class="headerlink" href="#connection-reset-by-peer" title="Permalink to this headline">¶</a></h3>
+<p>当连接A kill掉，或者强行关掉连接后, 连接B 还向A write, write 不会返回错(因为这相当于A半关闭，B可以写), 但write会使连接A
+发送一个RST到B, 如果RST先到B, 这时连接B还调用了read(也有可能RST后到， 连接B先read, 这时read 正常返回0, 因为对端close了),
+就会导致 Connection reset by peer. 这种情况可能是:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>客户端关掉页面， 服务器还不知道</li>
+<li>服务器的并发连接数超过了其承载量,服务器会将其中一些连接关闭 (nginx 这样实现的?, 待确认)</li>
+</ol>
+</div></blockquote>
+</div>
 </div>
 </div>
 
@@ -160,7 +261,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/network/index.txt"
+  <a href="../_sources/network/socket.txt"
      rel="nofollow">Source</a>
 </div>
       
