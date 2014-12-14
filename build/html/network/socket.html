@@ -90,8 +90,9 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">socket TCP 编程</a><ul>
-<li><a class="reference internal" href="#id1">建立连接</a></li>
-<li><a class="reference internal" href="#id2">其他</a><ul>
+<li><a class="reference internal" href="#tcp">TCP 协议</a></li>
+<li><a class="reference internal" href="#id4">建立连接</a></li>
+<li><a class="reference internal" href="#id5">其他</a><ul>
 <li><a class="reference internal" href="#connection-reset-by-peer">Connection reset by peer</a></li>
 </ul>
 </li>
@@ -139,8 +140,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">socket TCP 编程</a><ul>
-<li><a class="reference internal" href="#id1">建立连接</a></li>
-<li><a class="reference internal" href="#id2">其他</a><ul>
+<li><a class="reference internal" href="#tcp">TCP 协议</a></li>
+<li><a class="reference internal" href="#id4">建立连接</a></li>
+<li><a class="reference internal" href="#id5">其他</a><ul>
 <li><a class="reference internal" href="#connection-reset-by-peer">Connection reset by peer</a></li>
 </ul>
 </li>
@@ -154,8 +156,19 @@
       
   <div class="section" id="socket-tcp">
 <h1>socket TCP 编程<a class="headerlink" href="#socket-tcp" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>建立连接<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tcp">
+<h2>TCP 协议<a class="headerlink" href="#tcp" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/network_socket_tcp_dump.png" class="align-center" src="../_images/network_socket_tcp_dump.png" />
+<p>这是chrome 浏览器的抓包. 可以看到, chrome 发送http请求时， TCP会默认打开几个TCP 协议选项:</p>
+<blockquote>
+<div><p>02  <a class="reference external" href="http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml">最大报文选项</a></p>
+<p>03  <a class="reference external" href="http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml">窗口扩大选项</a></p>
+<p>08  <a class="reference external" href="http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml">时间戳选项</a></p>
+<p>04  <a class="reference external" href="http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml">SACK选项</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h2>建立连接<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>三次握手</p>
 <img alt="../_images/network_socket_tcp_connect.png" class="align-center" src="../_images/network_socket_tcp_connect.png" />
 <p>listen 函数的backlog</p>
@@ -231,8 +244,8 @@ main(int argc, char **argv)
 </pre></div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>其他<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>其他<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="connection-reset-by-peer">
 <h3>Connection reset by peer<a class="headerlink" href="#connection-reset-by-peer" title="Permalink to this headline">¶</a></h3>
 <p>当连接A kill掉，或者强行关掉连接后, 连接B 还向A write, write 不会返回错(因为这相当于A半关闭，B可以写), 但write会使连接A

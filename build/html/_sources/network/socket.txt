@@ -4,6 +4,26 @@ socket TCP 编程
 
 
 ---------------------------------------
+TCP 协议
+---------------------------------------
+
+.. image:: ../_static/network_socket_tcp_dump.png
+   :align: center
+
+
+这是chrome 浏览器的抓包. 可以看到, chrome 发送http请求时， TCP会默认打开几个TCP 协议选项:
+
+  02  `最大报文选项 <http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml>`_
+
+  03  `窗口扩大选项 <http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml>`_
+
+  08  `时间戳选项 <http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml>`_
+
+  04  `SACK选项 <http://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml>`_
+
+
+
+---------------------------------------
 建立连接
 ---------------------------------------
 

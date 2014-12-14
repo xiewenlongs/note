@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>计算机网络 &mdash; notebook 0 documentation</title>
+    <title>http &mdash; notebook 0 documentation</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
-    <link rel="next" title="arp协议" href="arp.html" />
-    <link rel="prev" title="python" href="../program_lang/python.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -67,9 +65,9 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">计算机网络</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
@@ -88,7 +86,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">计算机网络</a></li>
+<li><a class="reference internal" href="#">http</a><ul>
+<li><a class="reference internal" href="#get">GET</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -97,14 +98,6 @@
             
               
                 
-  <li>
-    <a href="../program_lang/python.html" title="Previous Chapter: python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; python</span>
-    </a>
-  </li>
-  <li>
-    <a href="arp.html" title="Next Chapter: arp协议"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">arp协议 &raquo;</span>
-    </a>
-  </li>
               
             
             
@@ -130,21 +123,30 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">计算机网络</a></li>
+<li><a class="reference internal" href="#">http</a><ul>
+<li><a class="reference internal" href="#get">GET</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="id1">
-<h1>计算机网络<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="arp.html">arp协议</a></li>
-<li class="toctree-l1"><a class="reference internal" href="http.html">http</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">socket TCP 编程</a></li>
-</ul>
+  <div class="section" id="http">
+<h1>http<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="get">
+<h2>GET<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h2>
+<p>以下是用chrome 浏览器请求 django server的抓包结果</p>
+<img alt="../_images/network_http_get.png" class="align-center" src="../_images/network_http_get.png" />
+<p>总结:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>GET请求的参数， 是放在请求行里的</li>
+<li>请求中得换行是 <tt class="docutils literal"><span class="pre">0d0a</span></tt>, 空格是 <tt class="docutils literal"><span class="pre">20</span></tt></li>
+<li>http请求是由服务端先close, 最后服务端维护2MSL</li>
+</ol>
+</div></blockquote>
 </div>
 </div>
 
@@ -161,7 +163,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/network/index.txt"
+  <a href="../_sources/network/http.txt"
      rel="nofollow">Source</a>
 </div>
       
