@@ -13,4 +13,5 @@
    mongoengine
    mysql
    nginx
+   sentry
    vim
