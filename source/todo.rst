@@ -73,7 +73,13 @@ sentry
 
 ``《少有人走的路》``
 
+``《上下班路上能做的95件事》``
+
+《如何阅读一本书》
+
 《http权威指南》
+
+《Managing Gitabytes: Compressing and Indexing Documents and Images》
 
 《django book》
 
