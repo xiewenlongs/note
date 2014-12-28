@@ -2,7 +2,7 @@
 =======================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :titlesonly:
 
    django
@@ -12,6 +12,7 @@
    mongo
    mongoengine
    mysql
+   python-lib/index
    nginx
    sentry
    vim

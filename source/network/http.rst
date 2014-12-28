@@ -25,19 +25,39 @@ GET
 POST
 ---------------------------------------
 
-POST发送数据时，分为 ``表单`` 和 ``字符串`` 两种，以下是两种的区别
+POST发送数据时，分为 ``表单`` 和 ``JSON`` 两种，以下是两种的区别
 
 .. image:: ../_static/network_http_post.png
    :align: center
 
+表单 vs JSON
+~~~~~~~~~~~~~~~~~~~~~~~
 
-**上传文件**
+到底是使用 ``表单`` 还是 ``json`` 发送数据呢，其实区别不大。如果你要传输的数据有很强的格式，如::
+
+    a = b
+    c = [1,2,3]
+    d = {a:b
+         c:d}
+
+那么最好用 ``json`` 方式来传输数据；如果你要传输的数据很简单，就用 ``表单`` 格式吧,
+`相关连接 <http://stackoverflow.com/questions/11281117/x-www-form-urlencoded-vs-json-http-post>`_
+
+
+
+上传文件
+~~~~~~~~~~~~~~~~~~~~~~~
 
 用post上传文件时， 文件数据是放在请求体内的，并不是放在首部。但是首部会指明文件数据从请求体哪个字节开始, 下面就是
 一个客户端上传文件的请求:
 
 .. image:: ../_static/network_http_post_upload.png
    :align: center
+
+
+.. warning::
+   上传文件的时候，必须用multipart格式(非www-form-data), 并且其他数据必须用表单，不能用JSON,参见:
+   http://www.faqs.org/rfcs/rfc2388.html
 
 其中， ``Content-Type: multipart/form-data; boundary=---------------------------7db15a14291cce`` 说明
 了这个请求是“multipart/form-data”格式的，且“boundary”是 “---------------------------7db15a14291cce”这个字符串。

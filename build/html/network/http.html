@@ -91,7 +91,11 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">http</a><ul>
 <li><a class="reference internal" href="#get">GET</a></li>
-<li><a class="reference internal" href="#post">POST</a></li>
+<li><a class="reference internal" href="#post">POST</a><ul>
+<li><a class="reference internal" href="#vs-json">表单 vs JSON</a></li>
+<li><a class="reference internal" href="#id2">上传文件</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#faq">FAQ</a></li>
 </ul>
 </li>
@@ -138,7 +142,11 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">http</a><ul>
 <li><a class="reference internal" href="#get">GET</a></li>
-<li><a class="reference internal" href="#post">POST</a></li>
+<li><a class="reference internal" href="#post">POST</a><ul>
+<li><a class="reference internal" href="#vs-json">表单 vs JSON</a></li>
+<li><a class="reference internal" href="#id2">上传文件</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#faq">FAQ</a></li>
 </ul>
 </li>
@@ -165,18 +173,37 @@
 </div>
 <div class="section" id="post">
 <h2>POST<a class="headerlink" href="#post" title="Permalink to this headline">¶</a></h2>
-<p>POST发送数据时，分为 <tt class="docutils literal"><span class="pre">表单</span></tt> 和 <tt class="docutils literal"><span class="pre">字符串</span></tt> 两种，以下是两种的区别</p>
+<p>POST发送数据时，分为 <tt class="docutils literal"><span class="pre">表单</span></tt> 和 <tt class="docutils literal"><span class="pre">JSON</span></tt> 两种，以下是两种的区别</p>
 <img alt="../_images/network_http_post.png" class="align-center" src="../_images/network_http_post.png" />
-<p><strong>上传文件</strong></p>
+<div class="section" id="vs-json">
+<h3>表单 vs JSON<a class="headerlink" href="#vs-json" title="Permalink to this headline">¶</a></h3>
+<p>到底是使用 <tt class="docutils literal"><span class="pre">表单</span></tt> 还是 <tt class="docutils literal"><span class="pre">json</span></tt> 发送数据呢，其实区别不大。如果你要传输的数据有很强的格式，如:</p>
+<div class="highlight-python"><div class="highlight"><pre>a = b
+c = [1,2,3]
+d = {a:b
+     c:d}
+</pre></div>
+</div>
+<p>那么最好用 <tt class="docutils literal"><span class="pre">json</span></tt> 方式来传输数据；如果你要传输的数据很简单，就用 <tt class="docutils literal"><span class="pre">表单</span></tt> 格式吧,
+<a class="reference external" href="http://stackoverflow.com/questions/11281117/x-www-form-urlencoded-vs-json-http-post">相关连接</a></p>
+</div>
+<div class="section" id="id2">
+<h3>上传文件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>用post上传文件时， 文件数据是放在请求体内的，并不是放在首部。但是首部会指明文件数据从请求体哪个字节开始, 下面就是
 一个客户端上传文件的请求:</p>
 <img alt="../_images/network_http_post_upload.png" class="align-center" src="../_images/network_http_post_upload.png" />
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">上传文件的时候，必须用multipart格式(非www-form-data), 并且其他数据必须用表单，不能用JSON,参见:
+<a class="reference external" href="http://www.faqs.org/rfcs/rfc2388.html">http://www.faqs.org/rfcs/rfc2388.html</a></p>
+</div>
 <p>其中， <tt class="docutils literal"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data;</span> <span class="pre">boundary=---------------------------7db15a14291cce</span></tt> 说明
 了这个请求是“multipart/form-data”格式的，且“boundary”是 “&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;7db15a14291cce”这个字符串。</p>
 <p>不难想象，“boundary”是用来隔开表单中不同部分数据的。例子中的表单就有 2 部分数据，
 用“boundary”隔开。“boundary”一般由系统随机产生，但也可以简单的用“&#8212;&#8212;&#8212;&#8212;-”来代替。 紧接着 boundary
 的是该部分数据的描述。</p>
 <p>接下来才是数据。</p>
+</div>
 </div>
 <div class="section" id="faq">
 <h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>
