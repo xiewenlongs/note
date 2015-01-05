@@ -12,6 +12,7 @@
    mongo
    mongoengine
    mysql
+   oss
    python-lib/index
    nginx
    sentry
