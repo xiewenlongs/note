@@ -32,8 +32,8 @@
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
     <link rel="up" title="技术" href="index.html" />
-    <link rel="next" title="mongo" href="mongo.html" />
-    <link rel="prev" title="django" href="django.html" />
+    <link rel="next" title="sentry" href="sentry.html" />
+    <link rel="prev" title="urllib3" href="python-lib/urllib3.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -90,13 +90,20 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">nginx</a><ul>
-<li><a class="reference internal" href="#id1">配置</a><ul>
-<li><a class="reference internal" href="#id2">基本配置</a></li>
+<li><a class="reference internal" href="#id1">简介</a></li>
+<li><a class="reference internal" href="#id2">安装</a><ul>
+<li><a class="reference internal" href="#id3">依赖</a></li>
+<li><a class="reference internal" href="#id4">编译</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">性能调优</a><ul>
+<li><a class="reference internal" href="#id5">配置</a><ul>
+<li><a class="reference internal" href="#id6">基本配置</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">性能调优</a><ul>
+<li><a class="reference internal" href="#id8">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
-<li><a class="reference internal" href="#id4">负载均衡</a></li>
+<li><a class="reference internal" href="#id9">负载均衡</a></li>
 <li><a class="reference internal" href="#deferred">deferred</a></li>
 </ul>
 </li>
@@ -111,11 +118,11 @@
               
                 
   <li>
-    <a href="django.html" title="Previous Chapter: django"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; django</span>
+    <a href="python-lib/urllib3.html" title="Previous Chapter: urllib3"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; urllib3</span>
     </a>
   </li>
   <li>
-    <a href="mongo.html" title="Next Chapter: mongo"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">mongo &raquo;</span>
+    <a href="sentry.html" title="Next Chapter: sentry"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">sentry &raquo;</span>
     </a>
   </li>
               
@@ -144,13 +151,20 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">nginx</a><ul>
-<li><a class="reference internal" href="#id1">配置</a><ul>
-<li><a class="reference internal" href="#id2">基本配置</a></li>
+<li><a class="reference internal" href="#id1">简介</a></li>
+<li><a class="reference internal" href="#id2">安装</a><ul>
+<li><a class="reference internal" href="#id3">依赖</a></li>
+<li><a class="reference internal" href="#id4">编译</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">性能调优</a><ul>
+<li><a class="reference internal" href="#id5">配置</a><ul>
+<li><a class="reference internal" href="#id6">基本配置</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">性能调优</a><ul>
+<li><a class="reference internal" href="#id8">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
-<li><a class="reference internal" href="#id4">负载均衡</a></li>
+<li><a class="reference internal" href="#id9">负载均衡</a></li>
 <li><a class="reference internal" href="#deferred">deferred</a></li>
 </ul>
 </li>
@@ -165,9 +179,121 @@
   <div class="section" id="nginx">
 <h1>nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>配置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>简介<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>nginx 是开源、多平台的http 服务器，以下是它的特性:</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="../_images/s_nginx_feature.png" src="../_images/s_nginx_feature.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>nginx 虽然是开源的，但Igor Sysoev 已为nginx 成立公司，提供商业级的产品与支持</p>
+</div>
 <div class="section" id="id2">
-<h3>基本配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h2>安装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>依赖<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="26%" />
+<col width="51%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">依赖库</th>
+<th class="head">作用</th>
+<th class="head">备注</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PCRE(required)</td>
+<td>正则匹配</td>
+<td>无</td>
+</tr>
+<tr class="row-odd"><td>zlib(required)</td>
+<td>gzip 压缩使用</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>openssl</td>
+<td>https 需要</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h3>编译<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>configure选项</p>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项(默认安装)</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8211;with-rtsig-module (no)</td>
+<td>使用rtsig module 处理事件驱动. 默认情况下， nginx 不安装rtsig module</td>
+</tr>
+<tr class="row-odd"><td>&#8211;with-select_module (no)</td>
+<td>使用select module 处理事件驱动. 如果nginx 没有找到epoll, 该模块将会被安装</td>
+</tr>
+<tr class="row-even"><td>&#8211;without-select_module (no)</td>
+<td>不使用select module 处理事件驱动</td>
+</tr>
+<tr class="row-odd"><td>&#8211;with-poll_module (no)</td>
+<td>与select 模块类似，默认不会安装</td>
+</tr>
+<tr class="row-even"><td>&#8211;without-poll_module (no)</td>
+<td>不使用poll module 处理事件驱动</td>
+</tr>
+<tr class="row-odd"><td>&#8211;with-aio_module (no)</td>
+<td>使用AIO方式处理事件驱动， 这里的 aio module 只能与FreeBSD系统上的kqueue模块
+合作， Linux上无法使用</td>
+</tr>
+<tr class="row-even"><td>&#8211;without-http_charset_module (yes)</td>
+<td>这个模块可以降服务器发出的http响应重新编码</td>
+</tr>
+<tr class="row-odd"><td>&#8211;without-http_gzip_module (yes)</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&#8211;without-http-ssi_module (yes)</td>
+<td>该模块可以在Response 中加入特定的内容，如html固定页头/页尾</td>
+</tr>
+<tr class="row-odd"><td>&#8211;without-http_userid_module (yes)</td>
+<td>这个模块可以通过HTTP请求头，认证用户信息，以确定请求是否合法</td>
+</tr>
+<tr class="row-even"><td>&#8211;without-http_access_module (yes)</td>
+<td>这个模块可以限制客户端IP</td>
+</tr>
+<tr class="row-odd"><td>&#8211;without-http_auth_basic_module</td>
+<td>这个模块可以提供最简单的用户密码验证</td>
+</tr>
+<tr class="row-even"><td>&#8211;without-http_autoindex_module</td>
+<td>目录浏览功能</td>
+</tr>
+<tr class="row-odd"><td>&#8211;without-http_geo_module</td>
+<td>这个模块可以定义一些变量，这些变量的值与客户端IP地址关联. 例如: 这样Nginx
+针对不同地域显示不同的语言</td>
+</tr>
+<tr class="row-even"><td>&#8211;without-http_map_module</td>
+<td>这个模块可以建立一个key/value映射表, 这样可以针对不同的url做特殊处理</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>配置<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>基本配置<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
 <col width="19%" />
@@ -219,16 +345,20 @@
 </table>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>性能调优<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>性能调优<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>内核参数调优<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>见 <a class="reference internal" href="../linux/tuning.html#http-core-tuning"><em>内核调优</em></a></p>
+</div>
 <div class="section" id="debug-nginx">
 <h3>debug nginx<a class="headerlink" href="#debug-nginx" title="Permalink to this headline">¶</a></h3>
 <p>方法1: 打开 &#8211;with-debug</p>
 <p>方法2: Debugging nginx with DTrace pid provider</p>
 <p>相关链接: <a class="reference external" href="http://nginx.org/en/docs/nginx_dtrace_pid_provider.html">http://nginx.org/en/docs/nginx_dtrace_pid_provider.html</a></p>
 </div>
-<div class="section" id="id4">
-<h3>负载均衡<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>负载均衡<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>nginx 使用upstream 分流</p>
 </div>
 <div class="section" id="deferred">
