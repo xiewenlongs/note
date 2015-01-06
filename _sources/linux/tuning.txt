@@ -12,7 +12,7 @@ linux 调优
 ulimit 限制
 ===================
 
-   一般一台机器，先用 `ulimit -a` 看一下，系统是否有限制资源使用, 例如::
+一般一台机器，先用 `ulimit -a` 看一下，系统是否有限制资源使用, 例如::
 
     > ulimit
 
@@ -37,23 +37,23 @@ ulimit 限制
 查看系统当前的并发连接数
 ============================
 
-    使用netstat 命令查看连接数::
+使用netstat 命令查看连接数::
 
-        > netstat -n | awk '/^tcp/ {++state[$NF]} END {for(key in state) print key,"t",state[key]}'
+    > netstat -n | awk '/^tcp/ {++state[$NF]} END {for(key in state) print key,"t",state[key]}'
 
-            TIME_WAIT t 2727
-            CLOSE_WAIT t 8
-            SYN_SENT t 3
-            FIN_WAIT1 t 56
-            FIN_WAIT2 t 5915
-            ESTABLISHED t 6813
-            SYN_RECV t 87
-            CLOSING t 6
-            LAST_ACK t 130
+        TIME_WAIT t 2727
+        CLOSE_WAIT t 8
+        SYN_SENT t 3
+        FIN_WAIT1 t 56
+        FIN_WAIT2 t 5915
+        ESTABLISHED t 6813
+        SYN_RECV t 87
+        CLOSING t 6
+        LAST_ACK t 130
 
-    查看网络状态：sar -n DEV 1
-    查看IO状态：iostat 1
-    查看cpu状态：mpstat -P ALL
+查看网络状态：sar -n DEV 1
+查看IO状态：iostat 1
+查看cpu状态：mpstat -P ALL
 
 
 内核调优

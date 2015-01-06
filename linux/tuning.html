@@ -168,8 +168,7 @@
 <h2>通用调优<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="ulimit">
 <h3>ulimit 限制<a class="headerlink" href="#ulimit" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>一般一台机器，先用 <cite>ulimit -a</cite> 看一下，系统是否有限制资源使用, 例如:</p>
+<p>一般一台机器，先用 <cite>ulimit -a</cite> 看一下，系统是否有限制资源使用, 例如:</p>
 <div class="highlight-python"><div class="highlight"><pre>&gt; ulimit
 
 core file size          (blocks, -c) 0
@@ -190,12 +189,10 @@ virtual memory          (kbytes, -v) unlimited
 file locks                      (-x) unlimited
 </pre></div>
 </div>
-</div></blockquote>
 </div>
 <div class="section" id="id2">
 <h3>查看系统当前的并发连接数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>使用netstat 命令查看连接数:</p>
+<p>使用netstat 命令查看连接数:</p>
 <div class="highlight-python"><div class="highlight"><pre>&gt; netstat -n | awk &#39;/^tcp/ {++state[$NF]} END {for(key in state) print key,&quot;t&quot;,state[key]}&#39;
 
     TIME_WAIT t 2727
@@ -212,7 +209,6 @@ file locks                      (-x) unlimited
 <p>查看网络状态：sar -n DEV 1
 查看IO状态：iostat 1
 查看cpu状态：mpstat -P ALL</p>
-</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h3>内核调优<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
