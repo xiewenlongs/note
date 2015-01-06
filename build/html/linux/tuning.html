@@ -33,7 +33,7 @@
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
     <link rel="up" title="linux 笔记" href="index.html" />
     <link rel="next" title="防火墙" href="iptable.html" />
-    <link rel="prev" title="bash" href="bash.html" />
+    <link rel="prev" title="基础" href="core.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -93,7 +93,11 @@
 <li><a class="reference internal" href="#id1">通用调优</a><ul>
 <li><a class="reference internal" href="#ulimit">ulimit 限制</a></li>
 <li><a class="reference internal" href="#id2">查看系统当前的并发连接数</a></li>
-<li><a class="reference internal" href="#id3">内核调优</a></li>
+<li><a class="reference internal" href="#id3">内核调优</a><ul>
+<li><a class="reference internal" href="#http-server-tuning">http server tuning</a></li>
+<li><a class="reference internal" href="#id4">其他</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -107,7 +111,7 @@
               
                 
   <li>
-    <a href="bash.html" title="Previous Chapter: bash"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; bash</span>
+    <a href="core.html" title="Previous Chapter: 基础"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 基础</span>
     </a>
   </li>
   <li>
@@ -143,7 +147,11 @@
 <li><a class="reference internal" href="#id1">通用调优</a><ul>
 <li><a class="reference internal" href="#ulimit">ulimit 限制</a></li>
 <li><a class="reference internal" href="#id2">查看系统当前的并发连接数</a></li>
-<li><a class="reference internal" href="#id3">内核调优</a></li>
+<li><a class="reference internal" href="#id3">内核调优</a><ul>
+<li><a class="reference internal" href="#http-server-tuning">http server tuning</a></li>
+<li><a class="reference internal" href="#id4">其他</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -208,181 +216,94 @@ file locks                      (-x) unlimited
 </div>
 <div class="section" id="id3">
 <h3>内核调优<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="section" id="http-server-tuning">
+<span id="http-core-tuning"></span><h4>http server tuning<a class="headerlink" href="#http-server-tuning" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">内核参数</th>
+<th class="head">推荐值</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>fs.file-max</td>
+<td><strong>4872754</strong>  一个进程可以打开的最大文件句柄数， 这个值直接影响最大并发量</td>
+</tr>
+<tr class="row-odd"><td>net.ipv4.tcp_tw_reuse</td>
+<td><strong>1</strong> TIME-WAIT 状态的套接字重用， http服务器会有大量TIME-WAIT状态socket</td>
+</tr>
+<tr class="row-even"><td>net.ipv4.tcp_keepalive_time</td>
+<td><strong>7200</strong> 保活定时器的间隔, 时间约短，server回收资源越快</td>
+</tr>
+<tr class="row-odd"><td>net.ipv4.tcp_fin_timeout</td>
+<td><strong>15</strong> 服务器一个socket 在FIN-WAIT2 状态维护的时间</td>
+</tr>
+<tr class="row-even"><td>net.ipv4.tcp_max_tw_buckets</td>
+<td><strong>180000</strong> 服务器TIME-WAIT状态套接字的数量限制，如果超过这个数量，
+新来的TIME-WAIT套接字会直接释放 (过多的TIME-WAIT 套接字很影响服务器性能)</td>
+</tr>
+<tr class="row-odd"><td>net.ipv4.tcp_max_syn_backlog</td>
+<td><strong>181920</strong> listen 函数的backlog参数</td>
+</tr>
+<tr class="row-even"><td>net.core.netdev_max_backlog</td>
+<td><strong>262144</strong> 当网卡接收包的速度大于内核处理速度，会有一个队列放这些包，
+这个值是队列的最大值</td>
+</tr>
+<tr class="row-odd"><td>net.ipv4.ip_local_port_range</td>
+<td><strong>1024 65535</strong> 定义了作为客户端， port的取值范围。 如果服务器要请求
+其他server(作为客户端), 那么这个值还是有必要的</td>
+</tr>
+<tr class="row-even"><td>net.ipv4.tcp_syncookies</td>
+<td><strong>1</strong> 与性能无关，用于解决SYN攻击</td>
+</tr>
+<tr class="row-odd"><td>net.core.rmem_max</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+<tr class="row-even"><td>net.core.rmem_default</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+<tr class="row-odd"><td>net.ipv4.tcp_rmem</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+<tr class="row-even"><td>net.ipv4.udp_rmem_min</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+<tr class="row-odd"><td>net.core.wmem_max</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+<tr class="row-even"><td>net.core.wmem_default</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+<tr class="row-odd"><td>net.ipv4.tcp_wmem</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+<tr class="row-even"><td>net.ipv4.udp_wmem_min</td>
+<td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h4>其他<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p><strong>高并发配置模板</strong></p>
 <blockquote>
-<div><p><strong>高并发配置模板</strong></p>
-<ul>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">fs.file_max = 9999999:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>最大的打开文件数</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_tw_reuse = 1:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>设置为１，　表示允许TIME_WAIT 状态的socket可以重用， 这对于服务器来说很有意义，
-因为服务器上总会有大量的TIME_WAIT状态的连接</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_keepalive_time = 600:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>默认２小时，设置小一点，可以更快清理无效连接</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_fin_timeout = 30:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>当服务器主动关闭连接时，　socket 保持在　FIN_WAIT状态的时间</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_max_tw_buckets = 5000:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>这个参数表示操作系统允许TIME_WAIT 套接字数量的最大值，如果超过这个数字，TIME_WAIT套接字将立刻被清除并
-打印警告信息。该参数默认为180000, 过多的TIME_WAIT套接字会使服务器变慢。</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.ip_local_port_range = 1024:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>本地端口的取值范围</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_rmem = 4096 32768 262142:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>TCP接收缓存的最大值，默认值，最小值</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_wmem = 4096 32768 262142:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-<p>TCP接收发送的最大值，默认值，最小值</p>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_syncookies = 1:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">该参数与性能无关，用于解决TCP的SYN攻击</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.ipv4.tcp_max_syn.backlog = 1024:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">TCP三次握手建立阶段接收SYN请求队列的最大长度，默认为1024, 设置的大一些，可以使nginx繁忙时也不至于丢失
-客户端发起的连接请求</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.core.netdev_max_backlog = 8096:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">当网卡接收数据包的速度大于内核处理的速度时，会有一个参数表示该队列的最大值</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.core.rmem_default = 262144:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">内核套接字接收缓冲区的默认大小</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.core.wmem_default = 262144:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">内核套接字发送缓冲区的默认大小</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.core.rmem_max = 2097152:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><table class="first docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">net.core.wmem_max = 2097152:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><p class="first">:net.ipv4.tcp_no_metrics_save = 1
-默认情况下一个tcp连接关闭后,把这个连接曾经有的参数比如慢启动门限snd_sthresh,拥塞窗口snd_cwnd 还有srtt等信息保存到dst_entry中, 只要dst_entry 没有失效,下次新建立相同连接的时候就可以使用保存的参数来初始化这个连接.通常情况下是关闭的。</p>
-</li>
-<li><p class="first">:net.unix.max_dgram_qlen = 1024
-unix socket 最大队列，默认为10, 明显不够</p>
-</li>
+<div><ul class="simple">
+<li>:net.ipv4.tcp_no_metrics_save = 1
+默认情况下一个tcp连接关闭后,把这个连接曾经有的参数比如慢启动门限snd_sthresh,拥塞窗口snd_cwnd 还有srtt等信息保存到dst_entry中, 只要dst_entry 没有失效,下次新建立相同连接的时候就可以使用保存的参数来初始化这个连接.通常情况下是关闭的。</li>
+<li>:net.unix.max_dgram_qlen = 1024
+unix socket 最大队列，默认为10, 明显不够</li>
 </ul>
+</div></blockquote>
 <p><strong>其他</strong></p>
 <blockquote>
 <div>socket 连接中，打开TCP_DEFER_ACCEPT 选项</div></blockquote>
-</div></blockquote>
+</div>
 </div>
 </div>
 </div>
