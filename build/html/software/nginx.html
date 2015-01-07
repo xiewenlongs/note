@@ -94,16 +94,18 @@
 <li><a class="reference internal" href="#id2">安装</a><ul>
 <li><a class="reference internal" href="#id3">依赖</a></li>
 <li><a class="reference internal" href="#id4">编译</a></li>
+<li><a class="reference internal" href="#id5">信号操作</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">配置</a><ul>
-<li><a class="reference internal" href="#id6">基本配置</a></li>
+<li><a class="reference internal" href="#id6">配置</a><ul>
+<li><a class="reference internal" href="#id7">基本配置</a></li>
+<li><a class="reference internal" href="#id8">性能调优</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7">性能调优</a><ul>
-<li><a class="reference internal" href="#id8">内核参数调优</a></li>
+<li><a class="reference internal" href="#id9">性能调优</a><ul>
+<li><a class="reference internal" href="#id10">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
-<li><a class="reference internal" href="#id9">负载均衡</a></li>
+<li><a class="reference internal" href="#id11">负载均衡</a></li>
 <li><a class="reference internal" href="#deferred">deferred</a></li>
 </ul>
 </li>
@@ -155,16 +157,18 @@
 <li><a class="reference internal" href="#id2">安装</a><ul>
 <li><a class="reference internal" href="#id3">依赖</a></li>
 <li><a class="reference internal" href="#id4">编译</a></li>
+<li><a class="reference internal" href="#id5">信号操作</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">配置</a><ul>
-<li><a class="reference internal" href="#id6">基本配置</a></li>
+<li><a class="reference internal" href="#id6">配置</a><ul>
+<li><a class="reference internal" href="#id7">基本配置</a></li>
+<li><a class="reference internal" href="#id8">性能调优</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id7">性能调优</a><ul>
-<li><a class="reference internal" href="#id8">内核参数调优</a></li>
+<li><a class="reference internal" href="#id9">性能调优</a><ul>
+<li><a class="reference internal" href="#id10">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
-<li><a class="reference internal" href="#id9">负载均衡</a></li>
+<li><a class="reference internal" href="#id11">负载均衡</a></li>
 <li><a class="reference internal" href="#deferred">deferred</a></li>
 </ul>
 </li>
@@ -288,67 +292,134 @@
 </tr>
 </tbody>
 </table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>configure 脚本的主要目的是 <tt class="docutils literal"><span class="pre">检测编译依赖库是否存在</span></tt> , <tt class="docutils literal"><span class="pre">生成ngx_modules.c文件</span></tt></p>
+<div class="line-block">
+<div class="line"><br /></div>
 </div>
 </div>
 <div class="section" id="id5">
-<h2>配置<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>基本配置<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>信号操作<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
-<col width="19%" />
-<col width="70%" />
-<col width="11%" />
+<col width="26%" />
+<col width="74%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">选项</th>
+<tr class="row-odd"><th class="head">信号</th>
 <th class="head">作用</th>
-<th class="head">推荐值</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>accept_mutex</td>
-<td><ol class="first last arabic simple">
-<li><tt class="docutils literal"><span class="pre">避免惊群效果</span></tt> (每个 accept 上一把锁);</li>
-<li><tt class="docutils literal"><span class="pre">负载平衡</span></tt> (如果当前worker有任务，则不参与竞争，直接返回处理当前任务)</li>
-</ol>
-</td>
-<td>true</td>
+<tr class="row-even"><td>nginx -s stop</td>
+<td>停止服务</td>
 </tr>
-<tr class="row-odd"><td>worker_connections</td>
-<td>每个worker 的连接池大小。 所以:
-<tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt></td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td>nginx -s quit</td>
+<td>优雅的停止服务</td>
 </tr>
-<tr class="row-even"><td>timer_resolution</td>
-<td>默认情况下，每次内核事件调用，都要执行一次 gettimeofday,
-来更新nginx中的缓存时钟, 这个选项控制执行间隔</td>
-<td>100ms</td>
+<tr class="row-even"><td>nginx -s reload</td>
+<td>重载配置</td>
 </tr>
-<tr class="row-odd"><td>worker_cpu_affinity</td>
-<td>绑定CPU</td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td>nginx -s reopen</td>
+<td>日志文件回滚</td>
 </tr>
-<tr class="row-even"><td>sendfile on</td>
-<td>启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>worker_rlimit_nofile</td>
-<td>unknown</td>
-<td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>keepalive_timeout</td>
-<td>unknown</td>
-<td>&nbsp;</td>
+<tr class="row-even"><td>kill -s SIGUSR2</td>
+<td>平滑升级nginx</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+<div class="section" id="id6">
+<h2>配置<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id7">
-<h2>性能调优<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h3>基本配置<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>user &lt;用户名&gt;</td>
+<td>worker进程的执行用户</td>
+</tr>
+<tr class="row-odd"><td>use &lt;事件模型&gt;</td>
+<td>选择事件模型(如: epoll)</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
 <div class="section" id="id8">
-<h3>内核参数调优<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>性能调优<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>worker_rlimit_nofile &lt;int&gt;</td>
+<td>设置一个worker进程可以打开的最大文件句柄数</td>
+</tr>
+<tr class="row-odd"><td>worker_cpu_affinity &lt;...&gt;</td>
+<td>worker和CPU绑定 (仅对Linux系统起作用， 内部调用sched_setaffinity()来实现,
+示例: worker_cpu_affinity 1000 0100 0010 0001</td>
+</tr>
+<tr class="row-even"><td>ssl_engine &lt;device&gt;</td>
+<td>ssl硬件加速。如果服务器上有SSL硬件加速设备，就可以用这个指令配置</td>
+</tr>
+<tr class="row-odd"><td>timer_resolution &lt;time&gt;</td>
+<td>默认情况下，每次内核事件调用，都要执行一次 gettimeofday</td>
+</tr>
+<tr class="row-even"><td>worker_prority &lt;int&gt;</td>
+<td>在Linux系统中，每个进程都有优先级，范围为[-19,+20], -19优先级最高,
+如果想让分配CPU资源的时候，多分给nginx, 可以增加nginx优先级，默认nginx 值
+为0 (不建议低于-5, 内核进程的优先级)</td>
+</tr>
+<tr class="row-odd"><td>accept_mutex &lt;on&gt;</td>
+<td><ol class="first last arabic simple">
+<li><tt class="docutils literal"><span class="pre">避免惊群效果</span></tt> (每个 accept 上一把锁);</li>
+<li><tt class="docutils literal"><span class="pre">负载平衡</span></tt> (如果当前worker的请求量已达到worker_connections的7/8，
+则这个worker 不参与竞争新来的request)</li>
+</ol>
+</td>
+</tr>
+<tr class="row-even"><td>multi_accept &lt;on&gt;</td>
+<td>当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接</td>
+</tr>
+<tr class="row-odd"><td>worker_connections</td>
+<td>每个worker 的连接池大小。 所以:
+<tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt>
+来更新nginx中的缓存时钟, 这个选项控制执行间隔</td>
+</tr>
+<tr class="row-even"><td>sendfile on</td>
+<td>启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间</td>
+</tr>
+<tr class="row-odd"><td>keepalive_timeout</td>
+<td>unknown</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>性能调优<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>内核参数调优<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>见 <a class="reference internal" href="../linux/tuning.html#http-core-tuning"><em>内核调优</em></a></p>
 </div>
 <div class="section" id="debug-nginx">
@@ -357,8 +428,8 @@
 <p>方法2: Debugging nginx with DTrace pid provider</p>
 <p>相关链接: <a class="reference external" href="http://nginx.org/en/docs/nginx_dtrace_pid_provider.html">http://nginx.org/en/docs/nginx_dtrace_pid_provider.html</a></p>
 </div>
-<div class="section" id="id9">
-<h3>负载均衡<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>负载均衡<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>nginx 使用upstream 分流</p>
 </div>
 <div class="section" id="deferred">
