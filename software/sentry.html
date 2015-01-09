@@ -90,7 +90,12 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">sentry</a><ul>
-<li><a class="reference internal" href="#id1">问题</a></li>
+<li><a class="reference internal" href="#id1">配置</a><ul>
+<li><a class="reference internal" href="#id2">安装</a></li>
+<li><a class="reference internal" href="#id3">启动</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -135,7 +140,12 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">sentry</a><ul>
-<li><a class="reference internal" href="#id1">问题</a></li>
+<li><a class="reference internal" href="#id1">配置</a><ul>
+<li><a class="reference internal" href="#id2">安装</a></li>
+<li><a class="reference internal" href="#id3">启动</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -146,8 +156,104 @@
       
   <div class="section" id="sentry">
 <h1>sentry<a class="headerlink" href="#sentry" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <div class="section" id="id1">
-<h2>问题<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>配置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>安装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>安装sentry前，需要先安装mysql 和redis. sentry可以用pip 安装:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; pip install sentry
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>启动<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>先启动mysql:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; /etc/init.d/mysqld restart
+</pre></div>
+</div>
+<p>再创建一份sentry新配置文件:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; sentry init &lt;配置文件名&gt;
+</pre></div>
+</div>
+<p>修改配置文件，配置database信息，如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c"># You can swap out the engine for MySQL easily by changing this value</span>
+            <span class="c"># to ``django.db.backends.mysql`` or to PostgreSQL with</span>
+            <span class="c"># ``django.db.backends.postgresql_psycopg2``</span>
+
+            <span class="c"># If you change this, you&#39;ll also need to install the appropriate python</span>
+            <span class="c"># package: psycopg2 (Postgres) or mysql-python</span>
+
+            <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;django.db.backends.mysql&#39;</span><span class="p">,</span>
+            <span class="s">&#39;NAME&#39;</span><span class="p">:</span> <span class="s">&#39;数据库名&#39;</span><span class="p">,</span>
+            <span class="s">&#39;USER&#39;</span><span class="p">:</span> <span class="s">&#39;账号名&#39;</span><span class="p">,</span>
+            <span class="s">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s">&#39;msyql密码&#39;</span><span class="p">,</span>
+            <span class="s">&#39;HOST&#39;</span><span class="p">:</span> <span class="s">&#39;localhost&#39;</span><span class="p">,</span>
+            <span class="s">&#39;PORT&#39;</span><span class="p">:</span> <span class="s">&#39;3307&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>接下来需要先搞好mysql:</p>
+<div class="highlight-python"><div class="highlight"><pre># 创建数据库
+mysql&gt; create database 数据库
+
+# 创建账号
+mysql&gt; create user 用户@主机 IDENTIFIED by &#39;密码&#39;
+
+# 给这个用户授权
+
+mysql&gt; grant all on sentry.* to user@&#39;localhost&#39;
+</pre></div>
+</div>
+<p>接下来搞好redis, sentry 内部用redis是用来做缓存的，提高性能. Redis启动略过，sentry里redis配置如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SENTRY_BUFFER</span> <span class="o">=</span> <span class="s">&#39;sentry.buffer.redis.RedisBuffer&#39;</span>
+<span class="n">SENTRY_REDIS_OPTIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;hosts&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&#39;host&#39;</span><span class="p">:</span> <span class="s">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+            <span class="s">&#39;port&#39;</span><span class="p">:</span> <span class="mi">6379</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>接下来在启动sentry 之前， 可以选择两种worker处理方式:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>一种是celery队列异步处理。这种方式除了启动sentry web 外，还要启动多个celery worker进程， 注意，这些celery worker
+进程可能会crash掉，所以需要用supervisor 来监控</li>
+<li>另一种是不用celery队列，来了一个event事件，同步处理，性能可能差些。但是不用起celery worker进程了，不用担心celery
+crash 掉</li>
+</ol>
+</div></blockquote>
+<p>如果是用celery队列，那么先启动celery worker:</p>
+<div class="highlight-python"><div class="highlight"><pre># 起3个worker
+&gt; sentry --config=./sentry.settings.py celery worker -B &amp;
+&gt; sentry --config=./sentry.settings.py celery worker -B &amp;
+&gt; sentry --config=./sentry.settings.py celery worker -B &amp;
+</pre></div>
+</div>
+<p>接下来就是启动main server:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; sentry --config=./sentry.settings.py start
+</pre></div>
+</div>
+<p>然后创建superuser:</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; sentry --config=senry.settings.py createsuperuser
+</pre></div>
+</div>
+<p>整个过程完成，现在可以用web登陆sentry了</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>问题<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><strong>启动时报错: Transaction managed block ended with pending COMMIT/ROLLBACK</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre>$&gt; sentry start
 
