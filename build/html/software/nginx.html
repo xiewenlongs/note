@@ -99,16 +99,29 @@
 </li>
 <li><a class="reference internal" href="#id6">配置</a><ul>
 <li><a class="reference internal" href="#id7">基本配置</a></li>
-<li><a class="reference internal" href="#id8">性能调优</a></li>
+<li><a class="reference internal" href="#id8">内部资源分配</a></li>
+<li><a class="reference internal" href="#id9">文件访问</a></li>
+<li><a class="reference internal" href="#mime">MIME</a></li>
+<li><a class="reference internal" href="#id10">性能调优</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">性能调优</a><ul>
-<li><a class="reference internal" href="#id10">内核参数调优</a></li>
+<li><a class="reference internal" href="#id11">反向代理</a><ul>
+<li><a class="reference internal" href="#id12">负载均衡</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">性能调优</a><ul>
+<li><a class="reference internal" href="#id14">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
-<li><a class="reference internal" href="#id11">负载均衡</a></li>
+<li><a class="reference internal" href="#id15">负载均衡</a></li>
 <li><a class="reference internal" href="#deferred">deferred</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id16">其他</a><ul>
+<li><a class="reference internal" href="#location">location 配置</a></li>
+<li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -162,16 +175,29 @@
 </li>
 <li><a class="reference internal" href="#id6">配置</a><ul>
 <li><a class="reference internal" href="#id7">基本配置</a></li>
-<li><a class="reference internal" href="#id8">性能调优</a></li>
+<li><a class="reference internal" href="#id8">内部资源分配</a></li>
+<li><a class="reference internal" href="#id9">文件访问</a></li>
+<li><a class="reference internal" href="#mime">MIME</a></li>
+<li><a class="reference internal" href="#id10">性能调优</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id9">性能调优</a><ul>
-<li><a class="reference internal" href="#id10">内核参数调优</a></li>
+<li><a class="reference internal" href="#id11">反向代理</a><ul>
+<li><a class="reference internal" href="#id12">负载均衡</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">性能调优</a><ul>
+<li><a class="reference internal" href="#id14">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
-<li><a class="reference internal" href="#id11">负载均衡</a></li>
+<li><a class="reference internal" href="#id15">负载均衡</a></li>
 <li><a class="reference internal" href="#deferred">deferred</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id16">其他</a><ul>
+<li><a class="reference internal" href="#location">location 配置</a></li>
+<li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -338,8 +364,8 @@
 <h3>基本配置<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
-<col width="21%" />
-<col width="79%" />
+<col width="29%" />
+<col width="71%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">选项</th>
@@ -353,6 +379,90 @@
 <tr class="row-odd"><td>use &lt;事件模型&gt;</td>
 <td>选择事件模型(如: epoll)</td>
 </tr>
+<tr class="row-even"><td>listen &lt;num...&gt;</td>
+<td><p class="first">监听端口, 它有以下参数:</p>
+<p><strong>default_server</strong>: 默认server, nginx 可能有多个server配置，设置这个后当前
+server就成为默认server(server_name没有匹配)</p>
+<p><strong>backlog &lt;num&gt;</strong>: 略</p>
+<p class="last"><strong>deferred</strong>: 默认新来一个TCP连接，三次握手后master进程就唤醒worker进程来
+接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接
+上真来了数据，才唤醒worker, 它减轻了worker的负担。
+<tt class="docutils literal"><span class="pre">需要根据业务特征来决定</span></tt></p>
+</td>
+</tr>
+<tr class="row-odd"><td>server_name &lt;...&gt;</td>
+<td><p class="first">虚拟主机配置, nginx 检测request头的HOST字段，拿来匹配server, 按以下顺序匹配:</p>
+<ol class="last arabic simple">
+<li>字符串完全匹配, 如: www.test.com</li>
+<li>通配符前匹配, 如: *.test.com</li>
+<li>通配符后匹配, 如: www.test.*</li>
+<li>正则匹配, 如: ^test.com</li>
+<li>都没有匹配， 使用default_server</li>
+</ol>
+</td>
+</tr>
+<tr class="row-even"><td>server_names_hash_bucket_size</td>
+<td>为了提高快速找到server_name的能力， nginx使用了散列桶， 这个参数指定散列桶的
+大小， 越大越占内存，但速度越快. 默认32|64|128</td>
+</tr>
+<tr class="row-odd"><td>server_names_hash_max_size</td>
+<td>效果同上. 默认512</td>
+</tr>
+<tr class="row-even"><td>server_name_in_redirect &lt;yes&gt;</td>
+<td>重定向的时候，把原请求里的HOST, 换成server_name写的第一个主机名</td>
+</tr>
+<tr class="row-odd"><td>location &lt;...&gt;</td>
+<td>用请求中的url来匹配, 见 <a class="reference internal" href="#nginx-location"><em>location</em></a></td>
+</tr>
+<tr class="row-even"><td>alias &lt;path&gt;</td>
+<td>指定文件路径</td>
+</tr>
+<tr class="row-odd"><td>root &lt;path&gt;</td>
+<td>指定文件路径(和alias 互为两种方式)</td>
+</tr>
+<tr class="row-even"><td>index &lt;path&gt;</td>
+<td>指定主页的html文件, 默认为(index.html)</td>
+</tr>
+<tr class="row-odd"><td>error_page &lt;code&gt; &lt;url&gt;</td>
+<td>错误重定向, 出现&lt;code&gt;对应的错误response时，nginx 把结果重定向到url</td>
+</tr>
+<tr class="row-even"><td>resursive_error_pages &lt;on&gt;</td>
+<td>是否打开&#8221;错误重定向&#8221;的递归</td>
+</tr>
+<tr class="row-odd"><td>try_files &lt;path1&gt; &lt;path2&gt; &lt;url&gt;</td>
+<td>按顺序尝试每一个path</td>
+</tr>
+<tr class="row-even"><td>limit_except {...}</td>
+<td>按http方法, 限制客户端请求种类, 见 <a class="reference internal" href="#nginx-limit-except"><em>limit_except</em></a></td>
+</tr>
+<tr class="row-odd"><td>client_max_body_size &lt;size&gt;</td>
+<td>根据请求头的content-Length, 来限制请求.</td>
+</tr>
+<tr class="row-even"><td>limit_rate &lt;num&gt;</td>
+<td>对每一个TCP连接限速</td>
+</tr>
+<tr class="row-odd"><td>ignore_invalid_headers &lt;on&gt;</td>
+<td>如果出现不合法的HTTP头部时， nginx 会忽略错误继续处理。但如果这个选项被off
+nginx 会直接返回400</td>
+</tr>
+<tr class="row-even"><td>underscores_in_headers &lt;on&gt;</td>
+<td>http头部是否允许带下划线</td>
+</tr>
+<tr class="row-odd"><td>log_not_found &lt;on&gt;</td>
+<td>404是否记录日志</td>
+</tr>
+<tr class="row-even"><td>merge_slashes &lt;on&gt;</td>
+<td>是否合并url中相邻的/, 如: //test//a.txt 会变成 /test/a.txt</td>
+</tr>
+<tr class="row-odd"><td>resolver &lt;ip&gt;</td>
+<td>设置DNS服务器地址</td>
+</tr>
+<tr class="row-even"><td>resolver_timeout &lt;time&gt;</td>
+<td>DNS解析超时时间, 默认30s</td>
+</tr>
+<tr class="row-odd"><td>server_tokens &lt;on&gt;</td>
+<td>返回错误页面时，是否在server中注明nginx版本, 默认on</td>
+</tr>
 </tbody>
 </table>
 <div class="line-block">
@@ -360,7 +470,147 @@
 </div>
 </div>
 <div class="section" id="id8">
-<h3>性能调优<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>内部资源分配<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>client_header_buffer_size &lt;num&gt;</td>
+<td>nginx 接收客户端request 的headers时，开辟的内存大小, 默认 1k</td>
+</tr>
+<tr class="row-odd"><td>large_client_header_buffers</td>
+<td>nginx 接收超大request 头部时，使用的buffer 个数 和每个buffer大小, 如果请求
+头部大于这个值，那么nginx会报&#8221;Request too large url&#8221;</td>
+</tr>
+<tr class="row-even"><td>client_body_buffer_size &lt;num&gt;</td>
+<td>一个请求的请求体需要存在内存中， 这个值指定了buffer大小, 如果超过这个值，
+nginx 会把请求体写入磁盘</td>
+</tr>
+<tr class="row-odd"><td>connnection_pool_size &lt;num&gt;</td>
+<td>每个TCP连接分配的内存池初始大小, 默认256, 如果这个值太大，内存占用会很多，
+如果很小，造成分配次数增多</td>
+</tr>
+<tr class="row-even"><td>request_pool_size &lt;num&gt;</td>
+<td>一个请求开辟内存池的初始大小, 默认4k</td>
+</tr>
+<tr class="row-odd"><td>client_header_timeout &lt;time&gt;</td>
+<td>一个连接建立后， nginx 接收HTTP头部的超时时间，如果在这个时间内没有读到
+客户端发来的字节， 则认为超时，返回408(Request time out) 默认60</td>
+</tr>
+<tr class="row-even"><td>client_body_timeout &lt;time&gt;</td>
+<td>同上，请求体超时</td>
+</tr>
+<tr class="row-odd"><td>send_timeout &lt;time&gt;</td>
+<td>nginx 向客户端发送了数据，但客户端超过这么长时间都没有去接收数据，那么
+nginx 会关闭这个连接</td>
+</tr>
+<tr class="row-even"><td>reset_timeout_connection</td>
+<td>??? 向客户端发送RST来关闭连接， 减少服务端的FIN-WAIT状态套接字</td>
+</tr>
+<tr class="row-odd"><td>lingering_close</td>
+<td>???</td>
+</tr>
+<tr class="row-even"><td>lingering_time</td>
+<td>???</td>
+</tr>
+<tr class="row-odd"><td>lingering_timeout</td>
+<td>???</td>
+</tr>
+<tr class="row-even"><td>keepalive_disable &lt;...&gt;</td>
+<td>对某些浏览器禁用 keepalive 功能</td>
+</tr>
+<tr class="row-odd"><td>keepalive_timeout &lt;time&gt;</td>
+<td>keepalive 超时时间</td>
+</tr>
+<tr class="row-even"><td>keepalive_requests &lt;num&gt;</td>
+<td>一个keepalive 连接上默认最多能发送的request 个数</td>
+</tr>
+<tr class="row-odd"><td>tcp_nodelay &lt;on&gt;</td>
+<td>对keepalive连接是否使用TCP_NODELAY选项</td>
+</tr>
+<tr class="row-even"><td>tcp_nopush &lt;on&gt;</td>
+<td>是否开启FreeDSB的TCP_NOPUSH 或Linux 的TCP_CORK功能</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>文件访问<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>aio</td>
+<td>???</td>
+</tr>
+<tr class="row-odd"><td>open_file_cache</td>
+<td>???</td>
+</tr>
+<tr class="row-even"><td>open_file_cache_errors</td>
+<td>???</td>
+</tr>
+<tr class="row-odd"><td>open_file_cache_min_uses</td>
+<td>???</td>
+</tr>
+<tr class="row-even"><td>open_file_cache_valid</td>
+<td>???</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="mime">
+<h3>MIME<a class="headerlink" href="#mime" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type {...}</td>
+<td>配置文件扩展名与mime映射</td>
+</tr>
+<tr class="row-odd"><td>default_type &lt;...&gt;</td>
+<td>默认MIME类型</td>
+</tr>
+<tr class="row-even"><td>types_hash_bucket_size</td>
+<td>上面映射的散列桶大小</td>
+</tr>
+<tr class="row-odd"><td>types_hash_max_size</td>
+<td>上面散列桶的个数</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>性能调优<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
 <col width="27%" />
@@ -416,10 +666,77 @@
 </table>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>性能调优<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id10">
-<h3>内核参数调优<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h2>反向代理<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/s_nginx_rproxy.png" src="../_images/s_nginx_rproxy.png" />
+<p>Nginx代理和squid代理机制不太一样， 客户端发送请求， nginx代理服务器接收完整个请求，才向upstream转发请求， 这样做的目的
+主要是 <tt class="docutils literal"><span class="pre">降低upstream</span></tt> 的压力. 因为客户端到nginx代理之间一般式走外网， 速度较慢。 而代理和upstream之间一般式走内网，
+速度很快</p>
+<div class="section" id="id12">
+<h3>负载均衡<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>upstream负载均衡有两种机制: <tt class="docutils literal"><span class="pre">ip_hash</span></tt> 和 <tt class="docutils literal"><span class="pre">weight</span></tt></p>
+<p>ip_hash 是nginx按客户端ip, 自动的把请求打在上游集群中特定一台, 配置如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>upstream backend {
+    ip_hash
+    server backend1.example.com;
+    server backend2.example.com;
+    server backend3.example.com;
+}
+</pre></div>
+</div>
+<p>weight 是按权重来分流量， 配置如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>upstream backend {
+    server backend1.example.com weight=2 max_fails=3 fail_timeout=30s;
+    server backend2.example.com weight=2 max_fails=2 fail_timeout=20s;
+    server backend3.example.com weight=1;
+}
+</pre></div>
+</div>
+<p>一份反向代理配置如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>upstream real.sites {
+
+    server 123.123.123.123;
+
+    // 用keepalive保存长连接，降低频繁创建连接的开销
+    keepalive 16;
+}
+
+proxy_cache_path /path/to/cache levels=1:2 keys_zone=static_cache:100m;
+
+server {
+    server_name     www.example.com;
+
+    // 把真正的IP地址放到header的X-Forwarded-For里面
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    proxy_http_version 1.1;
+
+    proxy_set_header Connection &quot;&quot;;
+
+    # 当某一个上游返回503错误时， nginx 继续换一个上游转发
+    # 默认一个上游返回错误时，nginx是不会换一个上游转发的
+    proxy_next_upstream http_503;
+
+    // 把静态资源缓存起来，减少服务器间数据传输
+    location ~ \.(css|js|jpg|png|gif|ico)$ {
+
+    proxy_cache static_cache;
+
+    proxy_pass http://real.sites;
+    }
+
+    location / {
+        proxy_pass http://real.sites;
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>性能调优<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h3>内核参数调优<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <p>见 <a class="reference internal" href="../linux/tuning.html#http-core-tuning"><em>内核调优</em></a></p>
 </div>
 <div class="section" id="debug-nginx">
@@ -428,14 +745,49 @@
 <p>方法2: Debugging nginx with DTrace pid provider</p>
 <p>相关链接: <a class="reference external" href="http://nginx.org/en/docs/nginx_dtrace_pid_provider.html">http://nginx.org/en/docs/nginx_dtrace_pid_provider.html</a></p>
 </div>
-<div class="section" id="id11">
-<h3>负载均衡<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3>负载均衡<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>nginx 使用upstream 分流</p>
 </div>
 <div class="section" id="deferred">
 <h3>deferred<a class="headerlink" href="#deferred" title="Permalink to this headline">¶</a></h3>
 <p>listen 80 deferred;</p>
 </div>
+</div>
+<div class="section" id="id16">
+<h2>其他<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="location">
+<span id="nginx-location"></span><h3>location 配置<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">=</span></tt> 匹配符， 完全匹配才处理， e.g:</p>
+<div class="highlight-python"><div class="highlight"><pre>location = / {
+     # 完全匹配才处理
+     ...
+}
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">~</span></tt> 匹配符， 表示大小写敏感</p>
+<p><tt class="docutils literal"><span class="pre">~*</span></tt> 匹配符， 表示大小写不敏感</p>
+<p>可以使用正则, e.g:</p>
+<div class="highlight-python"><div class="highlight"><pre>location ~* \.(gif|png)$ {
+     # 以gif 或者 png 结尾的url
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="nginx-limit-except">
+<span id="id17"></span><h3>限制请求方法<a class="headerlink" href="#nginx-limit-except" title="Permalink to this headline">¶</a></h3>
+<p>配置:</p>
+<div class="highlight-python"><div class="highlight"><pre>limit_except GET POST DELETE {
+    deny all;
+}
+</pre></div>
+</div>
+<p>意思是， 除了GET POST DELETE 方法外，其他一切请求都deny</p>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>问题<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>nginx 配置 keepalive_time = 0 后， server端处理完请求会有大量TIME-WAIT。但是只要把这个值设为不为0， 就不会有TIME-WAIT了</p>
 </div>
 </div>
 

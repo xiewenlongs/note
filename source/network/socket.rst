@@ -127,3 +127,12 @@ Connection reset by peer
 
     1. 客户端关掉页面， 服务器还不知道
     2. 服务器的并发连接数超过了其承载量,服务器会将其中一些连接关闭 (nginx 这样实现的?, 待确认)
+
+
+|
+
+
+net.ipv4.tcp_abort_on_overflow 这个内核参数值决定了系统调用listen中backlog参数的作用。默认这个值为0，所以当
+backlog队列已满时，新来的SYN请求， server不予理会，那么client会重发SYN,
+那时backlog队列也许已经恢复了。 如果这个值设为1, 那么当backlog满的时候
+新来的SYN, 服务器会直接返回RST, 导致"Connection reset by peer"

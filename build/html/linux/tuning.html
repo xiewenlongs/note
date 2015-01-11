@@ -287,6 +287,25 @@ file locks                      (-x) unlimited
 </div>
 <div class="section" id="id4">
 <h4>其他<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">内核参数</th>
+<th class="head">推荐值</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>net.ipv4.tcp_abort_on_overflow</td>
+<td>这个值决定了系统调用listen中backlog参数的作用。默认这个值为0，所以当
+backlog队列已满时，新来的SYN请求， server不予理会，那么client会重发SYN,
+那时backlog队列也许已经恢复了。 如果这个值设为1, 那么当backlog满的时候
+新来的SYN, 服务器会直接返回RST, 导致&#8221;Connection reset by peer&#8221;</td>
+</tr>
+</tbody>
+</table>
 <p><strong>高并发配置模板</strong></p>
 <blockquote>
 <div><ul class="simple">

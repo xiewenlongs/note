@@ -106,12 +106,127 @@ configure 脚本的主要目的是 ``检测编译依赖库是否存在`` , ``生
 .. cssclass:: table-bordered
 .. table::
 
-    ====================    ==========================================================================
-    选项                    作用
-    ====================    ==========================================================================
-    user <用户名>           worker进程的执行用户
-    use <事件模型>          选择事件模型(如: epoll)
-    ====================    ==========================================================================
+    ================================    ==============================================================================
+    选项                                作用
+    ================================    ==============================================================================
+    user <用户名>                       worker进程的执行用户
+    use <事件模型>                      选择事件模型(如: epoll)
+    listen <num...>                     监听端口, 它有以下参数:
+
+                                        **default_server**: 默认server, nginx 可能有多个server配置，设置这个后当前
+                                        server就成为默认server(server_name没有匹配)
+
+                                        **backlog <num>**: 略
+
+                                        **deferred**: 默认新来一个TCP连接，三次握手后master进程就唤醒worker进程来
+                                        接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接
+                                        上真来了数据，才唤醒worker, 它减轻了worker的负担。
+                                        ``需要根据业务特征来决定``
+    server_name <...>                   虚拟主机配置, nginx 检测request头的HOST字段，拿来匹配server, 按以下顺序匹配:
+
+                                        1. 字符串完全匹配, 如: www.test.com
+
+                                        2. 通配符前匹配, 如: \*.test.com
+
+                                        3. 通配符后匹配, 如: www.test.\*
+
+                                        4. 正则匹配, 如: ^test.com
+
+                                        5. 都没有匹配， 使用default_server
+
+    server_names_hash_bucket_size       为了提高快速找到server_name的能力， nginx使用了散列桶， 这个参数指定散列桶的
+                                        大小， 越大越占内存，但速度越快. 默认32|64|128
+    server_names_hash_max_size          效果同上. 默认512
+    server_name_in_redirect <yes>       重定向的时候，把原请求里的HOST, 换成server_name写的第一个主机名
+    location <...>                      用请求中的url来匹配, 见 :ref:`location <nginx_location>`
+    alias <path>                        指定文件路径
+    root <path>                         指定文件路径(和alias 互为两种方式)
+    index <path>                        指定主页的html文件, 默认为(index.html)
+    error_page <code> <url>             错误重定向, 出现<code>对应的错误response时，nginx 把结果重定向到url
+    resursive_error_pages <on>          是否打开"错误重定向"的递归
+    try_files <path1> <path2> <url>     按顺序尝试每一个path
+    limit_except {...}                  按http方法, 限制客户端请求种类, 见 :ref:`limit_except <nginx_limit_except>`
+    client_max_body_size <size>         根据请求头的content-Length, 来限制请求.
+    limit_rate <num>                    对每一个TCP连接限速
+    ignore_invalid_headers <on>         如果出现不合法的HTTP头部时， nginx 会忽略错误继续处理。但如果这个选项被off
+                                        nginx 会直接返回400
+    underscores_in_headers <on>         http头部是否允许带下划线
+    log_not_found <on>                  404是否记录日志
+    merge_slashes <on>                  是否合并url中相邻的/, 如: //test//a.txt 会变成 /test/a.txt
+    resolver <ip>                       设置DNS服务器地址
+    resolver_timeout <time>             DNS解析超时时间, 默认30s
+    server_tokens <on>                  返回错误页面时，是否在server中注明nginx版本, 默认on
+    ================================    ==============================================================================
+
+|
+
+内部资源分配
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================    ==========================================================================
+    选项                                作用
+    ================================    ==========================================================================
+    client_header_buffer_size <num>     nginx 接收客户端request 的headers时，开辟的内存大小, 默认 1k
+    large_client_header_buffers         nginx 接收超大request 头部时，使用的buffer 个数 和每个buffer大小, 如果请求
+                                        头部大于这个值，那么nginx会报"Request too large url"
+    client_body_buffer_size <num>       一个请求的请求体需要存在内存中， 这个值指定了buffer大小, 如果超过这个值，
+                                        nginx 会把请求体写入磁盘
+    connnection_pool_size <num>         每个TCP连接分配的内存池初始大小, 默认256, 如果这个值太大，内存占用会很多，
+                                        如果很小，造成分配次数增多
+    request_pool_size <num>             一个请求开辟内存池的初始大小, 默认4k
+    client_header_timeout <time>        一个连接建立后， nginx 接收HTTP头部的超时时间，如果在这个时间内没有读到
+                                        客户端发来的字节， 则认为超时，返回408(Request time out) 默认60
+    client_body_timeout <time>          同上，请求体超时
+    send_timeout <time>                 nginx 向客户端发送了数据，但客户端超过这么长时间都没有去接收数据，那么
+                                        nginx 会关闭这个连接
+    reset_timeout_connection            ??? 向客户端发送RST来关闭连接， 减少服务端的FIN-WAIT状态套接字
+    lingering_close                     ???
+    lingering_time                      ???
+    lingering_timeout                   ???
+    keepalive_disable <...>             对某些浏览器禁用 keepalive 功能
+    keepalive_timeout <time>            keepalive 超时时间
+    keepalive_requests <num>            一个keepalive 连接上默认最多能发送的request 个数
+    tcp_nodelay <on>                    对keepalive连接是否使用TCP_NODELAY选项
+    tcp_nopush <on>                     是否开启FreeDSB的TCP_NOPUSH 或Linux 的TCP_CORK功能
+    ================================    ==========================================================================
+
+|
+
+文件访问
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================    ==========================================================================
+    选项                                作用
+    ================================    ==========================================================================
+    aio                                 ???
+    open_file_cache                     ???
+    open_file_cache_errors              ???
+    open_file_cache_min_uses            ???
+    open_file_cache_valid               ???
+    ================================    ==========================================================================
+
+|
+
+MIME
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================    ==========================================================================
+    选项                                作用
+    ================================    ==========================================================================
+    type {...}                          配置文件扩展名与mime映射
+    default_type <...>                  默认MIME类型
+    types_hash_bucket_size              上面映射的散列桶大小
+    types_hash_max_size                 上面散列桶的个数
+    ================================    ==========================================================================
 
 |
 
@@ -145,6 +260,80 @@ configure 脚本的主要目的是 ``检测编译依赖库是否存在`` , ``生
 
 
 ---------------------------------------
+反向代理
+---------------------------------------
+
+.. image:: ../_static/s_nginx_rproxy.png
+
+Nginx代理和squid代理机制不太一样， 客户端发送请求， nginx代理服务器接收完整个请求，才向upstream转发请求， 这样做的目的
+主要是 ``降低upstream`` 的压力. 因为客户端到nginx代理之间一般式走外网， 速度较慢。 而代理和upstream之间一般式走内网，
+速度很快
+
+
+负载均衡
+~~~~~~~~~~~~~~~~~~~~~~~
+
+upstream负载均衡有两种机制: ``ip_hash`` 和 ``weight``
+
+ip_hash 是nginx按客户端ip, 自动的把请求打在上游集群中特定一台, 配置如下::
+
+    upstream backend {
+        ip_hash
+        server backend1.example.com;
+        server backend2.example.com;
+        server backend3.example.com;
+    }
+
+weight 是按权重来分流量， 配置如下::
+
+    upstream backend {
+        server backend1.example.com weight=2 max_fails=3 fail_timeout=30s;
+        server backend2.example.com weight=2 max_fails=2 fail_timeout=20s;
+        server backend3.example.com weight=1;
+    }
+
+
+一份反向代理配置如下::
+
+    upstream real.sites {
+
+        server 123.123.123.123;
+
+        // 用keepalive保存长连接，降低频繁创建连接的开销
+        keepalive 16;
+    }
+
+    proxy_cache_path /path/to/cache levels=1:2 keys_zone=static_cache:100m;
+
+    server {
+        server_name     www.example.com;
+
+        // 把真正的IP地址放到header的X-Forwarded-For里面
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_http_version 1.1;
+
+        proxy_set_header Connection "";
+
+        # 当某一个上游返回503错误时， nginx 继续换一个上游转发
+        # 默认一个上游返回错误时，nginx是不会换一个上游转发的
+        proxy_next_upstream http_503;
+
+        // 把静态资源缓存起来，减少服务器间数据传输
+        location ~ \.(css|js|jpg|png|gif|ico)$ {
+
+        proxy_cache static_cache;
+
+        proxy_pass http://real.sites;
+        }
+
+        location / {
+            proxy_pass http://real.sites;
+        }
+    }
+
+
+---------------------------------------
 性能调优
 ---------------------------------------
 
@@ -172,3 +361,52 @@ deferred
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 listen 80 deferred;
+
+---------------------------------------
+其他
+---------------------------------------
+
+.. _nginx_location:
+
+location 配置
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
+``=`` 匹配符， 完全匹配才处理， e.g::
+
+   location = / {
+        # 完全匹配才处理
+        ...
+   }
+
+``~`` 匹配符， 表示大小写敏感
+
+``~*`` 匹配符， 表示大小写不敏感
+
+可以使用正则, e.g::
+
+   location ~* \.(gif|png)$ {
+        # 以gif 或者 png 结尾的url
+   }
+
+
+.. _nginx_limit_except:
+
+限制请求方法
+~~~~~~~~~~~~~~~~~~~~~~~
+
+配置::
+
+    limit_except GET POST DELETE {
+        deny all;
+    }
+
+意思是， 除了GET POST DELETE 方法外，其他一切请求都deny
+
+
+---------------------------------------
+问题
+---------------------------------------
+
+nginx 配置 keepalive_time = 0 后， server端处理完请求会有大量TIME-WAIT。但是只要把这个值设为不为0， 就不会有TIME-WAIT了
+
