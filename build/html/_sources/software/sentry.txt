@@ -126,3 +126,8 @@ sentry
 这是因为权限问题, sentry配置文件里的user, 没有足够的权限操作sentry数据库, 用超级账号调用::
 
     mysql> grant all on sentry.* to user@'localhost'
+
+**sentry After start sentry web, cannot mark event to reslove**:
+
+This maybe cause by SENTRY_URL_PREFIX configure. If your add resversal proxy in front of sentry, you must set
+``SENTRY_URL_PREFIX`` to the IP of resversal proxy

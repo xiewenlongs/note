@@ -33,7 +33,7 @@
     <link rel="top" title="notebook 0 documentation" href="../index.html" />
     <link rel="up" title="技术" href="index.html" />
     <link rel="next" title="vim" href="vim.html" />
-    <link rel="prev" title="nginx" href="nginx.html" />
+    <link rel="prev" title="struct" href="nginx/struct.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -107,7 +107,7 @@
               
                 
   <li>
-    <a href="nginx.html" title="Previous Chapter: nginx"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; nginx</span>
+    <a href="nginx/struct.html" title="Previous Chapter: struct"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; struct</span>
     </a>
   </li>
   <li>
@@ -274,6 +274,9 @@ Running migrations for djcelery:
 <div class="highlight-python"><div class="highlight"><pre>mysql&gt; grant all on sentry.* to user@&#39;localhost&#39;
 </pre></div>
 </div>
+<p><strong>sentry After start sentry web, cannot mark event to reslove</strong>:</p>
+<p>This maybe cause by SENTRY_URL_PREFIX configure. If your add resversal proxy in front of sentry, you must set
+<tt class="docutils literal"><span class="pre">SENTRY_URL_PREFIX</span></tt> to the IP of resversal proxy</p>
 </div>
 </div>
 

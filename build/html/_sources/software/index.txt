@@ -14,6 +14,6 @@
    mysql
    oss
    python-lib/index
-   nginx
+   nginx/index
    sentry
    vim
