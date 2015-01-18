@@ -3,8 +3,15 @@ bash
 ===============================================
 
 
+PS1
+---------------------------------------
+
+export PS1='\n\e[1;37m[\e[m\e[1;32m\u\e[m\e[1;33m@\e[m\e[1;35m\H\e[m \e[4m`pwd`\e[m\e[1;37m]\e[m\e[1;36m\e[m\n\$'
+
+|
+
 history 在多终端下的表现
-````````````````````````````
+---------------------------------------
 
 - There is the history in the history file.
 - There is the history in the memory of a bash process.
@@ -20,7 +27,7 @@ history 在多终端下的表现
 
 
 history 设置
-``````````````````````````````
+---------------------------------------
 - HISTFILESIZE=2000
 - HISTSIZE=2000
 - HISTTIMEFORMAT="%Y%m%d-%H:%M:%S: "   每个操作，加上时间戳
@@ -30,7 +37,7 @@ history 设置
 
 
 scripts example
-``````````````````````````````
+---------------------------------------
 
 log 跨机器传输(retry): :download:`example </_src/decrypt_nginx_log.sh>`
 

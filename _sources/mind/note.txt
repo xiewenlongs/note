@@ -154,3 +154,17 @@ google 时代工作方法
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: ../_static/mind_note_how_to_read.png
+
+
+零成本创业
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
+* Relationship between entreprenurship and marking. If we are a dog food company. Our consumer is Woman, cosutomer is Dog,
+  and buyer is Husband. Producting is making perfect production and Marking is find Woman who feed dog.
+
+.. image:: ../_static/mind_note_zero_entreprenurship.png
+   :alt: Warning!
+   :width: 500
+   :height: 400
+   :align: center
