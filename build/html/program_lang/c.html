@@ -92,7 +92,7 @@
 <li><a class="reference internal" href="#">C语言</a><ul>
 <li><a class="reference internal" href="#id1">高级</a><ul>
 <li><a class="reference internal" href="#id2">自实现锁</a></li>
-<li><a class="reference internal" href="#id3">内存池</a></li>
+<li><a class="reference internal" href="#prog-c-pool">内存池</a></li>
 <li><a class="reference internal" href="#id4">哈希表</a></li>
 <li><a class="reference internal" href="#ui">终端下UI库</a></li>
 <li><a class="reference internal" href="#id5">正则表达式</a></li>
@@ -148,7 +148,7 @@
 <li><a class="reference internal" href="#">C语言</a><ul>
 <li><a class="reference internal" href="#id1">高级</a><ul>
 <li><a class="reference internal" href="#id2">自实现锁</a></li>
-<li><a class="reference internal" href="#id3">内存池</a></li>
+<li><a class="reference internal" href="#prog-c-pool">内存池</a></li>
 <li><a class="reference internal" href="#id4">哈希表</a></li>
 <li><a class="reference internal" href="#ui">终端下UI库</a></li>
 <li><a class="reference internal" href="#id5">正则表达式</a></li>
@@ -174,13 +174,14 @@
 <h3>自实现锁<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>使用gcc 提供的 <tt class="docutils literal"><span class="pre">__sync_bool_compare_and_swap</span></tt>, 可以实现自己的锁，该函数是一个
 原子操作:</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="n">__sync_bool_compare_and_swap</span><span class="p">(</span><span class="n">lock</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">set</span><span class="p">)</span>
+<div class="highlight-c"><div class="highlight"><pre><span class="c1">// 如果 \*lock 的值等于 old, 那么就把set 写入*lock, 否则不写</span>
+<span class="n">__sync_bool_compare_and_swap</span><span class="p">(</span><span class="n">lock</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">set</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>示例:  <a class="reference download internal" href="../_downloads/c_self_lock.c"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
 </div>
-<div class="section" id="id3">
-<h3>内存池<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="prog-c-pool">
+<span id="id3"></span><h3>内存池<a class="headerlink" href="#prog-c-pool" title="Permalink to this headline">¶</a></h3>
 <p>nginx 的内存池实现</p>
 <p>示例:  <a class="reference download internal" href="../_downloads/palloc.c"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
 <p>相关链接: <a class="reference external" href="http://www.alidata.org/archives/1390">http://www.alidata.org/archives/1390</a></p>

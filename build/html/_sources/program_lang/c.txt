@@ -14,11 +14,13 @@ C语言
 
 .. code-block:: c
 
+   // 如果 \*lock 的值等于 old, 那么就把set 写入*lock, 否则不写
    __sync_bool_compare_and_swap(lock, old, set)
 
 示例:  :download:`example </_src/c_self_lock.c>`
 
 
+.. _prog_c_pool:
 
 内存池
 ~~~~~~~~~~~~~~~

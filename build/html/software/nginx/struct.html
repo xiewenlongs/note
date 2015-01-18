@@ -94,6 +94,8 @@
 <li><a class="reference internal" href="#ngx-list-t">ngx_list_t</a></li>
 <li><a class="reference internal" href="#ngx-table-elt-t">ngx_table_elt_t</a></li>
 <li><a class="reference internal" href="#ngx-module-t">ngx_module_t</a></li>
+<li><a class="reference internal" href="#ngx-log-t">ngx_log_t</a></li>
+<li><a class="reference internal" href="#ngx-pool-t">ngx_pool_t</a></li>
 <li><a class="reference internal" href="#ngx-buf-t">ngx_buf_t</a></li>
 <li><a class="reference internal" href="#ngx-chain-t">ngx_chain_t</a></li>
 </ul>
@@ -144,6 +146,8 @@
 <li><a class="reference internal" href="#ngx-list-t">ngx_list_t</a></li>
 <li><a class="reference internal" href="#ngx-table-elt-t">ngx_table_elt_t</a></li>
 <li><a class="reference internal" href="#ngx-module-t">ngx_module_t</a></li>
+<li><a class="reference internal" href="#ngx-log-t">ngx_log_t</a></li>
+<li><a class="reference internal" href="#ngx-pool-t">ngx_pool_t</a></li>
 <li><a class="reference internal" href="#ngx-buf-t">ngx_buf_t</a></li>
 <li><a class="reference internal" href="#ngx-chain-t">ngx_chain_t</a></li>
 </ul>
@@ -280,6 +284,81 @@ typedef struct {
 };
 </pre></div>
 </div>
+</div>
+<div class="section" id="ngx-log-t">
+<h2>ngx_log_t<a class="headerlink" href="#ngx-log-t" title="Permalink to this headline">¶</a></h2>
+<p>struct define:</p>
+<div class="highlight-python"><div class="highlight"><pre>struct ngx_log_s {
+    ngx_uint_t           log_level;
+    ngx_open_file_t     *file;
+
+    ngx_atomic_uint_t    connection;
+
+    ngx_log_handler_pt   handler;
+    void                *data;
+
+    /*
+     * we declare &quot;action&quot; as &quot;char *&quot; because the actions are usually
+     * the static strings and in the &quot;u_char *&quot; case we have to override
+     * their types all the time
+     */
+
+    char                *action;
+    ngx_log_t           *next;
+};
+</pre></div>
+</div>
+</div>
+<div class="section" id="ngx-pool-t">
+<h2>ngx_pool_t<a class="headerlink" href="#ngx-pool-t" title="Permalink to this headline">¶</a></h2>
+<p>struct define:</p>
+<div class="highlight-python"><div class="highlight"><pre>struct ngx_pool_cleanup_s {
+    ngx_pool_cleanup_pt   handler;
+    void                 *data;
+    ngx_pool_cleanup_t   *next;
+};
+
+
+typedef struct ngx_pool_large_s  ngx_pool_large_t;
+
+struct ngx_pool_large_s {
+    ngx_pool_large_t     *next;
+    void                 *alloc;
+};
+
+
+typedef struct {
+    u_char               *last;
+    u_char               *end;
+    ngx_pool_t           *next;
+    ngx_uint_t            failed;
+} ngx_pool_data_t;
+
+
+struct ngx_pool_s {
+    ngx_pool_data_t       d;
+    size_t                max;
+    ngx_pool_t           *current;
+    ngx_chain_t          *chain;
+    ngx_pool_large_t     *large;
+    ngx_pool_cleanup_t   *cleanup;
+    ngx_log_t            *log;
+};
+</pre></div>
+</div>
+<p>The relationship within them like that:</p>
+<img alt="../../_images/s_nginx_struct_mempool.jpg" src="../../_images/s_nginx_struct_mempool.jpg" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>它的逻辑:</p>
+<ul class="simple">
+<li>开辟内存小于max的时候，在pool-&gt;d这个内存链表里开辟(不停开辟block)</li>
+<li>开辟内存大于max的时候，在pool-&gt;large 这个内存链表上开辟(同上)</li>
+<li>pool-&gt;cleanup 是内存池提供的回调函数，free的时候会依次调用，一般不需要处理它</li>
+<li>pool-&gt;chain 目前还没使用</li>
+</ul>
+<p>见 <a class="reference internal" href="../../program_lang/c.html#prog-c-pool"><em>例子</em></a></p>
 </div>
 <div class="section" id="ngx-buf-t">
 <h2>ngx_buf_t<a class="headerlink" href="#ngx-buf-t" title="Permalink to this headline">¶</a></h2>

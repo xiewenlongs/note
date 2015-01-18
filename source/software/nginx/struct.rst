@@ -136,6 +136,93 @@ struct defined::
         uintptr_t             spare_hook7;
     };
 
+
+---------------------------------------
+ngx_log_t
+---------------------------------------
+
+struct define::
+
+    struct ngx_log_s {
+        ngx_uint_t           log_level;
+        ngx_open_file_t     *file;
+
+        ngx_atomic_uint_t    connection;
+
+        ngx_log_handler_pt   handler;
+        void                *data;
+
+        /*
+         * we declare "action" as "char *" because the actions are usually
+         * the static strings and in the "u_char *" case we have to override
+         * their types all the time
+         */
+
+        char                *action;
+        ngx_log_t           *next;
+    };
+
+---------------------------------------
+ngx_pool_t
+---------------------------------------
+
+struct define::
+
+    struct ngx_pool_cleanup_s {
+        ngx_pool_cleanup_pt   handler;
+        void                 *data;
+        ngx_pool_cleanup_t   *next;
+    };
+
+
+    typedef struct ngx_pool_large_s  ngx_pool_large_t;
+
+    struct ngx_pool_large_s {
+        ngx_pool_large_t     *next;
+        void                 *alloc;
+    };
+
+
+    typedef struct {
+        u_char               *last;
+        u_char               *end;
+        ngx_pool_t           *next;
+        ngx_uint_t            failed;
+    } ngx_pool_data_t;
+
+
+    struct ngx_pool_s {
+        ngx_pool_data_t       d;
+        size_t                max;
+        ngx_pool_t           *current;
+        ngx_chain_t          *chain;
+        ngx_pool_large_t     *large;
+        ngx_pool_cleanup_t   *cleanup;
+        ngx_log_t            *log;
+    };
+
+
+The relationship within them like that:
+
+.. image:: ../../_static/s_nginx_struct_mempool.jpg
+
+|
+
+它的逻辑:
+
+
+* 开辟内存小于max的时候，在pool->d这个内存链表里开辟(不停开辟block)
+
+* 开辟内存大于max的时候，在pool->large 这个内存链表上开辟(同上)
+
+* pool->cleanup 是内存池提供的回调函数，free的时候会依次调用，一般不需要处理它
+
+* pool->chain 目前还没使用
+
+见 :ref:`例子 <prog_c_pool>`
+
+
+
 ---------------------------------------
 ngx_buf_t
 ---------------------------------------
