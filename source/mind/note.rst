@@ -159,8 +159,34 @@ google 时代工作方法
 零成本创业
 ~~~~~~~~~~~~~~~~~~~~~~~
 
+|
 
-* Relationship between entreprenurship and marking. If we are a dog food company. Our consumer is Woman, cosutomer is Dog,
+The writer give some suggestions for entrepreneur base on his experience. Instead of giving some actural suggestion, this
+book tell us what mind or character a entprepreneur should be take. It tell us that we should use boss's mind to slove
+problem instead of employee's.
+
+
+* Entrepreneur find market first. Before thinking about funds, they must find out what to sell and how to sell. Funds
+  is used to expand scale of business
+
+* If you are willing to gathering a clique(呼朋引伴), feeling security behind people, then you are not suitable for
+  entrepreneurship. Because entrepreneur must be take a risk by himself. This risk cannot transfer to another.
+
+* ``Everything is matter of negotiation(谈判). The question is whether you have try.``
+
+* Usually only two kind of entrepreneur will be successful. The one focus on Product and the one foucs on Customer.
+
+* ``We have read a book named 《Customer is Second》. Inside there is a word make me shock. It said: "Who will buy it
+  even if your employee do not willing to buy it.``
+
+* ``"你不是不适应台北的生活，而是不适应一个人关在台北宿舍的生活。 那是坐牢，不是台北生活", 很多人有勇气去做某件事，却
+  不见得有勇气改变自己的生活``
+
+* ``The engineer I met usually relapsed into(陷入) computer. They contact to anthor rarely and most of them are
+  uncommunicative. They cannot express their mind and don't have sense of organization. If they can overcome it, they
+  will own high achievement(成就).``
+
+* Relationship between entrepreneur and marking. If we are a dog food company. Our consumer is Woman, cosutomer is Dog,
   and buyer is Husband. Producting is making perfect production and Marking is find Woman who feed dog.
 
 .. image:: ../_static/mind_note_zero_entreprenurship.png
@@ -168,3 +194,5 @@ google 时代工作方法
    :width: 500
    :height: 400
    :align: center
+
+

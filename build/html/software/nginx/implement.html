@@ -91,6 +91,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">implement</a><ul>
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
+<li><a class="reference internal" href="#modules">modules</a></li>
 </ul>
 </li>
 </ul>
@@ -136,6 +137,7 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">implement</a><ul>
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
+<li><a class="reference internal" href="#modules">modules</a></li>
 </ul>
 </li>
 </ul>
@@ -174,6 +176,17 @@ ngx_feature_test=&quot;int  n, dp; struct dvpoll  dvp;
 </div>
 <p>this pice checking <tt class="docutils literal"><span class="pre">/dev/poll</span></tt> feature. It generate a test.c file and compile it. If successed, it echo one preprocess
 macro into auto_headers.h</p>
+</div>
+<div class="section" id="modules">
+<h2>modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<p>There are 5 type of modules:</p>
+<ul class="simple">
+<li>NGX_CORE_MODULE</li>
+<li>NGX_HTTP_MODULE</li>
+<li>NGX_CONF_MODULE</li>
+<li>NGX_EVENT_MODULE</li>
+<li>NGX_MAIL_MODULE</li>
+</ul>
 </div>
 </div>
 

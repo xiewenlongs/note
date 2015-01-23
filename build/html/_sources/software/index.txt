@@ -17,3 +17,4 @@
    nginx/index
    sentry
    vim
+   webbench

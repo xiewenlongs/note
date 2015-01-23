@@ -1,12 +1,7 @@
 ===============================================
-linux 笔记
+regex
 ===============================================
 
-.. toctree::
-   :maxdepth: 1
+advance regex::
 
-   bash
-   core
-   regex
-   tuning
-   iptable
+    grep --color -P 'proc_time": \d{4,}|proc_time": [4-9]{3,}' req.log

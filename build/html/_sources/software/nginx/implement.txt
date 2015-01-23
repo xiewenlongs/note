@@ -33,3 +33,19 @@ configure arguments. For example::
 
 this pice checking ``/dev/poll`` feature. It generate a test.c file and compile it. If successed, it echo one preprocess
 macro into auto_headers.h
+
+
+modules
+---------------------------------------
+
+There are 5 type of modules:
+
+* NGX_CORE_MODULE
+
+* NGX_HTTP_MODULE
+
+* NGX_CONF_MODULE
+
+* NGX_EVENT_MODULE
+
+* NGX_MAIL_MODULE
