@@ -98,29 +98,31 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#id6">配置</a><ul>
-<li><a class="reference internal" href="#id7">基本配置</a></li>
-<li><a class="reference internal" href="#id8">内部资源分配</a></li>
-<li><a class="reference internal" href="#id9">文件访问</a></li>
+<li><a class="reference internal" href="#core">core模块</a></li>
+<li><a class="reference internal" href="#id7">其他模块</a></li>
+<li><a class="reference internal" href="#id8">基本配置</a></li>
+<li><a class="reference internal" href="#id9">内部资源分配</a></li>
+<li><a class="reference internal" href="#id10">文件访问</a></li>
 <li><a class="reference internal" href="#mime">MIME</a></li>
-<li><a class="reference internal" href="#id10">性能调优</a></li>
+<li><a class="reference internal" href="#id11">性能调优</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id11">反向代理</a><ul>
+<li><a class="reference internal" href="#id12">反向代理</a><ul>
 <li><a class="reference internal" href="#buffer">buffer</a></li>
-<li><a class="reference internal" href="#id12">负载均衡</a></li>
+<li><a class="reference internal" href="#id13">负载均衡</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id13">性能调优</a><ul>
-<li><a class="reference internal" href="#id14">内核参数调优</a></li>
+<li><a class="reference internal" href="#id14">性能调优</a><ul>
+<li><a class="reference internal" href="#id15">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id15">其他</a><ul>
+<li><a class="reference internal" href="#id16">其他</a><ul>
 <li><a class="reference internal" href="#location">location 配置</a></li>
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id17">问题</a></li>
+<li><a class="reference internal" href="#id18">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -173,29 +175,31 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#id6">配置</a><ul>
-<li><a class="reference internal" href="#id7">基本配置</a></li>
-<li><a class="reference internal" href="#id8">内部资源分配</a></li>
-<li><a class="reference internal" href="#id9">文件访问</a></li>
+<li><a class="reference internal" href="#core">core模块</a></li>
+<li><a class="reference internal" href="#id7">其他模块</a></li>
+<li><a class="reference internal" href="#id8">基本配置</a></li>
+<li><a class="reference internal" href="#id9">内部资源分配</a></li>
+<li><a class="reference internal" href="#id10">文件访问</a></li>
 <li><a class="reference internal" href="#mime">MIME</a></li>
-<li><a class="reference internal" href="#id10">性能调优</a></li>
+<li><a class="reference internal" href="#id11">性能调优</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id11">反向代理</a><ul>
+<li><a class="reference internal" href="#id12">反向代理</a><ul>
 <li><a class="reference internal" href="#buffer">buffer</a></li>
-<li><a class="reference internal" href="#id12">负载均衡</a></li>
+<li><a class="reference internal" href="#id13">负载均衡</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id13">性能调优</a><ul>
-<li><a class="reference internal" href="#id14">内核参数调优</a></li>
+<li><a class="reference internal" href="#id14">性能调优</a><ul>
+<li><a class="reference internal" href="#id15">内核参数调优</a></li>
 <li><a class="reference internal" href="#debug-nginx">debug nginx</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id15">其他</a><ul>
+<li><a class="reference internal" href="#id16">其他</a><ul>
 <li><a class="reference internal" href="#location">location 配置</a></li>
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id17">问题</a></li>
+<li><a class="reference internal" href="#id18">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -358,8 +362,99 @@
 </div>
 <div class="section" id="id6">
 <h2>配置<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="core">
+<h3>core模块<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="29%" />
+<col width="71%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>daemon &lt;on&gt;</td>
+<td>是否以daemon方式运行。默认是on, 提供off的目的是为了开发调试</td>
+</tr>
+<tr class="row-odd"><td>master_process &lt;on&gt;</td>
+<td>是否启动worker进程。 同上，提供off只是为了调试</td>
+</tr>
+<tr class="row-even"><td>timer_resolution &lt;time&gt;</td>
+<td>By default, gettimeofday() is called each time a kernel event is received.
+With reduced resolution, gettimeofday() is only called once per specified this.</td>
+</tr>
+<tr class="row-odd"><td>pid &lt;path&gt;</td>
+<td>pid文件路径，默认在&lt;prefix/logs/nginx.pid&gt;</td>
+</tr>
+<tr class="row-even"><td>lock_file &lt;path&gt;</td>
+<td>nginx 多个进程访问共享内存时，需要用lock来同步，但现在的nginx都用的是atomic,
+所以这个指令相当于已经废弃</td>
+</tr>
+<tr class="row-odd"><td>user &lt;user&gt;</td>
+<td>worker进程的owner</td>
+</tr>
+<tr class="row-even"><td>worker_processes &lt;num&gt;</td>
+<td>指定worker进程个数, 可以设置为``auto``, nginx自动检测CPU核心数</td>
+</tr>
+<tr class="row-odd"><td>worker_rlimit_nofile &lt;int&gt;</td>
+<td>设置一个worker进程可以打开的最大文件句柄数</td>
+</tr>
+<tr class="row-even"><td>worker_priority &lt;num&gt;</td>
+<td>nginx进程优先级, 默认-10. 值越低, 优先级越高。 注意优先级不要设置太高，否则
+系统调用的优先级会被比下去</td>
+</tr>
+<tr class="row-odd"><td>worker_cpu_affinity &lt;...&gt;</td>
+<td>CPU亲和性</td>
+</tr>
+<tr class="row-even"><td>worker_rlimit_nofile</td>
+<td>改变每个process最大可以打开的文件句柄数</td>
+</tr>
+<tr class="row-odd"><td>worker_rlimit_core</td>
+<td>coredump 文件的最大大小</td>
+</tr>
+<tr class="row-even"><td>worker_rlimit_sigpending</td>
+<td>只对RTSIG 系统有用。On systems that support rtsig connection processing
+method, changes the limit on the number of signals that may be queued
+(RLIMIT_SIGPENDING) for worker processes. Used to increase the limit without
+restarting the main process</td>
+</tr>
+<tr class="row-odd"><td>working_directory</td>
+<td>Defines the current working directory for a worker process. It is primarily
+used when writing a core-file</td>
+</tr>
+<tr class="row-even"><td>env</td>
+<td>默认的，nginx的worker进程会清除从parent继承来的所有环境变量, 这个指令可以保留
+部分变量</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="id7">
-<h3>基本配置<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3>其他模块<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="25%" />
+<col width="13%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">选项</th>
+<th class="head">模块</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>error_log</td>
+<td>errlog</td>
+<td>改变error log 路径, 默认是 /prefix/logs/error.log</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id8">
+<h3>基本配置<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
 <col width="29%" />
@@ -467,8 +562,8 @@ nginx 会直接返回400</td>
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="id8">
-<h3>内部资源分配<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>内部资源分配<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
 <col width="30%" />
@@ -542,8 +637,8 @@ nginx 会关闭这个连接</td>
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="id9">
-<h3>文件访问<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>文件访问<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
 <col width="30%" />
@@ -607,8 +702,8 @@ nginx 会关闭这个连接</td>
 <div class="line"><br /></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h3>性能调优<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>性能调优<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="table-bordered docutils">
 <colgroup>
 <col width="27%" />
@@ -620,25 +715,22 @@ nginx 会关闭这个连接</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>worker_rlimit_nofile &lt;int&gt;</td>
-<td>设置一个worker进程可以打开的最大文件句柄数</td>
-</tr>
-<tr class="row-odd"><td>worker_cpu_affinity &lt;...&gt;</td>
+<tr class="row-even"><td>worker_cpu_affinity &lt;...&gt;</td>
 <td>worker和CPU绑定 (仅对Linux系统起作用， 内部调用sched_setaffinity()来实现,
 示例: worker_cpu_affinity 1000 0100 0010 0001</td>
 </tr>
-<tr class="row-even"><td>ssl_engine &lt;device&gt;</td>
+<tr class="row-odd"><td>ssl_engine &lt;device&gt;</td>
 <td>ssl硬件加速。如果服务器上有SSL硬件加速设备，就可以用这个指令配置</td>
 </tr>
-<tr class="row-odd"><td>timer_resolution &lt;time&gt;</td>
+<tr class="row-even"><td>timer_resolution &lt;time&gt;</td>
 <td>默认情况下，每次内核事件调用，都要执行一次 gettimeofday</td>
 </tr>
-<tr class="row-even"><td>worker_prority &lt;int&gt;</td>
+<tr class="row-odd"><td>worker_prority &lt;int&gt;</td>
 <td>在Linux系统中，每个进程都有优先级，范围为[-19,+20], -19优先级最高,
 如果想让分配CPU资源的时候，多分给nginx, 可以增加nginx优先级，默认nginx 值
 为0 (不建议低于-5, 内核进程的优先级)</td>
 </tr>
-<tr class="row-odd"><td>accept_mutex &lt;on&gt;</td>
+<tr class="row-even"><td>accept_mutex &lt;on&gt;</td>
 <td><ol class="first last arabic simple">
 <li><tt class="docutils literal"><span class="pre">避免惊群效果</span></tt> (每个 accept 上一把锁);</li>
 <li><tt class="docutils literal"><span class="pre">负载平衡</span></tt> (如果当前worker的请求量已达到worker_connections的7/8，
@@ -646,26 +738,26 @@ nginx 会关闭这个连接</td>
 </ol>
 </td>
 </tr>
-<tr class="row-even"><td>multi_accept &lt;on&gt;</td>
+<tr class="row-odd"><td>multi_accept &lt;on&gt;</td>
 <td>当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接</td>
 </tr>
-<tr class="row-odd"><td>worker_connections</td>
+<tr class="row-even"><td>worker_connections</td>
 <td>每个worker 的连接池大小。 所以:
 <tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt>
 来更新nginx中的缓存时钟, 这个选项控制执行间隔</td>
 </tr>
-<tr class="row-even"><td>sendfile on</td>
+<tr class="row-odd"><td>sendfile on</td>
 <td>启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间</td>
 </tr>
-<tr class="row-odd"><td>keepalive_timeout</td>
+<tr class="row-even"><td>keepalive_timeout</td>
 <td>unknown</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="section" id="id11">
-<h2>反向代理<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>反向代理<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <img alt="../../_images/s_nginx_rproxy.png" src="../../_images/s_nginx_rproxy.png" />
 <p>Nginx代理和squid代理机制不太一样， 客户端发送请求， nginx代理服务器接收完整个请求，才向upstream转发请求， 这样做的目的
 主要是 <tt class="docutils literal"><span class="pre">降低upstream</span></tt> 的压力. 因为客户端到nginx代理之间一般式走外网， 速度较慢。 而代理和upstream之间一般式走内网，
@@ -680,8 +772,8 @@ to the backend sooner. It can then handle distributing the data to the client at
 <p>If you want turn it off, you should set <tt class="docutils literal"><span class="pre">proxy_buffering</span></tt> to off</p>
 <p>refer: <a class="reference external" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching">https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching</a></p>
 </div>
-<div class="section" id="id12">
-<h3>负载均衡<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3>负载均衡<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>upstream负载均衡有两种机制: <tt class="docutils literal"><span class="pre">ip_hash</span></tt> 和 <tt class="docutils literal"><span class="pre">weight</span></tt></p>
 <p>ip_hash 是nginx按客户端ip, 自动的把请求打在上游集群中特定一台, 配置如下:</p>
 <div class="highlight-python"><div class="highlight"><pre>upstream backend {
@@ -744,10 +836,10 @@ server {
 </div>
 </div>
 </div>
-<div class="section" id="id13">
-<h2>性能调优<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id14">
-<h3>内核参数调优<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h2>性能调优<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h3>内核参数调优<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>见 <a class="reference internal" href="../../linux/tuning.html#http-core-tuning"><em>内核调优</em></a></p>
 </div>
 <div class="section" id="debug-nginx">
@@ -760,8 +852,8 @@ server {
 </div>
 </div>
 </div>
-<div class="section" id="id15">
-<h2>其他<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h2>其他<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="location">
 <span id="nginx-location"></span><h3>location 配置<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">=</span></tt> 匹配符， 完全匹配才处理， e.g:</p>
@@ -781,7 +873,7 @@ server {
 </div>
 </div>
 <div class="section" id="nginx-limit-except">
-<span id="id16"></span><h3>限制请求方法<a class="headerlink" href="#nginx-limit-except" title="Permalink to this headline">¶</a></h3>
+<span id="id17"></span><h3>限制请求方法<a class="headerlink" href="#nginx-limit-except" title="Permalink to this headline">¶</a></h3>
 <p>配置:</p>
 <div class="highlight-python"><div class="highlight"><pre>limit_except GET POST DELETE {
     deny all;
@@ -791,8 +883,8 @@ server {
 <p>意思是， 除了GET POST DELETE 方法外，其他一切请求都deny</p>
 </div>
 </div>
-<div class="section" id="id17">
-<h2>问题<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id18">
+<h2>问题<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
 <p>nginx 配置 keepalive_time = 0 后， server端处理完请求会有大量TIME-WAIT。但是只要把这个值设为不为0， 就不会有TIME-WAIT了</p>
 </div>
 </div>
