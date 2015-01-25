@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="../../_static/logo.ico"/>
     <link rel="top" title="notebook 0 documentation" href="../../index.html" />
     <link rel="up" title="python库" href="index.html" />
-    <link rel="next" title="nginx" href="../nginx.html" />
+    <link rel="next" title="nginx" href="../nginx/index.html" />
     <link rel="prev" title="python库" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -107,7 +107,7 @@
     </a>
   </li>
   <li>
-    <a href="../nginx.html" title="Next Chapter: nginx"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">nginx &raquo;</span>
+    <a href="../nginx/index.html" title="Next Chapter: nginx"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">nginx &raquo;</span>
     </a>
   </li>
               
@@ -180,6 +180,9 @@
 <p class="first admonition-title">Warning</p>
 <p class="last">这样会造成请求包较大， 因为它把多个参数分在多个part里. requests 库没有这个问题</p>
 </div>
+<p>虽然requests 内部使用了urllib3, 但是requests 却不会用multipart 方式来拼凑post 请求体。 因为它不是直接调用urllib3的
+send request 方法， 而是使用其内部的connection_from_host来获取conn, 自己拼凑post body. 也就是说，两个库拼凑body的方式
+不一样.</p>
 </div>
 </div>
 

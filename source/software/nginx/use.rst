@@ -98,6 +98,52 @@ configure 脚本的主要目的是 ``检测编译依赖库是否存在`` , ``生
 配置
 ---------------------------------------
 
+core模块
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================    ==============================================================================
+    选项                                作用
+    ================================    ==============================================================================
+    daemon <on>                         是否以daemon方式运行。默认是on, 提供off的目的是为了开发调试
+    master_process <on>                 是否启动worker进程。 同上，提供off只是为了调试
+    timer_resolution <time>             By default, gettimeofday() is called each time a kernel event is received.
+                                        With reduced resolution, gettimeofday() is only called once per specified this.
+    pid <path>                          pid文件路径，默认在<prefix/logs/nginx.pid>
+    lock_file <path>                    nginx 多个进程访问共享内存时，需要用lock来同步，但现在的nginx都用的是atomic,
+                                        所以这个指令相当于已经废弃
+    user <user>                         worker进程的owner
+    worker_processes <num>              指定worker进程个数, 可以设置为``auto``, nginx自动检测CPU核心数
+    worker_rlimit_nofile <int>          设置一个worker进程可以打开的最大文件句柄数
+    worker_priority <num>               nginx进程优先级, 默认-10. 值越低, 优先级越高。 注意优先级不要设置太高，否则
+                                        系统调用的优先级会被比下去
+    worker_cpu_affinity <...>           CPU亲和性
+    worker_rlimit_nofile                改变每个process最大可以打开的文件句柄数
+    worker_rlimit_core                  coredump 文件的最大大小
+    worker_rlimit_sigpending            只对RTSIG 系统有用。On systems that support rtsig connection processing
+                                        method, changes the limit on the number of signals that may be queued
+                                        (RLIMIT_SIGPENDING) for worker processes. Used to increase the limit without
+                                        restarting the main process
+    working_directory                   Defines the current working directory for a worker process. It is primarily
+                                        used when writing a core-file
+    env                                 默认的，nginx的worker进程会清除从parent继承来的所有环境变量, 这个指令可以保留
+                                        部分变量
+    ================================    ==============================================================================
+
+其他模块
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================   =================    ==============================================================================
+    选项                               模块                 作用
+    ================================   =================    ==============================================================================
+    error_log                          errlog               改变error log 路径, 默认是 /prefix/logs/error.log
+    ================================   =================    ==============================================================================
+
 
 基本配置
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -239,7 +285,6 @@ MIME
     ============================    ==========================================================================
     选项                            作用
     ============================    ==========================================================================
-    worker_rlimit_nofile <int>      设置一个worker进程可以打开的最大文件句柄数
     worker_cpu_affinity <...>       worker和CPU绑定 (仅对Linux系统起作用， 内部调用sched_setaffinity()来实现,
                                     示例: worker_cpu_affinity 1000 0100 0010 0001
     ssl_engine <device>             ssl硬件加速。如果服务器上有SSL硬件加速设备，就可以用这个指令配置

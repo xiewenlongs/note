@@ -44,3 +44,8 @@ urllib3 是对 ``httplib`` 的包装， 发请求的时候，拼凑http请求; �
 
     这样会造成请求包较大， 因为它把多个参数分在多个part里. requests 库没有这个问题
 
+
+虽然requests 内部使用了urllib3, 但是requests 却不会用multipart 方式来拼凑post 请求体。 因为它不是直接调用urllib3的
+send request 方法， 而是使用其内部的connection_from_host来获取conn, 自己拼凑post body. 也就是说，两个库拼凑body的方式
+不一样.
+
