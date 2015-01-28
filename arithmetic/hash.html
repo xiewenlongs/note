@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>linux 笔记 &mdash; Notebook</title>
+    <title>哈希算法 &mdash; Notebook</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="Notebook" href="../index.html" />
-    <link rel="next" title="bash" href="bash.html" />
-    <link rel="prev" title="webbench" href="../software/webbench.html" />
+    <link rel="up" title="算法" href="index.html" />
+    <link rel="next" title="思考" href="../mind/index.html" />
+    <link rel="prev" title="算法" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -71,7 +72,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
@@ -88,7 +90,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">linux 笔记</a></li>
+<li><a class="reference internal" href="#">哈希算法</a></li>
 </ul>
 </ul>
 </li>
@@ -98,11 +100,11 @@
               
                 
   <li>
-    <a href="../software/webbench.html" title="Previous Chapter: webbench"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; webbench</span>
+    <a href="index.html" title="Previous Chapter: 算法"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; 算法</span>
     </a>
   </li>
   <li>
-    <a href="bash.html" title="Next Chapter: bash"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">bash &raquo;</span>
+    <a href="../mind/index.html" title="Next Chapter: 思考"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">思考 &raquo;</span>
     </a>
   </li>
               
@@ -130,23 +132,24 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">linux 笔记</a></li>
+<li><a class="reference internal" href="#">哈希算法</a></li>
 </ul>
 
         </div>
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="linux">
-<h1>linux 笔记<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="bash.html">bash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html">基础</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">regex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">linux 调优</a></li>
-<li class="toctree-l1"><a class="reference internal" href="iptable.html">防火墙</a></li>
-</ul>
+  <div class="section" id="id1">
+<h1>哈希算法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>给一个value, 通过hash算法，算出一个固定长度的hash值，就是hash算法. 也就是:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">hash_func</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=</span> <span class="n">hash_value</span>
+</pre></div>
+</div>
+<p>hash 算法的目标是 <tt class="docutils literal"><span class="pre">不可逆</span></tt>,  <tt class="docutils literal"><span class="pre">无冲突</span></tt>,  但这从数学上来说是不可能的。牛逼的hash算法，只是让逆向算法的难度提升到目前
+计算机无法在百年内算出来, 并且很难造出冲突的两个value。</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">王小云教授曾经成功制造出MD5的碰撞，即md5(a) = md5(b)。这样的碰撞只能随机生成，并不能根据一个已知的a求出b（即并没有破坏MD5的无冲突特性）。但这已经让他声名大噪了。</p>
 </div>
 </div>
 
@@ -163,7 +166,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/linux/index.txt"
+  <a href="../_sources/arithmetic/hash.txt"
      rel="nofollow">Source</a>
 </div>
       

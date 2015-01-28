@@ -126,11 +126,49 @@ core模块
                                         method, changes the limit on the number of signals that may be queued
                                         (RLIMIT_SIGPENDING) for worker processes. Used to increase the limit without
                                         restarting the main process
-    working_directory                   Defines the current working directory for a worker process. It is primarily
+    working_directory <path>            Defines the current working directory for a worker process. It is primarily
                                         used when writing a core-file
-    env                                 默认的，nginx的worker进程会清除从parent继承来的所有环境变量, 这个指令可以保留
+    env <...>                           默认的，nginx的worker进程会清除从parent继承来的所有环境变量, 这个指令可以保留
                                         部分变量
     ================================    ==============================================================================
+
+
+event模块
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================   =================    ==============================================================================
+    选项                               模块                 作用
+    ================================   =================    ==============================================================================
+    worker_connections <num>           event_core           一个worker进程可以建立的最大连接总数, 它不能超过 worker_rlimit_nofile, 否则
+                                                            没有意义. 默认512
+    connections <num>                  event_core           貌似被废弃了, nginx文档里没有这个指令
+    use <event>                        event_core           使用那种connection processing method, nginx默认会选择最高效的方式
+    multi_accept <on>                  event_core           当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接,
+                                                            默认off
+    accept_mutex <on>                  event_core           1. ``避免惊群效果`` (每个 accept 上一把锁);
+                                                            2. ``负载平衡`` (如果当前worker的请求量已达到worker_connections的7/8，
+                                                            则这个worker 不参与竞争新来的request) ,默认是on
+    accept_mutex_delay                 event_core           和accept_mutex 配合用, 如果一个worker进程未拥有accept mutex，它至少延迟这么
+                                                            长时间之后再尝试抢夺, 默认500ms
+    epoll_events <num>                 epoll                ??????, 默认512
+    worker_aio_requests <num>          epoll                ??????, 默认32
+    ================================   =================    ==============================================================================
+
+http模块
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================   =================    ==============================================================================
+    选项                               模块                 作用
+    ================================   =================    ==============================================================================
+    error_log                          errlog               改变error log 路径, 默认是 /prefix/logs/error.log
+    ================================   =================    ==============================================================================
+
 
 其他模块
 ~~~~~~~~~~~~~~~~~~~~~~~
