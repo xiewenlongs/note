@@ -11,6 +11,7 @@
    network/index
    software/index
    linux/index
+   arithmetic/index
    mind/index
    sources
    todo

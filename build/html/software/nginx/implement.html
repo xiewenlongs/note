@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>implement &mdash; notebook 0 documentation</title>
+    <title>implement &mdash; Notebook</title>
     
     <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="../../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../../_static/logo.ico"/>
-    <link rel="top" title="notebook 0 documentation" href="../../index.html" />
+    <link rel="top" title="Notebook" href="../../index.html" />
     <link rel="up" title="nginx" href="index.html" />
     <link rel="next" title="struct" href="struct.html" />
     <link rel="prev" title="use" href="use.html" />
@@ -73,6 +73,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a></li>
@@ -92,6 +93,10 @@
 <li><a class="reference internal" href="#">implement</a><ul>
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
 <li><a class="reference internal" href="#modules">modules</a></li>
+<li><a class="reference internal" href="#other">other</a><ul>
+<li><a class="reference internal" href="#conf-context-of-modules">conf context of modules</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -138,6 +143,10 @@
 <li><a class="reference internal" href="#">implement</a><ul>
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
 <li><a class="reference internal" href="#modules">modules</a></li>
+<li><a class="reference internal" href="#other">other</a><ul>
+<li><a class="reference internal" href="#conf-context-of-modules">conf context of modules</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -189,30 +198,39 @@ macro into auto_headers.h</p>
 </ul>
 <table border="1" class="table-bordered docutils">
 <colgroup>
-<col width="21%" />
+<col width="19%" />
+<col width="5%" />
+<col width="3%" />
+<col width="3%" />
 <col width="6%" />
-<col width="3%" />
-<col width="3%" />
-<col width="9%" />
-<col width="9%" />
-<col width="10%" />
-<col width="9%" />
-<col width="9%" />
-<col width="10%" />
-<col width="9%" />
+<col width="6%" />
+<col width="7%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="6%" />
+<col width="30%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">模块</th>
 <th class="head">类型</th>
 <th class="head">idx</th>
 <th class="head">cmd</th>
-<th class="head">init_master</th>
-<th class="head">init_module</th>
-<th class="head">init_process</th>
-<th class="head">init_thread</th>
-<th class="head">exit_thread</th>
-<th class="head">exit_process</th>
-<th class="head">exit_master</th>
+<th class="head">init
+master</th>
+<th class="head">init
+module</th>
+<th class="head">init
+process</th>
+<th class="head">init
+thread</th>
+<th class="head">exit
+thread</th>
+<th class="head">exit
+process</th>
+<th class="head">exit
+master</th>
+<th class="head">conf_context</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -227,6 +245,7 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-core"><em>链接</em></a></td>
 </tr>
 <tr class="row-odd"><td>errlog</td>
 <td>CORE</td>
@@ -239,6 +258,7 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>conf save in cycle</td>
 </tr>
 <tr class="row-even"><td>conf</td>
 <td>CONF</td>
@@ -251,11 +271,13 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>Y</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>events</td>
 <td>CORE</td>
 <td>3</td>
 <td>Y</td>
+<td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -275,6 +297,7 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-event"><em>链接</em></a></td>
 </tr>
 <tr class="row-odd"><td>epoll</td>
 <td>EVENT</td>
@@ -287,6 +310,7 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-epoll"><em>链接</em></a></td>
 </tr>
 <tr class="row-even"><td>regex</td>
 <td>CORE</td>
@@ -299,6 +323,7 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-regex"><em>链接</em></a></td>
 </tr>
 <tr class="row-odd"><td>http</td>
 <td>CORE</td>
@@ -311,8 +336,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-http"><em>连接</em></a></td>
 </tr>
-<tr class="row-even"><td>http_core</td>
+<tr class="row-even"><td>_core</td>
 <td>HTTP</td>
 <td>8</td>
 <td>Y</td>
@@ -323,8 +349,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#id1"><em>链接</em></a></td>
 </tr>
-<tr class="row-odd"><td>http_log</td>
+<tr class="row-odd"><td>_log</td>
 <td>HTTP</td>
 <td>9</td>
 <td>Y</td>
@@ -335,8 +362,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-log"><em>链接</em></a></td>
 </tr>
-<tr class="row-even"><td>http_upstream</td>
+<tr class="row-even"><td>_upstream</td>
 <td>HTTP</td>
 <td>10</td>
 <td>Y</td>
@@ -347,8 +375,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-upstream"><em>链接</em></a></td>
 </tr>
-<tr class="row-odd"><td>http_static</td>
+<tr class="row-odd"><td>_static</td>
 <td>HTTP</td>
 <td>11</td>
 <td>&nbsp;</td>
@@ -359,8 +388,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_gzip_static</td>
+<tr class="row-even"><td>_gzip_static</td>
 <td>HTTP</td>
 <td>12</td>
 <td>Y</td>
@@ -371,8 +401,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><em class="xref std std-ref">链接</em></td>
 </tr>
-<tr class="row-odd"><td>http_autoindex</td>
+<tr class="row-odd"><td>_autoindex</td>
 <td>HTTP</td>
 <td>13</td>
 <td>Y</td>
@@ -383,8 +414,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-autoindex"><em>链接</em></a></td>
 </tr>
-<tr class="row-even"><td>http_index</td>
+<tr class="row-even"><td>_index</td>
 <td>HTTP</td>
 <td>14</td>
 <td>Y</td>
@@ -395,8 +427,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-index"><em>链接</em></a></td>
 </tr>
-<tr class="row-odd"><td>http_auth_basic</td>
+<tr class="row-odd"><td>_auth_basic</td>
 <td>HTTP</td>
 <td>15</td>
 <td>Y</td>
@@ -407,8 +440,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td><a class="reference internal" href="#ngx-ctx-bauth"><em>链接</em></a></td>
 </tr>
-<tr class="row-even"><td>http_access</td>
+<tr class="row-even"><td>_access</td>
 <td>HTTP</td>
 <td>16</td>
 <td>Y</td>
@@ -419,8 +453,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_limit_conn</td>
+<tr class="row-odd"><td>_limit_conn</td>
 <td>HTTP</td>
 <td>17</td>
 <td>Y</td>
@@ -431,8 +466,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_limit_req</td>
+<tr class="row-even"><td>_limit_req</td>
 <td>HTTP</td>
 <td>18</td>
 <td>Y</td>
@@ -443,8 +479,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_geo</td>
+<tr class="row-odd"><td>_geo</td>
 <td>HTTP</td>
 <td>19</td>
 <td>Y</td>
@@ -455,8 +492,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_map</td>
+<tr class="row-even"><td>_map</td>
 <td>HTTP</td>
 <td>20</td>
 <td>Y</td>
@@ -467,8 +505,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_split_clients</td>
+<tr class="row-odd"><td>_split_clients</td>
 <td>HTTP</td>
 <td>21</td>
 <td>Y</td>
@@ -479,8 +518,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_referer</td>
+<tr class="row-even"><td>_referer</td>
 <td>HTTP</td>
 <td>22</td>
 <td>Y</td>
@@ -491,8 +531,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_rewrite</td>
+<tr class="row-odd"><td>_rewrite</td>
 <td>HTTP</td>
 <td>23</td>
 <td>Y</td>
@@ -503,8 +544,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_proxy</td>
+<tr class="row-even"><td>_proxy</td>
 <td>HTTP</td>
 <td>24</td>
 <td>Y</td>
@@ -515,8 +557,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_fastcgi</td>
+<tr class="row-odd"><td>_fastcgi</td>
 <td>HTTP</td>
 <td>25</td>
 <td>Y</td>
@@ -527,8 +570,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_uwsgi</td>
+<tr class="row-even"><td>_uwsgi</td>
 <td>HTTP</td>
 <td>26</td>
 <td>Y</td>
@@ -539,8 +583,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_scgi</td>
+<tr class="row-odd"><td>_scgi</td>
 <td>HTTP</td>
 <td>27</td>
 <td>Y</td>
@@ -551,8 +596,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_memcached</td>
+<tr class="row-even"><td>_memcached</td>
 <td>HTTP</td>
 <td>28</td>
 <td>Y</td>
@@ -563,8 +609,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_empty_gif</td>
+<tr class="row-odd"><td>_empty_gif</td>
 <td>HTTP</td>
 <td>29</td>
 <td>Y</td>
@@ -575,8 +622,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_browser</td>
+<tr class="row-even"><td>_browser</td>
 <td>HTTP</td>
 <td>30</td>
 <td>Y</td>
@@ -587,8 +635,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_upstream_ip_hash</td>
+<tr class="row-odd"><td>_upstream_ip_hash</td>
 <td>HTTP</td>
 <td>31</td>
 <td>Y</td>
@@ -599,8 +648,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_upstream_least_conn</td>
+<tr class="row-even"><td>_upstream_least_conn</td>
 <td>HTTP</td>
 <td>32</td>
 <td>Y</td>
@@ -611,8 +661,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_upstream_keepalive</td>
+<tr class="row-odd"><td>_upstream_keepalive</td>
 <td>HTTP</td>
 <td>33</td>
 <td>Y</td>
@@ -623,8 +674,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_stub_status</td>
+<tr class="row-even"><td>_stub_status</td>
 <td>HTTP</td>
 <td>34</td>
 <td>Y</td>
@@ -635,8 +687,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_write_filter</td>
+<tr class="row-odd"><td>_write_filter</td>
 <td>HTTP</td>
 <td>35</td>
 <td>&nbsp;</td>
@@ -647,8 +700,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_header_filter</td>
+<tr class="row-even"><td>_header_filter</td>
 <td>HTTP</td>
 <td>36</td>
 <td>&nbsp;</td>
@@ -659,8 +713,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_chunked_filter</td>
+<tr class="row-odd"><td>_chunked_filter</td>
 <td>HTTP</td>
 <td>37</td>
 <td>&nbsp;</td>
@@ -671,8 +726,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_range_header_filter</td>
+<tr class="row-even"><td>_range_header_filter</td>
 <td>HTTP</td>
 <td>38</td>
 <td>&nbsp;</td>
@@ -683,8 +739,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_gzip_filter</td>
+<tr class="row-odd"><td>_gzip_filter</td>
 <td>HTTP</td>
 <td>39</td>
 <td>Y</td>
@@ -695,8 +752,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_postpone_filter</td>
+<tr class="row-even"><td>_postpone_filter</td>
 <td>HTTP</td>
 <td>40</td>
 <td>&nbsp;</td>
@@ -707,8 +765,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_ssi_filter</td>
+<tr class="row-odd"><td>_ssi_filter</td>
 <td>HTTP</td>
 <td>41</td>
 <td>Y</td>
@@ -719,8 +778,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_charset_filter</td>
+<tr class="row-even"><td>_charset_filter</td>
 <td>HTTP</td>
 <td>42</td>
 <td>Y</td>
@@ -731,8 +791,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_userid_filter</td>
+<tr class="row-odd"><td>_userid_filter</td>
 <td>HTTP</td>
 <td>43</td>
 <td>Y</td>
@@ -743,8 +804,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_headers_filter</td>
+<tr class="row-even"><td>_headers_filter</td>
 <td>HTTP</td>
 <td>44</td>
 <td>Y</td>
@@ -755,8 +817,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_copy_filter</td>
+<tr class="row-odd"><td>_copy_filter</td>
 <td>HTTP</td>
 <td>45</td>
 <td>Y</td>
@@ -767,8 +830,9 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>http_range_body_filter</td>
+<tr class="row-even"><td>_range_body_filter</td>
 <td>HTTP</td>
 <td>46</td>
 <td>&nbsp;</td>
@@ -779,10 +843,12 @@ macro into auto_headers.h</p>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>http_not_modified_filter</td>
+<tr class="row-odd"><td>_not_modified_filter</td>
 <td>HTTP</td>
 <td>47</td>
+<td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -794,6 +860,283 @@ macro into auto_headers.h</p>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section" id="other">
+<h2>other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="conf-context-of-modules">
+<h3>conf context of modules<a class="headerlink" href="#conf-context-of-modules" title="Permalink to this headline">¶</a></h3>
+<p>There are config struct for each nginx module</p>
+<p id="ngx-ctx-core">struct:</p>
+<div class="highlight-python"><div class="highlight"><pre>ngx_flag_t               daemon;
+ngx_flag_t               master;
+ngx_msec_t               timer_resolution;
+ngx_int_t                worker_processes;
+ngx_int_t                debug_points;
+ngx_int_t                rlimit_nofile;
+ngx_int_t                rlimit_sigpending;
+off_t                    rlimit_core;
+int                      priority;
+ngx_uint_t               cpu_affinity_n;
+uint64_t                *cpu_affinity;
+char                    *username;
+ngx_uid_t                user;
+ngx_gid_t                group;
+ngx_str_t                working_directory;
+ngx_str_t                lock_file;
+ngx_str_t                pid;
+ngx_str_t                oldpid;
+ngx_array_t              env;
+char                   **environment;
+</pre></div>
+</div>
+<p id="ngx-ctx-regex">struct:</p>
+<div class="highlight-python"><div class="highlight"><pre>typedef struct {
+    ngx_flag_t  pcre_jit;
+} ngx_regex_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-event">struct:</p>
+<div class="highlight-python"><div class="highlight"><pre>typedef struct {
+    ngx_uint_t    connections;
+    ngx_uint_t    use;
+    ngx_flag_t    multi_accept;
+    ngx_flag_t    accept_mutex;
+    ngx_msec_t    accept_mutex_delay;
+    u_char       *name;
+} ngx_event_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-epoll">struct:</p>
+<div class="highlight-python"><div class="highlight"><pre>typedef struct {
+    ngx_uint_t  events;
+    ngx_uint_t  aio_requests;
+} ngx_epoll_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-http">struct:</p>
+<div class="highlight-python"><div class="highlight"><pre>typedef struct {
+    void        **main_conf;        // sizeof(void *) * ngx_http_max_module
+    void        **srv_conf;         // sizeof(void *) * ngx_http_max_module
+    void        **loc_conf;         // sizeof(void *) * ngx_http_max_module
+} ngx_http_conf_ctx_t;
+</pre></div>
+</div>
+<p id="id1">ngx_http_core_conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>// ===========================   main conf ====================================
+
+typedef struct {
+    ngx_array_t                servers;         /* ngx_http_core_srv_conf_t */
+    ngx_http_phase_engine_t    phase_engine;
+    ngx_hash_t                 headers_in_hash;
+    ngx_hash_t                 variables_hash;
+    ngx_array_t                variables;       /* ngx_http_variable_t */
+    ngx_uint_t                 ncaptures;
+    ngx_uint_t                 server_names_hash_max_size;
+    ngx_uint_t                 server_names_hash_bucket_size;
+    ngx_uint_t                 variables_hash_max_size;
+    ngx_uint_t                 variables_hash_bucket_size;
+    ngx_hash_keys_arrays_t    *variables_keys;
+    ngx_array_t               *ports;
+    ngx_uint_t                 try_files;       /* unsigned  try_files:1 */
+    ngx_http_phase_t           phases[NGX_HTTP_LOG_PHASE + 1];
+} ngx_http_core_main_conf_t;
+
+
+// ===========================   server conf ====================================
+
+typedef struct {
+    /* array of the ngx_http_server_name_t, &quot;server_name&quot; directive */
+    ngx_array_t                 server_names;
+    /* server ctx */
+    ngx_http_conf_ctx_t        *ctx;
+    ngx_str_t                   server_name;
+    size_t                      connection_pool_size;
+    size_t                      request_pool_size;
+    size_t                      client_header_buffer_size;
+    ngx_bufs_t                  large_client_header_buffers;
+    ngx_msec_t                  client_header_timeout;
+    ngx_flag_t                  ignore_invalid_headers;
+    ngx_flag_t                  merge_slashes;
+    ngx_flag_t                  underscores_in_headers;
+    unsigned                    listen:1;
+
+    #if (NGX_PCRE)
+    unsigned                    captures:1;
+    #endif
+    ngx_http_core_loc_conf_t  **named_locations;
+} ngx_http_core_srv_conf_t;
+
+
+// ===========================   local conf ====================================
+
+struct ngx_http_core_loc_conf_s {
+    ngx_str_t     name;          /* location name */
+#if (NGX_PCRE)
+    ngx_http_regex_t  *regex;
+#endif
+    unsigned      noname:1;   /* &quot;if () {}&quot; block or limit_except */
+    unsigned      lmt_excpt:1;
+    unsigned      named:1;
+    unsigned      exact_match:1;
+    unsigned      noregex:1;
+    unsigned      auto_redirect:1;
+#if (NGX_HTTP_GZIP)
+    unsigned      gzip_disable_msie6:2;
+#if (NGX_HTTP_DEGRADATION)
+    unsigned      gzip_disable_degradation:2;
+#endif
+#endif
+    ngx_http_location_tree_node_t   *static_locations;
+#if (NGX_PCRE)
+    ngx_http_core_loc_conf_t       **regex_locations;
+#endif
+    /* pointer to the modules&#39; loc_conf */
+    void        **loc_conf;
+    uint32_t      limit_except;
+    void        **limit_except_loc_conf;
+    ngx_http_handler_pt  handler;
+    /* location name length for inclusive location with inherited alias */
+    size_t        alias;
+    ngx_str_t     root;                    /* root, alias */
+    ngx_str_t     post_action;
+    ngx_array_t  *root_lengths;
+    ngx_array_t  *root_values;
+    ngx_array_t  *types;
+    ngx_hash_t    types_hash;
+    ngx_str_t     default_type;
+    off_t         client_max_body_size;    /* client_max_body_size */
+    off_t         directio;                /* directio */
+    off_t         directio_alignment;      /* directio_alignment */
+    size_t        client_body_buffer_size; /* client_body_buffer_size */
+    size_t        send_lowat;              /* send_lowat */
+    size_t        postpone_output;         /* postpone_output */
+    size_t        limit_rate;              /* limit_rate */
+    size_t        limit_rate_after;        /* limit_rate_after */
+    size_t        sendfile_max_chunk;      /* sendfile_max_chunk */
+    size_t        read_ahead;              /* read_ahead */
+    ngx_msec_t    client_body_timeout;     /* client_body_timeout */
+    ngx_msec_t    send_timeout;            /* send_timeout */
+    ngx_msec_t    keepalive_timeout;       /* keepalive_timeout */
+    ngx_msec_t    lingering_time;          /* lingering_time */
+    ngx_msec_t    lingering_timeout;       /* lingering_timeout */
+    ngx_msec_t    resolver_timeout;        /* resolver_timeout */
+    ngx_resolver_t  *resolver;             /* resolver */
+    time_t        keepalive_header;        /* keepalive_timeout */
+    ngx_uint_t    keepalive_requests;      /* keepalive_requests */
+    ngx_uint_t    keepalive_disable;       /* keepalive_disable */
+    ngx_uint_t    satisfy;                 /* satisfy */
+    ngx_uint_t    lingering_close;         /* lingering_close */
+    ngx_uint_t    if_modified_since;       /* if_modified_since */
+    ngx_uint_t    max_ranges;              /* max_ranges */
+    ngx_uint_t    client_body_in_file_only; /* client_body_in_file_only */
+    ngx_flag_t    client_body_in_single_buffer;
+                                           /* client_body_in_singe_buffer */
+    ngx_flag_t    internal;                /* internal */
+    ngx_flag_t    sendfile;                /* sendfile */
+#if (NGX_HAVE_FILE_AIO)
+    ngx_flag_t    aio;                     /* aio */
+#endif
+    ngx_flag_t    tcp_nopush;              /* tcp_nopush */
+    ngx_flag_t    tcp_nodelay;             /* tcp_nodelay */
+    ngx_flag_t    reset_timedout_connection; /* reset_timedout_connection */
+    ngx_flag_t    server_name_in_redirect; /* server_name_in_redirect */
+    ngx_flag_t    port_in_redirect;        /* port_in_redirect */
+    ngx_flag_t    msie_padding;            /* msie_padding */
+    ngx_flag_t    msie_refresh;            /* msie_refresh */
+    ngx_flag_t    log_not_found;           /* log_not_found */
+    ngx_flag_t    log_subrequest;          /* log_subrequest */
+    ngx_flag_t    recursive_error_pages;   /* recursive_error_pages */
+    ngx_flag_t    server_tokens;           /* server_tokens */
+    ngx_flag_t    chunked_transfer_encoding; /* chunked_transfer_encoding */
+    ngx_flag_t    etag;                    /* etag */
+#if (NGX_HTTP_GZIP)
+    ngx_flag_t    gzip_vary;               /* gzip_vary */
+    ngx_uint_t    gzip_http_version;       /* gzip_http_version */
+    ngx_uint_t    gzip_proxied;            /* gzip_proxied */
+#if (NGX_PCRE)
+    ngx_array_t  *gzip_disable;            /* gzip_disable */
+#endif
+#endif
+#if (NGX_HAVE_OPENAT)
+    ngx_uint_t    disable_symlinks;        /* disable_symlinks */
+    ngx_http_complex_value_t  *disable_symlinks_from;
+#endif
+    ngx_array_t  *error_pages;             /* error_page */
+    ngx_http_try_file_t    *try_files;     /* try_files */
+    ngx_path_t   *client_body_temp_path;   /* client_body_temp_path */
+    ngx_open_file_cache_t  *open_file_cache;
+    time_t        open_file_cache_valid;
+    ngx_uint_t    open_file_cache_min_uses;
+    ngx_flag_t    open_file_cache_errors;
+    ngx_flag_t    open_file_cache_events;
+    ngx_log_t    *error_log;
+    ngx_uint_t    types_hash_max_size;
+    ngx_uint_t    types_hash_bucket_size;
+    ngx_queue_t  *locations;
+};
+</pre></div>
+</div>
+<p id="ngx-ctx-log">ngx_http_log_conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>// ===========================   main conf ====================================
+
+typedef struct {
+    ngx_array_t                 formats;    /* array of ngx_http_log_fmt_t */
+    ngx_uint_t                  combined_used; /* unsigned  combined_used:1 */
+} ngx_http_log_main_conf_t;
+
+
+// ===========================   local conf ====================================
+
+typedef struct {
+    ngx_array_t                *logs;       /* array of ngx_http_log_t */
+    ngx_open_file_cache_t      *open_file_cache;
+    time_t                      open_file_cache_valid;
+    ngx_uint_t                  open_file_cache_min_uses;
+    ngx_uint_t                  off;        /* unsigned  off:1 */
+} ngx_http_log_loc_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-upstream">ngx_http_upstream_conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>// ===========================   main conf ====================================
+typedef struct {
+    ngx_hash_t                       headers_in_hash;
+    ngx_array_t                      upstreams;
+} ngx_http_upstream_main_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-autoindex">ngx_http_autoindex_conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>// ===========================   local conf ====================================
+typedef struct {
+    ngx_flag_t     enable;
+    ngx_flag_t     localtime;
+    ngx_flag_t     exact_size;
+} ngx_http_autoindex_loc_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-gzip-s">ngx_http_gzip_static_conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>// ===========================   local conf ====================================
+typedef struct {
+    ngx_uint_t  enable;
+} ngx_http_gzip_static_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-index">ngx_http_index_conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>// ===========================   local conf ====================================
+typedef struct {
+    ngx_array_t             *indices;    /* array of ngx_http_index_t */
+    size_t                   max_index_len;
+} ngx_http_index_loc_conf_t;
+</pre></div>
+</div>
+<p id="ngx-ctx-bauth">ngx_http_base_auth_conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>// ===========================   local conf ====================================
+typedef struct {
+    ngx_http_complex_value_t  *realm;
+    ngx_http_complex_value_t   user_file;
+} ngx_http_auth_basic_loc_conf_t;
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -816,7 +1159,7 @@ macro into auto_headers.h</p>
       
     </p>
     <p>
-        &copy; Copyright 2013, evershelden.<br/>
+        &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
     </p>
   </div>

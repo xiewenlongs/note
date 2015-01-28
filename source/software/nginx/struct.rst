@@ -235,3 +235,16 @@ ngx_chain_t
 
 TODO
 
+
+---------------------------------------
+ngx_hash_t
+---------------------------------------
+
+The reduced graph of hash struct is:
+
+.. image:: ../../_static/s_nginx_struct_hash1.jpg
+
+
+The detail graph of hash struct is:
+
+.. image:: ../../_static/s_nginx_struct_hash2.jpg
