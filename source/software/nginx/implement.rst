@@ -38,6 +38,9 @@ macro into auto_headers.h
 modules
 ---------------------------------------
 
+.. image:: ../../_static/s_nginx_modules.png
+
+
 There are 5 type of modules:
 
 * NGX_CORE_MODULE
@@ -113,8 +116,21 @@ There are 5 type of modules:
 other
 ---------------------------------------
 
+location tree
+~~~~~~~~~~~~~~~~~~~~~~~
+
+There will be more than one location in on server block. To speed up search, nginx create a static tree struct before
+listening.
+
+|
+
+.. image:: ../../_static/s_nginx_location_tree.jpg
+
+
 conf context of modules
 ~~~~~~~~~~~~~~~~~~~~~~~
+
+|
 
 There are config struct for each nginx module
 
@@ -245,9 +261,9 @@ ngx_http_core_conf::
     #endif
         unsigned      noname:1;   /* "if () {}" block or limit_except */
         unsigned      lmt_excpt:1;
-        unsigned      named:1;
-        unsigned      exact_match:1;
-        unsigned      noregex:1;
+        unsigned      named:1;              // location 后面的路径
+        unsigned      exact_match:1;        // location 的=号匹配（完全匹配)
+        unsigned      noregex:1;            // 不按正则匹配
         unsigned      auto_redirect:1;
     #if (NGX_HTTP_GZIP)
         unsigned      gzip_disable_msie6:2;
@@ -390,7 +406,7 @@ ngx_http_autoindex_conf::
         ngx_flag_t     exact_size;
     } ngx_http_autoindex_loc_conf_t;
 
-.. _ngx_ctx__gzip_s:
+.. _ngx_ctx__gzip_st:
 
 ngx_http_gzip_static_conf::
 
