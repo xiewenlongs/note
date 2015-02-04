@@ -94,6 +94,7 @@
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
 <li><a class="reference internal" href="#modules">modules</a></li>
 <li><a class="reference internal" href="#other">other</a><ul>
+<li><a class="reference internal" href="#location-tree">location tree</a></li>
 <li><a class="reference internal" href="#conf-context-of-modules">conf context of modules</a></li>
 </ul>
 </li>
@@ -144,6 +145,7 @@
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
 <li><a class="reference internal" href="#modules">modules</a></li>
 <li><a class="reference internal" href="#other">other</a><ul>
+<li><a class="reference internal" href="#location-tree">location tree</a></li>
 <li><a class="reference internal" href="#conf-context-of-modules">conf context of modules</a></li>
 </ul>
 </li>
@@ -188,6 +190,7 @@ macro into auto_headers.h</p>
 </div>
 <div class="section" id="modules">
 <h2>modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/s_nginx_modules.png" src="../../_images/s_nginx_modules.png" />
 <p>There are 5 type of modules:</p>
 <ul class="simple">
 <li>NGX_CORE_MODULE</li>
@@ -401,7 +404,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><em class="xref std std-ref">链接</em></td>
+<td><a class="reference internal" href="#ngx-ctx-gzip-st"><em>链接</em></a></td>
 </tr>
 <tr class="row-odd"><td>_autoindex</td>
 <td>HTTP</td>
@@ -863,8 +866,20 @@ master</th>
 </div>
 <div class="section" id="other">
 <h2>other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="location-tree">
+<h3>location tree<a class="headerlink" href="#location-tree" title="Permalink to this headline">¶</a></h3>
+<p>There will be more than one location in on server block. To speed up search, nginx create a static tree struct before
+listening.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<img alt="../../_images/s_nginx_location_tree.jpg" src="../../_images/s_nginx_location_tree.jpg" />
+</div>
 <div class="section" id="conf-context-of-modules">
 <h3>conf context of modules<a class="headerlink" href="#conf-context-of-modules" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>There are config struct for each nginx module</p>
 <p id="ngx-ctx-core">struct:</p>
 <div class="highlight-python"><div class="highlight"><pre>ngx_flag_t               daemon;
@@ -976,9 +991,9 @@ struct ngx_http_core_loc_conf_s {
 #endif
     unsigned      noname:1;   /* &quot;if () {}&quot; block or limit_except */
     unsigned      lmt_excpt:1;
-    unsigned      named:1;
-    unsigned      exact_match:1;
-    unsigned      noregex:1;
+    unsigned      named:1;              // location 后面的路径
+    unsigned      exact_match:1;        // location 的=号匹配（完全匹配)
+    unsigned      noregex:1;            // 不按正则匹配
     unsigned      auto_redirect:1;
 #if (NGX_HTTP_GZIP)
     unsigned      gzip_disable_msie6:2;
@@ -1113,7 +1128,7 @@ typedef struct {
 } ngx_http_autoindex_loc_conf_t;
 </pre></div>
 </div>
-<p id="ngx-ctx-gzip-s">ngx_http_gzip_static_conf:</p>
+<p id="ngx-ctx-gzip-st">ngx_http_gzip_static_conf:</p>
 <div class="highlight-python"><div class="highlight"><pre>// ===========================   local conf ====================================
 typedef struct {
     ngx_uint_t  enable;

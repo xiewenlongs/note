@@ -144,7 +144,7 @@ event模块
     ================================   =================    ==============================================================================
     worker_connections <num>           event_core           一个worker进程可以建立的最大连接总数, 它不能超过 worker_rlimit_nofile, 否则
                                                             没有意义. 默认512
-    connections <num>                  event_core           貌似被废弃了, nginx文档里没有这个指令
+    connections <num>                  event_core           貌似被废弃了, nginx文档里没有这个指令, 从代码看默认512
     use <event>                        event_core           使用那种connection processing method, nginx默认会选择最高效的方式
     multi_accept <on>                  event_core           当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接,
                                                             默认off
@@ -214,9 +214,11 @@ http模块
 
                                         3. 通配符后匹配, 如: www.test.\*
 
-                                        4. 正则匹配, 如: ^test.com
+                                        4. 正则匹配, 如: ~^(?<user>.+)\.example\.net$; (注意，正则表达式前要增加~)
 
                                         5. 都没有匹配， 使用default_server
+
+                                        server_name 是忽略大小写的，因为它是把server_name转成小写
 
     server_names_hash_bucket_size       为了提高快速找到server_name的能力， nginx使用了散列桶， 这个参数指定散列桶的
                                         大小， 越大越占内存，但速度越快. 默认32|64|128

@@ -73,6 +73,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a></li>
@@ -457,7 +458,7 @@ used when writing a core-file</td>
 </tr>
 <tr class="row-odd"><td>connections &lt;num&gt;</td>
 <td>event_core</td>
-<td>貌似被废弃了, nginx文档里没有这个指令</td>
+<td>貌似被废弃了, nginx文档里没有这个指令, 从代码看默认512</td>
 </tr>
 <tr class="row-even"><td>use &lt;event&gt;</td>
 <td>event_core</td>
@@ -569,13 +570,14 @@ server就成为默认server(server_name没有匹配)</p>
 </tr>
 <tr class="row-odd"><td>server_name &lt;...&gt;</td>
 <td><p class="first">虚拟主机配置, nginx 检测request头的HOST字段，拿来匹配server, 按以下顺序匹配:</p>
-<ol class="last arabic simple">
+<ol class="arabic simple">
 <li>字符串完全匹配, 如: www.test.com</li>
 <li>通配符前匹配, 如: *.test.com</li>
 <li>通配符后匹配, 如: www.test.*</li>
-<li>正则匹配, 如: ^test.com</li>
+<li>正则匹配, 如: ~^(?&lt;user&gt;.+).example.net$; (注意，正则表达式前要增加~)</li>
 <li>都没有匹配， 使用default_server</li>
 </ol>
+<p class="last">server_name 是忽略大小写的，因为它是把server_name转成小写</p>
 </td>
 </tr>
 <tr class="row-even"><td>server_names_hash_bucket_size</td>
