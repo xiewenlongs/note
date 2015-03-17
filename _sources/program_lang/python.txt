@@ -98,3 +98,25 @@ __get__
 
 
 并且__get__方法会被继承, 如何attrCls的子类，也会有同样的效果
+
+
+常见问题
+---------------------------------------
+
+如何生成跨平台不乱码的csv
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+csv很容易在多个平台之间乱码，使用如下代码可以减少乱码情况::
+
+    fp = codecs.open(dump_file, 'w', encoding='utf16')
+    title = u'性名\t平台\tid\t数量\n'
+    fp.write(title)
+
+    for items in result:
+        try:
+            line = '%s\t%s\t%s\t%s\n' % (items[0], items[1], item[2], item[3])
+            fp.write(line)
+        except Exception as E:
+            pass
+    fp.close()
+

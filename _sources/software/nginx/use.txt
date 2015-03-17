@@ -55,8 +55,7 @@ configure选项
     --without-select_module (no)                        不使用select module 处理事件驱动
     --with-poll_module (no)                             与select 模块类似，默认不会安装
     --without-poll_module (no)                          不使用poll module 处理事件驱动
-    --with-aio_module (no)                              使用AIO方式处理事件驱动， 这里的 aio module 只能与FreeBSD系统上的kqueue模块
-                                                        合作， Linux上无法使用
+    --with-aio_module (no)                              使用AIO方式处理文件访问
     --without-http_charset_module (yes)                 这个模块可以降服务器发出的http响应重新编码
     --without-http_gzip_module (yes)
     --without-http-ssi_module (yes)                     该模块可以在Response 中加入特定的内容，如html固定页头/页尾
@@ -167,6 +166,54 @@ http模块
     选项                               模块                 作用
     ================================   =================    ==============================================================================
     error_log                          errlog               改变error log 路径, 默认是 /prefix/logs/error.log
+    client_header_timeout              http_core            收到一个请求后,nginx 建立与客户端的TCP链接, 链接建立后开始read
+                                                            客户端发送的数据。如果这个客户端是个hacker, 它hung住来浪费nginx
+                                                            资源，那么nginx在这段时间内会一直维持着这个连接。此参数设置
+                                                            nginx等待时间，如果超过时间，nginx直接返回408错误, 默认60s
+    client_body_timeout <time>         http_core            同上，请求体超时
+
+    connection_pool_size               http_core            nginx为一个连接能开辟内存的上限, 默认256. 这个值对性能调优效果很小，不应该设置
+    request_pool_size                  http_core            nginx为一个请求能开辟的内存上限，默认4k, 这个值对性能调优效果很小，不应该设置
+    client_header_buffer_size          http_core            处理一个请求头最大开辟的内存大小, 默认1k
+    large_client_header_buffers        http_core            处理一个请求头，如果请求过大，超过client_header_buffer_size指定缓存，那么使用
+                                                            这个设置项
+    client_max_body_size <size>        http_core            根据请求头的content-Length, 来限制请求. 若超出限制，nginx 返回413
+    client_body_buffer_size <num>      http_core            一个请求的请求体需要存在内存中， 这个值指定了buffer大小, 如果超过这个值，
+                                                            nginx 会把请求体写入磁盘
+    client_body_in_file_only <on>      http_core            对于一个请求，如果请求体过大，超过client_body_buffer_size大小
+    client_body_temp_path              http_core            同上，如果请求过大，nginx会把请求存在临时文件中
+    sendfile <on>                      http_core            启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间
+    aio                                http_core            使用AIO方式来访问静态文件服务, 和sendfile互斥。两者谁好谁坏很难定论, nginx
+                                                            论坛上，建议使用AIO, 因为sendfile对预读的控制不好. 应使用aio + directio
+    tcp_nodelay <on>                   http_core            对keepalive连接是否使用TCP_NODELAY选项, 与NOPUSH选项互斥， 其实是关闭
+                                                            Nagle's 算法， Nagle 是避免传输数据小，网络带宽无法有效利用，将多个数据组
+                                                            包一起发送, 但是HTTP的数据更多是偏向流处理，而不是类似telnet,等待用户输入
+                                                            数据, 所以默认是TCP_NODELAY 开启
+    send_timeout                       http_core            nginx 返回response 给客户端的时候，每发送一个packet， 都希望收到ack, 如果在
+                                                            这个指定的时间内，没有收到ack, 说明client可能掉了，那么关闭连接
+    keepalive_requests <num>           http_core            nginx 建立一个keep alive 连接后，在这个连接上处理了<num>个请求后，就关闭连接
+    keepalive_disable <...>            http_core            nginx 可以设置对哪些浏览器不keep alive, 可选的有: msie6, safari
+    satisfy <...>                      http_core            nginx 有多种限制access的方式，如ip, base_auth, 这个指令是决定把所有限制<与>
+                                                            还是<或>
+    log_not_found <on>                 http_core            访问不存在的文件， 这种请求是否记录在error log里, 默认记录<on>
+    server_tokens <on>                 http_core            在错误response是否显示nginx版本, 默认on
+    error_page                         http_core            error_page 500 502 503 504 /50x.html;
+    try_files                          http_core            try file
+    error_log                          http_core            指定error log路径
+    open_file_cache <max> <inact>      http_core            open_file_cache 会告诉 Nginx 去缓存打开的文件，“未找到”的错误，有关文件的元
+                                                            数据和他们的权限，等等。这样做的好处是，一个高需求的文件要求时，Nginx 的可以
+                                                            立即开始发送数据；而且也知道立即发送一个 404,但是，有一个不太理想的缺
+                                                            点：如果磁盘上有变化，服务器不会立即作出反应。 最多缓存<max>个， 非活跃的缓存
+                                                            <inact>秒后从缓存剔除
+    open_file_cache_valid <time>       http_core            而活动（最近要求的文件）每<time>秒重新验证一次。
+    open_file_cache_min_uses           http_core            如果定义活跃的item, 这个指令就是定义: 在<inact>时间内至少访问过 <time>次
+    open_file_cache_errors             http_core            缓存404
+    resolver                           http_core            配置nginx 内部的DNS服务器
+    resolver_timeout                   http_core            配置DNS查询超时
+    read_ahead <size>                  http_core            ???
+    lingering_close <on>               http_core            ???
+    lingering_time <on>                http_core            ???
+    lingering_timeout <on>             http_core            ???
     ================================   =================    ==============================================================================
 
 
@@ -200,11 +247,18 @@ http模块
                                         **default_server**: 默认server, nginx 可能有多个server配置，设置这个后当前
                                         server就成为默认server(server_name没有匹配)
 
+                                        **bind**: 当设置 listen xx.xx.xx.xx:80 时，默认nginx 不会限制IP, 就是不会绑定
+                                        xx.xx.xx.xx这个IP接口， 设置bind则绑定
+
+                                        **fastopen**: 打开TCP fastopen选项, TCP fastopen特性只有kernel 版本大于3才支持
+                                        这个参数水很深，不要随便设置
+
                                         **backlog <num>**: 略
 
                                         **deferred**: 默认新来一个TCP连接，三次握手后master进程就唤醒worker进程来
                                         接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接
-                                        上真来了数据，才唤醒worker, 它减轻了worker的负担。
+                                        上真来了数据，才唤醒worker, 它减轻了worker的负担。降低服务端进行
+                                        epoll_ctl、epoll_wait（linux下）的次数（系统调用）和降低服务端保持的连接句柄数
                                         ``需要根据业务特征来决定``
     server_name <...>                   虚拟主机配置, nginx 检测request头的HOST字段，拿来匹配server, 按以下顺序匹配:
 
@@ -232,7 +286,6 @@ http模块
     resursive_error_pages <on>          是否打开"错误重定向"的递归
     try_files <path1> <path2> <url>     按顺序尝试每一个path
     limit_except {...}                  按http方法, 限制客户端请求种类, 见 :ref:`limit_except <nginx_limit_except>`
-    client_max_body_size <size>         根据请求头的content-Length, 来限制请求.
     limit_rate <num>                    对每一个TCP连接限速
     ignore_invalid_headers <on>         如果出现不合法的HTTP头部时， nginx 会忽略错误继续处理。但如果这个选项被off
                                         nginx 会直接返回400
@@ -255,17 +308,8 @@ http模块
     ================================    ==========================================================================
     选项                                作用
     ================================    ==========================================================================
-    client_header_buffer_size <num>     nginx 接收客户端request 的headers时，开辟的内存大小, 默认 1k
-    large_client_header_buffers         nginx 接收超大request 头部时，使用的buffer 个数 和每个buffer大小, 如果请求
-                                        头部大于这个值，那么nginx会报"Request too large url"
-    client_body_buffer_size <num>       一个请求的请求体需要存在内存中， 这个值指定了buffer大小, 如果超过这个值，
-                                        nginx 会把请求体写入磁盘
     connnection_pool_size <num>         每个TCP连接分配的内存池初始大小, 默认256, 如果这个值太大，内存占用会很多，
                                         如果很小，造成分配次数增多
-    request_pool_size <num>             一个请求开辟内存池的初始大小, 默认4k
-    client_header_timeout <time>        一个连接建立后， nginx 接收HTTP头部的超时时间，如果在这个时间内没有读到
-                                        客户端发来的字节， 则认为超时，返回408(Request time out) 默认60
-    client_body_timeout <time>          同上，请求体超时
     send_timeout <time>                 nginx 向客户端发送了数据，但客户端超过这么长时间都没有去接收数据，那么
                                         nginx 会关闭这个连接
     reset_timeout_connection            ??? 向客户端发送RST来关闭连接， 减少服务端的FIN-WAIT状态套接字
@@ -275,7 +319,6 @@ http模块
     keepalive_disable <...>             对某些浏览器禁用 keepalive 功能
     keepalive_timeout <time>            keepalive 超时时间
     keepalive_requests <num>            一个keepalive 连接上默认最多能发送的request 个数
-    tcp_nodelay <on>                    对keepalive连接是否使用TCP_NODELAY选项
     tcp_nopush <on>                     是否开启FreeDSB的TCP_NOPUSH 或Linux 的TCP_CORK功能
     ================================    ==========================================================================
 
@@ -290,7 +333,6 @@ http模块
     ================================    ==========================================================================
     选项                                作用
     ================================    ==========================================================================
-    aio                                 ???
     open_file_cache                     ???
     open_file_cache_errors              ???
     open_file_cache_min_uses            ???
@@ -338,8 +380,6 @@ MIME
     multi_accept <on>               当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接
     worker_connections              每个worker 的连接池大小。 所以:
                                     ``nginx能接收的总的连接数 = worker_connections * worker_processes``
-                                    来更新nginx中的缓存时钟, 这个选项控制执行间隔
-    sendfile on                     启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间
     keepalive_timeout               unknown
     ============================    ==========================================================================
 
@@ -482,6 +522,13 @@ location 配置
    location ~* \.(gif|png)$ {
         # 以gif 或者 png 结尾的url
    }
+
+
+
+Don't use If
+~~~~~~~~~~~~~~~~~~~~~~~
+
+IfIsEvil: http://wiki.nginx.org/IfIsEvil
 
 
 .. _nginx_limit_except:
