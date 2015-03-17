@@ -92,6 +92,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">implement</a><ul>
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
+<li><a class="reference internal" href="#architecture">Architecture</a></li>
 <li><a class="reference internal" href="#modules">modules</a></li>
 <li><a class="reference internal" href="#other">other</a><ul>
 <li><a class="reference internal" href="#location-tree">location tree</a></li>
@@ -143,6 +144,7 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">implement</a><ul>
 <li><a class="reference internal" href="#configure-script">configure script</a></li>
+<li><a class="reference internal" href="#architecture">Architecture</a></li>
 <li><a class="reference internal" href="#modules">modules</a></li>
 <li><a class="reference internal" href="#other">other</a><ul>
 <li><a class="reference internal" href="#location-tree">location tree</a></li>
@@ -187,6 +189,10 @@ ngx_feature_test=&quot;int  n, dp; struct dvpoll  dvp;
 </div>
 <p>this pice checking <tt class="docutils literal"><span class="pre">/dev/poll</span></tt> feature. It generate a test.c file and compile it. If successed, it echo one preprocess
 macro into auto_headers.h</p>
+</div>
+<div class="section" id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
+<img alt="../../_images/s_nginx_arch.jpg" src="../../_images/s_nginx_arch.jpg" />
 </div>
 <div class="section" id="modules">
 <h2>modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
@@ -863,6 +869,11 @@ master</th>
 </tr>
 </tbody>
 </table>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">http 模块原本负责(联系全局模块和http协议模块， 实现http协议), 但目前实现http协议已经分离出来，为http_core模块。这样做
+是因为将来nginx还要实现除了http之外的协议,如SPDY</p>
+</div>
 </div>
 <div class="section" id="other">
 <h2>other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
@@ -950,7 +961,12 @@ typedef struct {
     ngx_uint_t                 server_names_hash_bucket_size;
     ngx_uint_t                 variables_hash_max_size;
     ngx_uint_t                 variables_hash_bucket_size;
-    ngx_hash_keys_arrays_t    *variables_keys;
+    ngx_hash_keys_arrays_t    *variables_keys;      /*很多固定变量, 有些模块会增加自己的变量, 如:
+                                                      http_upstream, http_proxy, http_fastcgi,
+                                                      http_browser, http_stub, http_gzip,
+                                                      http_ssi_filter, http_userid_filter,
+                                                      每个模块的 ctx-&gt;preconfiguration()函数，负责添加
+                                                      自己的var */
     ngx_array_t               *ports;
     ngx_uint_t                 try_files;       /* unsigned  try_files:1 */
     ngx_http_phase_t           phases[NGX_HTTP_LOG_PHASE + 1];

@@ -21,6 +21,15 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext
 
+update: html
+	git add .
+	-git commit -m 'update doc'
+	git pull origin master
+	git push
+	@echo "upload html to ghp-pages branch"
+	touch build/html/.nojekyll
+	ghp-import -p build/html
+
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  html       to make standalone HTML files"
@@ -54,14 +63,6 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-update: html
-	git add .
-	-git commit -m 'update doc'
-	git pull origin master
-	git push
-	@echo "upload html to ghp-pages branch"
-	touch build/html/.nojekyll
-	ghp-import -p build/html
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml

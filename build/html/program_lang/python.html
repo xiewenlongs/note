@@ -73,6 +73,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
@@ -98,6 +99,10 @@
 </li>
 <li><a class="reference internal" href="#magic">magic 方法</a><ul>
 <li><a class="reference internal" href="#get">__get__</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">常见问题</a><ul>
+<li><a class="reference internal" href="#csv">如何生成跨平台不乱码的csv</a></li>
 </ul>
 </li>
 </ul>
@@ -152,6 +157,10 @@
 </li>
 <li><a class="reference internal" href="#magic">magic 方法</a><ul>
 <li><a class="reference internal" href="#get">__get__</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">常见问题</a><ul>
+<li><a class="reference internal" href="#csv">如何生成跨平台不乱码的csv</a></li>
 </ul>
 </li>
 </ul>
@@ -243,6 +252,26 @@ Cls.objects.reverse()
 </pre></div>
 </div>
 <p>并且__get__方法会被继承, 如何attrCls的子类，也会有同样的效果</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>常见问题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="csv">
+<h3>如何生成跨平台不乱码的csv<a class="headerlink" href="#csv" title="Permalink to this headline">¶</a></h3>
+<p>csv很容易在多个平台之间乱码，使用如下代码可以减少乱码情况:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">fp</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">dump_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf16&#39;</span><span class="p">)</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s">u&#39;性名</span><span class="se">\t</span><span class="s">平台</span><span class="se">\t</span><span class="s">id</span><span class="se">\t</span><span class="s">数量</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">items</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="se">\t</span><span class="si">%s</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+        <span class="k">pass</span>
+<span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

@@ -122,6 +122,7 @@
 </li>
 <li><a class="reference internal" href="#id16">其他</a><ul>
 <li><a class="reference internal" href="#location">location 配置</a></li>
+<li><a class="reference internal" href="#don-t-use-if">Don&#8217;t use If</a></li>
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
 </li>
@@ -201,6 +202,7 @@
 </li>
 <li><a class="reference internal" href="#id16">其他</a><ul>
 <li><a class="reference internal" href="#location">location 配置</a></li>
+<li><a class="reference internal" href="#don-t-use-if">Don&#8217;t use If</a></li>
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
 </li>
@@ -292,8 +294,7 @@
 <td>不使用poll module 处理事件驱动</td>
 </tr>
 <tr class="row-odd"><td>&#8211;with-aio_module (no)</td>
-<td>使用AIO方式处理事件驱动， 这里的 aio module 只能与FreeBSD系统上的kqueue模块
-合作， Linux上无法使用</td>
+<td>使用AIO方式处理文件访问</td>
 </tr>
 <tr class="row-even"><td>&#8211;without-http_charset_module (yes)</td>
 <td>这个模块可以降服务器发出的http响应重新编码</td>
@@ -513,6 +514,149 @@ used when writing a core-file</td>
 <td>errlog</td>
 <td>改变error log 路径, 默认是 /prefix/logs/error.log</td>
 </tr>
+<tr class="row-odd"><td>client_header_timeout</td>
+<td>http_core</td>
+<td>收到一个请求后,nginx 建立与客户端的TCP链接, 链接建立后开始read
+客户端发送的数据。如果这个客户端是个hacker, 它hung住来浪费nginx
+资源，那么nginx在这段时间内会一直维持着这个连接。此参数设置
+nginx等待时间，如果超过时间，nginx直接返回408错误, 默认60s</td>
+</tr>
+<tr class="row-even"><td>client_body_timeout &lt;time&gt;</td>
+<td>http_core</td>
+<td>同上，请求体超时</td>
+</tr>
+<tr class="row-odd"><td>connection_pool_size</td>
+<td>http_core</td>
+<td>nginx为一个连接能开辟内存的上限, 默认256. 这个值对性能调优效果很小，不应该设置</td>
+</tr>
+<tr class="row-even"><td>request_pool_size</td>
+<td>http_core</td>
+<td>nginx为一个请求能开辟的内存上限，默认4k, 这个值对性能调优效果很小，不应该设置</td>
+</tr>
+<tr class="row-odd"><td>client_header_buffer_size</td>
+<td>http_core</td>
+<td>处理一个请求头最大开辟的内存大小, 默认1k</td>
+</tr>
+<tr class="row-even"><td>large_client_header_buffers</td>
+<td>http_core</td>
+<td>处理一个请求头，如果请求过大，超过client_header_buffer_size指定缓存，那么使用
+这个设置项</td>
+</tr>
+<tr class="row-odd"><td>client_max_body_size &lt;size&gt;</td>
+<td>http_core</td>
+<td>根据请求头的content-Length, 来限制请求. 若超出限制，nginx 返回413</td>
+</tr>
+<tr class="row-even"><td>client_body_buffer_size &lt;num&gt;</td>
+<td>http_core</td>
+<td>一个请求的请求体需要存在内存中， 这个值指定了buffer大小, 如果超过这个值，
+nginx 会把请求体写入磁盘</td>
+</tr>
+<tr class="row-odd"><td>client_body_in_file_only &lt;on&gt;</td>
+<td>http_core</td>
+<td>对于一个请求，如果请求体过大，超过client_body_buffer_size大小</td>
+</tr>
+<tr class="row-even"><td>client_body_temp_path</td>
+<td>http_core</td>
+<td>同上，如果请求过大，nginx会把请求存在临时文件中</td>
+</tr>
+<tr class="row-odd"><td>sendfile &lt;on&gt;</td>
+<td>http_core</td>
+<td>启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间</td>
+</tr>
+<tr class="row-even"><td>aio</td>
+<td>http_core</td>
+<td>使用AIO方式来访问静态文件服务, 和sendfile互斥。两者谁好谁坏很难定论, nginx
+论坛上，建议使用AIO, 因为sendfile对预读的控制不好. 应使用aio + directio</td>
+</tr>
+<tr class="row-odd"><td>tcp_nodelay &lt;on&gt;</td>
+<td>http_core</td>
+<td>对keepalive连接是否使用TCP_NODELAY选项, 与NOPUSH选项互斥， 其实是关闭
+Nagle&#8217;s 算法， Nagle 是避免传输数据小，网络带宽无法有效利用，将多个数据组
+包一起发送, 但是HTTP的数据更多是偏向流处理，而不是类似telnet,等待用户输入
+数据, 所以默认是TCP_NODELAY 开启</td>
+</tr>
+<tr class="row-even"><td>send_timeout</td>
+<td>http_core</td>
+<td>nginx 返回response 给客户端的时候，每发送一个packet， 都希望收到ack, 如果在
+这个指定的时间内，没有收到ack, 说明client可能掉了，那么关闭连接</td>
+</tr>
+<tr class="row-odd"><td>keepalive_requests &lt;num&gt;</td>
+<td>http_core</td>
+<td>nginx 建立一个keep alive 连接后，在这个连接上处理了&lt;num&gt;个请求后，就关闭连接</td>
+</tr>
+<tr class="row-even"><td>keepalive_disable &lt;...&gt;</td>
+<td>http_core</td>
+<td>nginx 可以设置对哪些浏览器不keep alive, 可选的有: msie6, safari</td>
+</tr>
+<tr class="row-odd"><td>satisfy &lt;...&gt;</td>
+<td>http_core</td>
+<td>nginx 有多种限制access的方式，如ip, base_auth, 这个指令是决定把所有限制&lt;与&gt;
+还是&lt;或&gt;</td>
+</tr>
+<tr class="row-even"><td>log_not_found &lt;on&gt;</td>
+<td>http_core</td>
+<td>访问不存在的文件， 这种请求是否记录在error log里, 默认记录&lt;on&gt;</td>
+</tr>
+<tr class="row-odd"><td>server_tokens &lt;on&gt;</td>
+<td>http_core</td>
+<td>在错误response是否显示nginx版本, 默认on</td>
+</tr>
+<tr class="row-even"><td>error_page</td>
+<td>http_core</td>
+<td>error_page 500 502 503 504 /50x.html;</td>
+</tr>
+<tr class="row-odd"><td>try_files</td>
+<td>http_core</td>
+<td>try file</td>
+</tr>
+<tr class="row-even"><td>error_log</td>
+<td>http_core</td>
+<td>指定error log路径</td>
+</tr>
+<tr class="row-odd"><td>open_file_cache &lt;max&gt; &lt;inact&gt;</td>
+<td>http_core</td>
+<td>open_file_cache 会告诉 Nginx 去缓存打开的文件，“未找到”的错误，有关文件的元
+数据和他们的权限，等等。这样做的好处是，一个高需求的文件要求时，Nginx 的可以
+立即开始发送数据；而且也知道立即发送一个 404,但是，有一个不太理想的缺
+点：如果磁盘上有变化，服务器不会立即作出反应。 最多缓存&lt;max&gt;个， 非活跃的缓存
+&lt;inact&gt;秒后从缓存剔除</td>
+</tr>
+<tr class="row-even"><td>open_file_cache_valid &lt;time&gt;</td>
+<td>http_core</td>
+<td>而活动（最近要求的文件）每&lt;time&gt;秒重新验证一次。</td>
+</tr>
+<tr class="row-odd"><td>open_file_cache_min_uses</td>
+<td>http_core</td>
+<td>如果定义活跃的item, 这个指令就是定义: 在&lt;inact&gt;时间内至少访问过 &lt;time&gt;次</td>
+</tr>
+<tr class="row-even"><td>open_file_cache_errors</td>
+<td>http_core</td>
+<td>缓存404</td>
+</tr>
+<tr class="row-odd"><td>resolver</td>
+<td>http_core</td>
+<td>配置nginx 内部的DNS服务器</td>
+</tr>
+<tr class="row-even"><td>resolver_timeout</td>
+<td>http_core</td>
+<td>配置DNS查询超时</td>
+</tr>
+<tr class="row-odd"><td>read_ahead &lt;size&gt;</td>
+<td>http_core</td>
+<td>???</td>
+</tr>
+<tr class="row-even"><td>lingering_close &lt;on&gt;</td>
+<td>http_core</td>
+<td>???</td>
+</tr>
+<tr class="row-odd"><td>lingering_time &lt;on&gt;</td>
+<td>http_core</td>
+<td>???</td>
+</tr>
+<tr class="row-even"><td>lingering_timeout &lt;on&gt;</td>
+<td>http_core</td>
+<td>???</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -561,10 +705,15 @@ used when writing a core-file</td>
 <td><p class="first">监听端口, 它有以下参数:</p>
 <p><strong>default_server</strong>: 默认server, nginx 可能有多个server配置，设置这个后当前
 server就成为默认server(server_name没有匹配)</p>
+<p><strong>bind</strong>: 当设置 listen xx.xx.xx.xx:80 时，默认nginx 不会限制IP, 就是不会绑定
+xx.xx.xx.xx这个IP接口， 设置bind则绑定</p>
+<p><strong>fastopen</strong>: 打开TCP fastopen选项, TCP fastopen特性只有kernel 版本大于3才支持
+这个参数水很深，不要随便设置</p>
 <p><strong>backlog &lt;num&gt;</strong>: 略</p>
 <p class="last"><strong>deferred</strong>: 默认新来一个TCP连接，三次握手后master进程就唤醒worker进程来
 接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接
-上真来了数据，才唤醒worker, 它减轻了worker的负担。
+上真来了数据，才唤醒worker, 它减轻了worker的负担。降低服务端进行
+epoll_ctl、epoll_wait（linux下）的次数（系统调用）和降低服务端保持的连接句柄数
 <tt class="docutils literal"><span class="pre">需要根据业务特征来决定</span></tt></p>
 </td>
 </tr>
@@ -614,32 +763,29 @@ server就成为默认server(server_name没有匹配)</p>
 <tr class="row-even"><td>limit_except {...}</td>
 <td>按http方法, 限制客户端请求种类, 见 <a class="reference internal" href="#nginx-limit-except"><em>limit_except</em></a></td>
 </tr>
-<tr class="row-odd"><td>client_max_body_size &lt;size&gt;</td>
-<td>根据请求头的content-Length, 来限制请求.</td>
-</tr>
-<tr class="row-even"><td>limit_rate &lt;num&gt;</td>
+<tr class="row-odd"><td>limit_rate &lt;num&gt;</td>
 <td>对每一个TCP连接限速</td>
 </tr>
-<tr class="row-odd"><td>ignore_invalid_headers &lt;on&gt;</td>
+<tr class="row-even"><td>ignore_invalid_headers &lt;on&gt;</td>
 <td>如果出现不合法的HTTP头部时， nginx 会忽略错误继续处理。但如果这个选项被off
 nginx 会直接返回400</td>
 </tr>
-<tr class="row-even"><td>underscores_in_headers &lt;on&gt;</td>
+<tr class="row-odd"><td>underscores_in_headers &lt;on&gt;</td>
 <td>http头部是否允许带下划线</td>
 </tr>
-<tr class="row-odd"><td>log_not_found &lt;on&gt;</td>
+<tr class="row-even"><td>log_not_found &lt;on&gt;</td>
 <td>404是否记录日志</td>
 </tr>
-<tr class="row-even"><td>merge_slashes &lt;on&gt;</td>
+<tr class="row-odd"><td>merge_slashes &lt;on&gt;</td>
 <td>是否合并url中相邻的/, 如: //test//a.txt 会变成 /test/a.txt</td>
 </tr>
-<tr class="row-odd"><td>resolver &lt;ip&gt;</td>
+<tr class="row-even"><td>resolver &lt;ip&gt;</td>
 <td>设置DNS服务器地址</td>
 </tr>
-<tr class="row-even"><td>resolver_timeout &lt;time&gt;</td>
+<tr class="row-odd"><td>resolver_timeout &lt;time&gt;</td>
 <td>DNS解析超时时间, 默认30s</td>
 </tr>
-<tr class="row-odd"><td>server_tokens &lt;on&gt;</td>
+<tr class="row-even"><td>server_tokens &lt;on&gt;</td>
 <td>返回错误页面时，是否在server中注明nginx版本, 默认on</td>
 </tr>
 </tbody>
@@ -661,30 +807,9 @@ nginx 会直接返回400</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>client_header_buffer_size &lt;num&gt;</td>
-<td>nginx 接收客户端request 的headers时，开辟的内存大小, 默认 1k</td>
-</tr>
-<tr class="row-odd"><td>large_client_header_buffers</td>
-<td>nginx 接收超大request 头部时，使用的buffer 个数 和每个buffer大小, 如果请求
-头部大于这个值，那么nginx会报&#8221;Request too large url&#8221;</td>
-</tr>
-<tr class="row-even"><td>client_body_buffer_size &lt;num&gt;</td>
-<td>一个请求的请求体需要存在内存中， 这个值指定了buffer大小, 如果超过这个值，
-nginx 会把请求体写入磁盘</td>
-</tr>
-<tr class="row-odd"><td>connnection_pool_size &lt;num&gt;</td>
+<tr class="row-even"><td>connnection_pool_size &lt;num&gt;</td>
 <td>每个TCP连接分配的内存池初始大小, 默认256, 如果这个值太大，内存占用会很多，
 如果很小，造成分配次数增多</td>
-</tr>
-<tr class="row-even"><td>request_pool_size &lt;num&gt;</td>
-<td>一个请求开辟内存池的初始大小, 默认4k</td>
-</tr>
-<tr class="row-odd"><td>client_header_timeout &lt;time&gt;</td>
-<td>一个连接建立后， nginx 接收HTTP头部的超时时间，如果在这个时间内没有读到
-客户端发来的字节， 则认为超时，返回408(Request time out) 默认60</td>
-</tr>
-<tr class="row-even"><td>client_body_timeout &lt;time&gt;</td>
-<td>同上，请求体超时</td>
 </tr>
 <tr class="row-odd"><td>send_timeout &lt;time&gt;</td>
 <td>nginx 向客户端发送了数据，但客户端超过这么长时间都没有去接收数据，那么
@@ -711,10 +836,7 @@ nginx 会关闭这个连接</td>
 <tr class="row-even"><td>keepalive_requests &lt;num&gt;</td>
 <td>一个keepalive 连接上默认最多能发送的request 个数</td>
 </tr>
-<tr class="row-odd"><td>tcp_nodelay &lt;on&gt;</td>
-<td>对keepalive连接是否使用TCP_NODELAY选项</td>
-</tr>
-<tr class="row-even"><td>tcp_nopush &lt;on&gt;</td>
+<tr class="row-odd"><td>tcp_nopush &lt;on&gt;</td>
 <td>是否开启FreeDSB的TCP_NOPUSH 或Linux 的TCP_CORK功能</td>
 </tr>
 </tbody>
@@ -736,19 +858,16 @@ nginx 会关闭这个连接</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>aio</td>
+<tr class="row-even"><td>open_file_cache</td>
 <td>???</td>
 </tr>
-<tr class="row-odd"><td>open_file_cache</td>
+<tr class="row-odd"><td>open_file_cache_errors</td>
 <td>???</td>
 </tr>
-<tr class="row-even"><td>open_file_cache_errors</td>
+<tr class="row-even"><td>open_file_cache_min_uses</td>
 <td>???</td>
 </tr>
-<tr class="row-odd"><td>open_file_cache_min_uses</td>
-<td>???</td>
-</tr>
-<tr class="row-even"><td>open_file_cache_valid</td>
+<tr class="row-odd"><td>open_file_cache_valid</td>
 <td>???</td>
 </tr>
 </tbody>
@@ -829,13 +948,9 @@ nginx 会关闭这个连接</td>
 </tr>
 <tr class="row-even"><td>worker_connections</td>
 <td>每个worker 的连接池大小。 所以:
-<tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt>
-来更新nginx中的缓存时钟, 这个选项控制执行间隔</td>
+<tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt></td>
 </tr>
-<tr class="row-odd"><td>sendfile on</td>
-<td>启用sendfile 系统调用，来减少static file 请求时，用户态和内核态的切换时间</td>
-</tr>
-<tr class="row-even"><td>keepalive_timeout</td>
+<tr class="row-odd"><td>keepalive_timeout</td>
 <td>unknown</td>
 </tr>
 </tbody>
@@ -957,6 +1072,10 @@ server {
 }
 </pre></div>
 </div>
+</div>
+<div class="section" id="don-t-use-if">
+<h3>Don&#8217;t use If<a class="headerlink" href="#don-t-use-if" title="Permalink to this headline">¶</a></h3>
+<p>IfIsEvil: <a class="reference external" href="http://wiki.nginx.org/IfIsEvil">http://wiki.nginx.org/IfIsEvil</a></p>
 </div>
 <div class="section" id="nginx-limit-except">
 <span id="id17"></span><h3>限制请求方法<a class="headerlink" href="#nginx-limit-except" title="Permalink to this headline">¶</a></h3>

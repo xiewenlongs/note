@@ -16,6 +16,8 @@ Kindle 电子书
 
 http://baidupan.net/
 
+http://kandouren.com/forum.php?mod=forumdisplay&fid=50
+
 
 ---------------------------------------
 电影

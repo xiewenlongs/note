@@ -35,6 +35,13 @@ this pice checking ``/dev/poll`` feature. It generate a test.c file and compile 
 macro into auto_headers.h
 
 
+Architecture
+---------------------------------------
+
+.. image:: ../../_static/s_nginx_arch.jpg
+
+
+
 modules
 ---------------------------------------
 
@@ -111,6 +118,10 @@ There are 5 type of modules:
     _not_modified_filter  HTTP   47
     ====================  =====  === === ====== ====== ======= ====== ====== ======= ====== ================================
 
+
+.. tip::
+    http 模块原本负责(联系全局模块和http协议模块， 实现http协议), 但目前实现http协议已经分离出来，为http_core模块。这样做
+    是因为将来nginx还要实现除了http之外的协议,如SPDY
 
 
 other
@@ -220,7 +231,12 @@ ngx_http_core_conf::
         ngx_uint_t                 server_names_hash_bucket_size;
         ngx_uint_t                 variables_hash_max_size;
         ngx_uint_t                 variables_hash_bucket_size;
-        ngx_hash_keys_arrays_t    *variables_keys;
+        ngx_hash_keys_arrays_t    *variables_keys;      /*很多固定变量, 有些模块会增加自己的变量, 如:
+                                                          http_upstream, http_proxy, http_fastcgi,
+                                                          http_browser, http_stub, http_gzip,
+                                                          http_ssi_filter, http_userid_filter,
+                                                          每个模块的 ctx->preconfiguration()函数，负责添加
+                                                          自己的var */
         ngx_array_t               *ports;
         ngx_uint_t                 try_files;       /* unsigned  try_files:1 */
         ngx_http_phase_t           phases[NGX_HTTP_LOG_PHASE + 1];
