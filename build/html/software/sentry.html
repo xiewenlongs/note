@@ -73,6 +73,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
@@ -93,9 +94,10 @@
 <li><a class="reference internal" href="#id1">配置</a><ul>
 <li><a class="reference internal" href="#id2">安装</a></li>
 <li><a class="reference internal" href="#id3">启动</a></li>
+<li><a class="reference internal" href="#id4">报警邮件</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">问题</a></li>
+<li><a class="reference internal" href="#id5">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -143,9 +145,10 @@
 <li><a class="reference internal" href="#id1">配置</a><ul>
 <li><a class="reference internal" href="#id2">安装</a></li>
 <li><a class="reference internal" href="#id3">启动</a></li>
+<li><a class="reference internal" href="#id4">报警邮件</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">问题</a></li>
+<li><a class="reference internal" href="#id5">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -251,9 +254,28 @@ crash 掉</li>
 <div class="line"><br /></div>
 </div>
 </div>
-</div>
 <div class="section" id="id4">
-<h2>问题<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h3>报警邮件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>configure as this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">EMAIL_BACKEND</span> <span class="o">=</span> <span class="s">&#39;django.core.mail.backends.smtp.EmailBackend&#39;</span>
+<span class="n">EMAIL_HOST</span> <span class="o">=</span> <span class="s">&#39;smtp-inc.alibaba-inc.com&#39;</span>
+<span class="n">EMAIL_HOST_PASSWORD</span> <span class="o">=</span> <span class="s">&#39;yourpassword&#39;</span>
+<span class="n">EMAIL_HOST_USER</span> <span class="o">=</span> <span class="s">&#39;service@umeng.com&#39;</span>
+<span class="n">EMAIL_PORT</span> <span class="o">=</span> <span class="n">your_port</span>
+<span class="n">EMAIL_USE_TLS</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">SERVER_EMAIL</span> <span class="o">=</span> <span class="s">&#39;service@umeng.com&#39;</span>
+</pre></div>
+</div>
+<p><strong>Cannot receive email notifytion After configure email</strong>:</p>
+<p>Enter email test web(<a class="reference external" href="http://localhost:9000/manage/status/mail/">http://localhost:9000/manage/status/mail/</a>) and type [send a test email]. If it report
+<tt class="docutils literal"><span class="pre">STARTTLS</span> <span class="pre">extension</span> <span class="pre">not</span> <span class="pre">supported</span> <span class="pre">by</span> <span class="pre">server</span></tt> ,  you must set <tt class="docutils literal"><span class="pre">EMAIL_USE_TLS</span> <span class="pre">=</span> <span class="pre">False</span></tt> in your sentry configure</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>问题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p><strong>启动时报错: Transaction managed block ended with pending COMMIT/ROLLBACK</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre>$&gt; sentry start
 

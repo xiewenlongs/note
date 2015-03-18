@@ -101,6 +101,27 @@ sentry
 
 |
 
+报警邮件
+~~~~~~~~~~~~~~~~~~~~~~~
+
+configure as this::
+
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp-inc.alibaba-inc.com'
+    EMAIL_HOST_PASSWORD = 'yourpassword'
+    EMAIL_HOST_USER = 'service@umeng.com'
+    EMAIL_PORT = your_port
+    EMAIL_USE_TLS = True
+    SERVER_EMAIL = 'service@umeng.com'
+
+
+**Cannot receive email notifytion After configure email**:
+
+Enter email test web(http://localhost:9000/manage/status/mail/) and type [send a test email]. If it report
+``STARTTLS extension not supported by server`` ,  you must set ``EMAIL_USE_TLS = False`` in your sentry configure
+
+|
+
 问题
 ---------------------------------------
 
@@ -131,3 +152,5 @@ sentry
 
 This maybe cause by SENTRY_URL_PREFIX configure. If your add resversal proxy in front of sentry, you must set
 ``SENTRY_URL_PREFIX`` to the IP of resversal proxy
+
+
