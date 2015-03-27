@@ -9,6 +9,7 @@
    github
    goaccess
    hadoop
+   lucene
    mongo
    mongoengine
    mysql
