@@ -146,7 +146,8 @@ event模块
     connections <num>                  event_core           貌似被废弃了, nginx文档里没有这个指令, 从代码看默认512
     use <event>                        event_core           使用那种connection processing method, nginx默认会选择最高效的方式
     multi_accept <on>                  event_core           当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接,
-                                                            默认off
+                                                            默认off. 如果同一时间过来的请求量太大，一个worker进程会花费很多在accept上，
+                                                            所以这时应该关闭
     accept_mutex <on>                  event_core           1. ``避免惊群效果`` (每个 accept 上一把锁);
                                                             2. ``负载平衡`` (如果当前worker的请求量已达到worker_connections的7/8，
                                                             则这个worker 不参与竞争新来的request) ,默认是on
@@ -509,19 +510,66 @@ location 配置
 ``=`` 匹配符， 完全匹配才处理， e.g::
 
    location = / {
-        # 完全匹配才处理
+        # 完全匹配才处理, 只处理url/
         ...
    }
 
-``~`` 匹配符， 表示大小写敏感
+``~`` 匹配符， 表示执行一个正则匹配, 大小写敏感
 
-``~*`` 匹配符， 表示大小写不敏感
+``~*`` 匹配符， 表示执行一个正则匹配, 大小写不敏感
+
+``^~`` 表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录
 
 可以使用正则, e.g::
 
-   location ~* \.(gif|png)$ {
-        # 以gif 或者 png 结尾的url
+   location  = / {
+        # 只匹配"/".
+        [ configuration A ]
    }
+
+   location  / {
+        # 匹配任何请求，因为所有请求都是以"/"开始
+        # 但是更长字符匹配或者正则表达式匹配会优先匹配
+        [ configuration B ]
+   }
+
+   location ^~ /images/ {
+        # 匹配任何以 /images/ 开始的请求，并停止匹配 其它location
+        [ configuration C ]
+   }
+
+   location ~* \.(gif|jpg|jpeg)$ {
+        # 匹配以 gif, jpg, or jpeg结尾的请求.
+        # 但是所有 /images/ 目录的请求将由 [Configuration C]处理.
+        [ configuration D ]
+   }
+
+
+log 配置
+~~~~~~~~~~~~~~~~~~~~~~~
+
+log配置有四个指令::
+
+    error_log logs/error.log warn;
+    log_format gzip '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $bytes_sent '
+                    '"$http_referer" "$http_user_agent" "$gzip_ratio"';
+
+    access_log /spool/logs/nginx-access.log gzip buffer=32k;
+    open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
+
+
+默认的error日志，在logs/error.log. 默认的access日志， 在logs/access.log. 可以通过 ``log_format`` 指令来定义format, 然后
+在access_log指令里用.
+
+.. warning::
+    尽量不要在log 路径里写变量， 否则nginx 每写一条日志，都要打开关闭一次文件描述符, 虽然可以用open_log_file_cache 指令
+    来优化这点，但还是很影响性能
+
+|
+
+写log时默认使用同level的log配置, 如果当前level没有log配置, 就继承上层配置。如果当前level有多个log配置，那么每个配置都写
+一遍
 
 
 

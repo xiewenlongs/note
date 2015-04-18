@@ -14,4 +14,5 @@
    arithmetic/index
    mind/index
    sources
+   tools
    todo

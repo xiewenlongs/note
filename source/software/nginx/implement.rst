@@ -42,6 +42,38 @@ Architecture
 
 
 
+nginx 把一个Http请求的处理，分为若干个步骤, 按处理顺序如下:
+
+.. cssclass:: table-bordered
+.. table::
+
+    =====================================   =================================       ==============================================
+    步骤                                    模块/命令                               hander
+    =====================================   =================================       ==============================================
+    server selection (*)                    listen, server_name
+    NGX_HTTP_POST_READ_PHASE                HttpRealIpModule (第三方)
+    NGX_HTTP_SERVER_REWRITE_PHASE           rewrite                                 ngx_http_rewrite_handler (rewrite)
+    NGX_HTTP_FIND_CONFIG_PHASE (*)          location
+    NGX_HTTP_REWRITE_PHASE                  rewrite                                 ngx_http_rewrite_handler (rewrite)
+    NGX_HTTP_POST_REWRITE_PHASE (*)
+    NGX_HTTP_PREACCESS_PHASE                degradation, limit_zone,                ngx_http_limit_conn_handler (limit_conn)
+                                            limit req, HttpRealIpModule             ngx_http_limit_req_handler (limit_req)
+    NGX_HTTP_ACCESS_PHASE                   allow, deny, auth_basic                 ngx_http_auth_basic_handler (auth_base)
+                                                                                    ngx_http_access_handler (access)
+    NGX_HTTP_POST_ACCESS_PHASE (*)
+    NGX_HTTP_TRY_FILES_PHASE (*)            try_files
+    NGX_HTTP_CONTENT_PHASE                  autoindex, Core, DAV, EmptyGif,         ngx_http_static_handler (static)
+                                            FastCGI, FLV, gzip_static, index,       ngx_http_autoindex_handler (autoindex)
+                                            memcached, perl, proxy,                 ngx_http_index_handler (index)
+                                            random_index, scgi, stub_status,
+                                            uwsgi
+    NGX_HTTP_LOG_PHASE                      access_log                              ngx_http_log_handler (log)
+    =====================================   =================================       ==============================================
+
+.. warning::
+    其中每一个phase里每个handler的顺序是可能改变的， 由 ``ngx_module_t *ngx_modules`` 来定(auto configure 生成的)
+
+
 modules
 ---------------------------------------
 
@@ -130,10 +162,19 @@ other
 location tree
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-There will be more than one location in on server block. To speed up search, nginx create a static tree struct before
-listening.
+对于每一个server, 里面可能有多个location 配置, 所有location 有两种可能: ``正则匹配`` 和 ``精确匹配(以它开头)``
+最简单的做法是， nginx实现一个数组，把所有location配置塞进去。一个请求到来的时候，依次遍历数组去判断.
 
-|
+
+但是nginx要实现一个feature: 先处理 ``精确匹配``, 再处理 ``正则匹配``. 并且遍历数组的效率明显偏低. 所以解析完一个server
+下的所有location配置以后， nginx 构造了两个变量::
+
+    ngx_http_location_tree_node_t   *static_locations;
+    ngx_http_core_loc_conf_t       **regex_locations;
+
+static_locations 是一个平衡排序三叉树，保存了 ``精确匹配`` 的所有location, 而regex_locations是一个数组,
+保存了 ``正则匹配``.  一个请求来的时候，先遍历精确匹配的三叉树(效率很高), 如果不匹配再遍历正则匹配的数组
+
 
 .. image:: ../../_static/s_nginx_location_tree.jpg
 
