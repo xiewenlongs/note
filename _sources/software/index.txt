@@ -17,5 +17,6 @@
    python-lib/index
    nginx/index
    sentry
+   solr
    vim
    webbench

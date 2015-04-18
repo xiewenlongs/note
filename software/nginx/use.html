@@ -33,7 +33,7 @@
     <link rel="top" title="Notebook" href="../../index.html" />
     <link rel="up" title="nginx" href="index.html" />
     <link rel="next" title="implement" href="implement.html" />
-    <link rel="prev" title="nginx" href="index.html" />
+    <link rel="prev" title="demo config" href="conf.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -76,6 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -122,6 +123,7 @@
 </li>
 <li><a class="reference internal" href="#id16">其他</a><ul>
 <li><a class="reference internal" href="#location">location 配置</a></li>
+<li><a class="reference internal" href="#log">log 配置</a></li>
 <li><a class="reference internal" href="#don-t-use-if">Don&#8217;t use If</a></li>
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
@@ -138,7 +140,7 @@
               
                 
   <li>
-    <a href="index.html" title="Previous Chapter: nginx"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; nginx</span>
+    <a href="conf.html" title="Previous Chapter: demo config"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; demo config</span>
     </a>
   </li>
   <li>
@@ -202,6 +204,7 @@
 </li>
 <li><a class="reference internal" href="#id16">其他</a><ul>
 <li><a class="reference internal" href="#location">location 配置</a></li>
+<li><a class="reference internal" href="#log">log 配置</a></li>
 <li><a class="reference internal" href="#don-t-use-if">Don&#8217;t use If</a></li>
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
@@ -468,7 +471,8 @@ used when writing a core-file</td>
 <tr class="row-odd"><td>multi_accept &lt;on&gt;</td>
 <td>event_core</td>
 <td>当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接,
-默认off</td>
+默认off. 如果同一时间过来的请求量太大，一个worker进程会花费很多在accept上，
+所以这时应该关闭</td>
 </tr>
 <tr class="row-even"><td>accept_mutex &lt;on&gt;</td>
 <td>event_core</td>
@@ -1059,19 +1063,63 @@ server {
 <span id="nginx-location"></span><h3>location 配置<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">=</span></tt> 匹配符， 完全匹配才处理， e.g:</p>
 <div class="highlight-python"><div class="highlight"><pre>location = / {
-     # 完全匹配才处理
+     # 完全匹配才处理, 只处理url/
      ...
 }
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">~</span></tt> 匹配符， 表示大小写敏感</p>
-<p><tt class="docutils literal"><span class="pre">~*</span></tt> 匹配符， 表示大小写不敏感</p>
+<p><tt class="docutils literal"><span class="pre">~</span></tt> 匹配符， 表示执行一个正则匹配, 大小写敏感</p>
+<p><tt class="docutils literal"><span class="pre">~*</span></tt> 匹配符， 表示执行一个正则匹配, 大小写不敏感</p>
+<p><tt class="docutils literal"><span class="pre">^~</span></tt> 表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录</p>
 <p>可以使用正则, e.g:</p>
-<div class="highlight-python"><div class="highlight"><pre>location ~* \.(gif|png)$ {
-     # 以gif 或者 png 结尾的url
+<div class="highlight-python"><div class="highlight"><pre>location  = / {
+     # 只匹配&quot;/&quot;.
+     [ configuration A ]
+}
+
+location  / {
+     # 匹配任何请求，因为所有请求都是以&quot;/&quot;开始
+     # 但是更长字符匹配或者正则表达式匹配会优先匹配
+     [ configuration B ]
+}
+
+location ^~ /images/ {
+     # 匹配任何以 /images/ 开始的请求，并停止匹配 其它location
+     [ configuration C ]
+}
+
+location ~* \.(gif|jpg|jpeg)$ {
+     # 匹配以 gif, jpg, or jpeg结尾的请求.
+     # 但是所有 /images/ 目录的请求将由 [Configuration C]处理.
+     [ configuration D ]
 }
 </pre></div>
 </div>
+</div>
+<div class="section" id="log">
+<h3>log 配置<a class="headerlink" href="#log" title="Permalink to this headline">¶</a></h3>
+<p>log配置有四个指令:</p>
+<div class="highlight-python"><div class="highlight"><pre>error_log logs/error.log warn;
+log_format gzip &#39;$remote_addr - $remote_user [$time_local] &#39;
+                &#39;&quot;$request&quot; $status $bytes_sent &#39;
+                &#39;&quot;$http_referer&quot; &quot;$http_user_agent&quot; &quot;$gzip_ratio&quot;&#39;;
+
+access_log /spool/logs/nginx-access.log gzip buffer=32k;
+open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
+</pre></div>
+</div>
+<p>默认的error日志，在logs/error.log. 默认的access日志， 在logs/access.log. 可以通过 <tt class="docutils literal"><span class="pre">log_format</span></tt> 指令来定义format, 然后
+在access_log指令里用.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">尽量不要在log 路径里写变量， 否则nginx 每写一条日志，都要打开关闭一次文件描述符, 虽然可以用open_log_file_cache 指令
+来优化这点，但还是很影响性能</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>写log时默认使用同level的log配置, 如果当前level没有log配置, 就继承上层配置。如果当前level有多个log配置，那么每个配置都写
+一遍</p>
 </div>
 <div class="section" id="don-t-use-if">
 <h3>Don&#8217;t use If<a class="headerlink" href="#don-t-use-if" title="Permalink to this headline">¶</a></h3>
