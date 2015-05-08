@@ -75,7 +75,11 @@ http server tuning
     ================================                ==========================================================================
     fs.file-max                                     **4872754**  一个进程可以打开的最大文件句柄数， 这个值直接影响最大并发量
     net.ipv4.tcp_tw_reuse                           **1** TIME-WAIT 状态的套接字重用， http服务器会有大量TIME-WAIT状态socket
-    net.ipv4.tcp_keepalive_time                     **7200** 保活定时器的间隔, 时间约短，server回收资源越快
+    net.core.somaxconn                              **262144** listen 函数的backlog参数上限
+    net.ipv4.tcp_synack_retries                     **2** 为了打开对端的连接，内核需要发送一个SYN并附带一个回应前面一个SYN的
+                                                    ACK。也就是所谓三次握手中的第二次握手。这个设置决定了内核放弃连接之前发
+                                                    送SYN+ACK包的数量。
+    net.ipv4.tcp_syn_retries                        **2** 在内核放弃建立连接之前发送SYN包的数量。
     net.ipv4.tcp_fin_timeout                        **15** 服务器一个socket 在FIN-WAIT2 状态维护的时间
     net.ipv4.tcp_max_tw_buckets                     **180000** 服务器TIME-WAIT状态套接字的数量限制，如果超过这个数量，
                                                     新来的TIME-WAIT套接字会直接释放 (过多的TIME-WAIT 套接字很影响服务器性能)
@@ -84,7 +88,14 @@ http server tuning
                                                     这个值是队列的最大值
     net.ipv4.ip_local_port_range                    **1024 65535** 定义了作为客户端， port的取值范围。 如果服务器要请求
                                                     其他server(作为客户端), 那么这个值还是有必要的
-    net.ipv4.tcp_syncookies                         **1** 与性能无关，用于解决SYN攻击
+    net.ipv4.tcp_syncookies                         **1** 与性能无关，用于解决SYN攻击, 给每一个请求连接的IP地址分配一个
+                                                    Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是受到了攻击,
+                                                    以后从这个IP地址来的包会被一概丢弃。
+    net.ipv4.tcp_keepalive_time                     **1800** 保活定时器的间隔, 时间约短，server回收资源越快, 每个alive最大
+                                                    探测时间= (tcp_keepalive_intvl * tcp_keepalive_probes)
+    net.ipv4.tcp_keepalive_intvl                    **30** 
+    net.ipv4.tcp_keepalive_probes                   **3** 如果HTTP服务开启了keepalive, 这个参数就起作用了. server每两小时发送
+                                                    一次 探测包，如果这个包没有回应，这个参数指定重试多少次, 默认是9 (太多)
     net.core.rmem_max                               这个值在一定程度上影响了并发量，但需要根据具体业务来调整
     net.core.rmem_default                           这个值在一定程度上影响了并发量，但需要根据具体业务来调整
     net.ipv4.tcp_rmem                               这个值在一定程度上影响了并发量，但需要根据具体业务来调整

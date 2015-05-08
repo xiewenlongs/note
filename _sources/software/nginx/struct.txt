@@ -210,6 +210,7 @@ The relationship within them like that:
 
 它的逻辑:
 
+* 没有局部free的方法，一般使用方式都是在一个pool上一点一点palloc, 等连接关闭时，对整个pool进行destory
 
 * 开辟内存小于max的时候，在pool->d这个内存链表里开辟(不停开辟block)
 
