@@ -77,15 +77,17 @@ sentry
 
 ``《如何阅读一本书》``
 
-《http权威指南》
+``《你以为没有的，可能在来的路上》``
 
-《你以为没有的，可能在来的路上》
+``《数据之颠》``
+
+《游戏改变世界》
+
+《http权威指南》
 
 《Managing Gitabytes: Compressing and Indexing Documents and Images》
 
 《django book》
-
-《数据之颠》
 
 《突然就走到了西藏》
 

@@ -254,7 +254,7 @@ http模块
                                         **fastopen**: 打开TCP fastopen选项, TCP fastopen特性只有kernel 版本大于3才支持
                                         这个参数水很深，不要随便设置
 
-                                        **backlog <num>**: 略
+                                        **backlog <num>**: 默认511
 
                                         **deferred**: 默认新来一个TCP连接，三次握手后master进程就唤醒worker进程来
                                         接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接

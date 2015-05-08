@@ -41,8 +41,12 @@ Architecture
 .. image:: ../../_static/s_nginx_arch.jpg
 
 
+|
+
 
 nginx 把一个Http请求的处理，分为若干个步骤, 按处理顺序如下:
+
+|
 
 .. cssclass:: table-bordered
 .. table::

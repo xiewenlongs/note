@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>计算机网络 &mdash; Notebook</title>
+    <title>hack &mdash; Notebook</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="Notebook" href="../index.html" />
-    <link rel="next" title="arp协议" href="arp.html" />
-    <link rel="prev" title="python" href="../program_lang/python.html" />
+    <link rel="up" title="计算机网络" href="index.html" />
+    <link rel="next" title="http" href="http.html" />
+    <link rel="prev" title="arp协议" href="arp.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -69,7 +70,7 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">计算机网络</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
@@ -90,7 +91,14 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">计算机网络</a></li>
+<li><a class="reference internal" href="#">hack</a><ul>
+<li><a class="reference internal" href="#dos">Dos 攻击</a></li>
+<li><a class="reference internal" href="#id1">如何攻击</a><ul>
+<li><a class="reference internal" href="#id2">防范</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -100,11 +108,11 @@
               
                 
   <li>
-    <a href="../program_lang/python.html" title="Previous Chapter: python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; python</span>
+    <a href="arp.html" title="Previous Chapter: arp协议"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; arp协议</span>
     </a>
   </li>
   <li>
-    <a href="arp.html" title="Next Chapter: arp协议"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">arp协议 &raquo;</span>
+    <a href="http.html" title="Next Chapter: http"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">http &raquo;</span>
     </a>
   </li>
               
@@ -132,22 +140,50 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">计算机网络</a></li>
+<li><a class="reference internal" href="#">hack</a><ul>
+<li><a class="reference internal" href="#dos">Dos 攻击</a></li>
+<li><a class="reference internal" href="#id1">如何攻击</a><ul>
+<li><a class="reference internal" href="#id2">防范</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="id1">
-<h1>计算机网络<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="arp.html">arp协议</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hack.html">hack</a></li>
-<li class="toctree-l1"><a class="reference internal" href="http.html">http</a></li>
-<li class="toctree-l1"><a class="reference internal" href="socket.html">socket TCP 编程</a></li>
+  <div class="section" id="hack">
+<h1>hack<a class="headerlink" href="#hack" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dos">
+<h2>Dos 攻击<a class="headerlink" href="#dos" title="Permalink to this headline">¶</a></h2>
+<p>Dos 攻击的种类很多，但原理都是发送大量的请求，使server不能服务正常的请求. 知名的攻击类别有:</p>
+<ul class="simple">
+<li>SYN Flood攻击</li>
+<li>DDos 分布式Dos攻击</li>
+<li>Pingofdeath 死亡之Ping</li>
 </ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>如何攻击<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Http-Alive</strong></p>
+<p>善用Http服务的Keep-Alive来进行攻击，如果发送大量请求需要创建大量同Http服务的连接, 那么连接数太大时，容易被服务器上游的防火墙防御, 所以最要用已建立的连接，发送大量请求</p>
+<p><strong>HEAD请求</strong></p>
+<p>如果靠发送大量的GET, POST请求来进行攻击，服务端对每个GET/POST请求都会response, 那么服务器的response可能在还没有攻击完成前，就把hacker机器的带宽沾满了,从而无法继续进行攻击. 而HEAD请求不同， 它只要求server返回HTTP头部, 详情见 <a class="reference internal" href="http.html#http-protocol-head"><em>HTTP HEAD协议</em></a></p>
+<p><strong>Choose your target wisely</strong></p>
+<p>Dos攻击的目的是消耗server的CPU和RAM, 所以挑选请求的时候，要挑选CPU密集型的请求，如搜索(搜索词语注意随机性)</p>
+<p><strong>Keep dead工具</strong></p>
+<p>下载链接: <a class="reference external" href="http://www.esrun.co.uk/blog/wp-content/uploads/2011/03/Keep-Dead.zip">http://www.esrun.co.uk/blog/wp-content/uploads/2011/03/Keep-Dead.zip</a></p>
+<div class="section" id="id2">
+<h3>防范<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>server上游安装防火墙, 过滤Dos攻击</p>
+<p><strong>SYN Flood攻击</strong></p>
+<p>设置net.ipv4.tcp_syncookies = 1，就是给每一个请求连接的IP地址分配一个Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是受到了攻击，以后从这个IP地址来的包会被一概丢弃。</p>
+</div>
 </div>
 </div>
 
@@ -164,7 +200,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/network/index.txt"
+  <a href="../_sources/network/hack.txt"
      rel="nofollow">Source</a>
 </div>
       

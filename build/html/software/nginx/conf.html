@@ -76,6 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -146,10 +147,17 @@
 # global config
 #####################
 
+# daemon on;
+# master_process on;
+# timer_resolution 100ms;
+# lock_file /var/run/nginx.lock;
+# worker_priority -10;
+
 user admin admin;
 pid /var/run/nginx.pid;
 worker_processes auto;
 worker_rlimit_nofile 102400;
+error_log /var/log/nginx/error.log;
 
 #####################
 # event config
@@ -178,8 +186,16 @@ http {
     reset_timedout_connection on;
     send_timeout 10;
 
-    limit_conn_zone $binary_remote_addr zone=addr:5m;
-    limit_conn addr 100;
+    # 限制同一IP并发连接数
+    limit_conn_zone $binary_remote_addr zone=manyconns:5m;
+    limit_conn_status 405;
+    limit_conn manyconns 100;
+
+    # 限制同一IP请求量, 每秒不超过2个req, 峰值为10, 那么客户端以5req/s
+    # 的速度，每5秒发一次，平均下来，不超过rate限制，不会报错
+    limit_req_zone $binary_remote_addr zone=manyreqs:10m rate=2r/s;
+    limit_req_status 404;
+    limit_req zone=manyreqs burst=10 nodelay;
 
     include /etc/nginx/mime.types;
     default_type text/html;
@@ -237,15 +253,32 @@ http {
     # http config
     #####################
 
+    upstream mysite
+    {
+        # ip_hash;
+        # keepalive;
+        # least_conn;
+        server unix:/tmp/mysite.sock weight=10 max_fails=1 fail_timeout=10;
+        server 192.168.1.1:8080 weight=20 backup; # 标示这个server不会做load balancer, 除非其他server挂了
+        server 192.168.1.1:8080 weight=20 down;  # 标示这个server不可用
+    }
+
     server {
-        listen 80;
+        # listen 80 backlog=1024 deferred keepalive=on fastopen=100;
+        listen 80 backlog=1024 deferred;
         server_name     localhost;
 
         location / {
-            deny all;
+            uwsgi_pass  mysite;
         }
 
         location /nginx_status {
+
+            limit_except GET {
+                allow 192.168.1.0/32;
+                deny  all;
+            }
+
             access_log off;
             stub_status on;
             access_log off;

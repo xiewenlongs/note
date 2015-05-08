@@ -76,6 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -356,6 +357,7 @@ struct ngx_pool_s {
 </div>
 <p>它的逻辑:</p>
 <ul class="simple">
+<li>没有局部free的方法，一般使用方式都是在一个pool上一点一点palloc, 等连接关闭时，对整个pool进行destory</li>
 <li>开辟内存小于max的时候，在pool-&gt;d这个内存链表里开辟(不停开辟block)</li>
 <li>开辟内存大于max的时候，在pool-&gt;large 这个内存链表上开辟(同上)</li>
 <li>pool-&gt;cleanup 是内存池提供的回调函数，free的时候会依次调用，一般不需要处理它</li>

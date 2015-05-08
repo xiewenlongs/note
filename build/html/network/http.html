@@ -73,8 +73,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -90,6 +92,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">http</a><ul>
+<li><a class="reference internal" href="#head">HEAD</a></li>
 <li><a class="reference internal" href="#get">GET</a></li>
 <li><a class="reference internal" href="#post">POST</a><ul>
 <li><a class="reference internal" href="#vs-json">表单 vs JSON</a></li>
@@ -141,6 +144,7 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">http</a><ul>
+<li><a class="reference internal" href="#head">HEAD</a></li>
 <li><a class="reference internal" href="#get">GET</a></li>
 <li><a class="reference internal" href="#post">POST</a><ul>
 <li><a class="reference internal" href="#vs-json">表单 vs JSON</a></li>
@@ -158,6 +162,15 @@
       
   <div class="section" id="http">
 <h1>http<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="head">
+<span id="http-protocol-head"></span><h2>HEAD<a class="headerlink" href="#head" title="Permalink to this headline">¶</a></h2>
+<p>client 发送HEAD请求到服务器， 服务器只返回头部信息回去，不发送真实数据. 这个方法的用途:</p>
+<ul class="simple">
+<li>客户端查看某个资源的返回类型(mine-type)</li>
+<li>查询某个静态文件是否存在</li>
+<li>查询一个文件是否有修改(Cache-time)</li>
+</ul>
+</div>
 <div class="section" id="get">
 <h2>GET<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h2>
 <p>以下是用chrome 浏览器请求 django server的抓包结果</p>
