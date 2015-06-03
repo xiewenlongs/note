@@ -92,3 +92,13 @@ FAQ
     requests.get('http://www.google.com', timeout=2)
 
     如果没有开vpn, 这个请求也不会2秒后报错， 因为大部分时间block 在DNS查询， 这步查询不受requests 的timeout影响。
+
+**URL 编码**
+
+url 编码只能使用utf-8, 所以在url中出现汉字，浏览器会自动把汉字转换成utf-8表示(每个字节前加%), 如::
+
+    http://www.baidu.com?wq=春节
+
+浏览器处理过后，其实发送的是::
+
+    http://www.baidu.com?wq=%E6%98%A5%E8%8A%82

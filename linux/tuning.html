@@ -271,7 +271,7 @@ Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是
 以后从这个IP地址来的包会被一概丢弃。</td>
 </tr>
 <tr class="row-odd"><td>net.ipv4.tcp_keepalive_time</td>
-<td><strong>1800</strong> 保活定时器的间隔, 时间约短，server回收资源越快, 每个alive最大
+<td><strong>600</strong> 保活定时器的间隔, 时间约短，server回收资源越快, 每个alive最大
 探测时间= (tcp_keepalive_intvl * tcp_keepalive_probes)</td>
 </tr>
 <tr class="row-even"><td>net.ipv4.tcp_keepalive_intvl</td>
