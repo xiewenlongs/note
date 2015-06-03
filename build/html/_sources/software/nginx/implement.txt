@@ -159,6 +159,98 @@ There are 5 type of modules:
     http 模块原本负责(联系全局模块和http协议模块， 实现http协议), 但目前实现http协议已经分离出来，为http_core模块。这样做
     是因为将来nginx还要实现除了http之外的协议,如SPDY
 
+upstream 模块
+---------------------------------------
+
+配置一个代理需要两部:
+
+1. 先定义一个upstream(如果就一台backend, 这步也可以省略)
+2. 在某个location里配置upstream
+
+如下::
+
+        location / {
+            proxy_pass http://127.0.0.1;
+        }
+
+如果一个location配置了转发, 那么他的context 会这样变化::
+
+    clcf->handler = ngx_http_proxy_handler
+
+并且一个请求来的时候，会先检测它的handler是否为空，如果不为空，就调用handler然后直接返回(相当于交由backend处理). 但这个
+ ``交由backend处理``, 就是各种upstream模块的工作了， 一个upstream模块需要实现7个回调函数
+
+.. cssclass:: table-bordered
+.. table::
+
+    =======================     ==========================================  ========================================================
+    回调函数                    函数功能                                    upstream代理模块
+    =======================     ==========================================  ========================================================
+    create_request              根据nginx与后端服务器通信协议（比如HTTP、   ngx_http_proxy_create_request 由于nginx与后端服务器通信
+                                Memcache），将客户端的HTTP请求信息转换为对  协议也为HTTP，所以直接拷贝客户端的请求头、请求体（如果有
+                                应的发送到后端服务器的真实请求。            ）到变量r->upstream->request_bufs内。
+    process_header              根据nginx与后端服务器通信协议，将后端服务   ngx_http_proxy_process_status_line 此时后端服务器返回的
+                                器返回的头部信息转换为对客户端响应的HTTP响  头部信息已经保存在变量r->upstream->buffer内，将这串字符
+                                应头。                                      串解析为HTTP响应头存储到变量r->upstream->headers_in内。
+
+    input_filter_init           根据前面获得的后端服务器返回的头部信息，    ngx_http_proxy_input_filter_init 根据已解析的后端服务器
+                                为进一步处理后端服务器将返回的响应体做初    返回的头部信息，设置需进一步处理的后端服务器将返回的响
+                                始准备工作。                                应体的长度，该值保存在变量r->upstream->length内。
+    input_filter                正式处理后端服务器返回的响应体。            ngx_http_proxy_non_buffered_copy_filter 本次收到的响应体
+                                                                            数据长度为bytes，数据长度存储在r->upstream->buffer内，
+                                                                            把它加入到r->upstream->out_bufs响应数据链等待发送给客户端
+    finalize_request            正常结束与后端服务器的交互，比如剩余待取数  ngx_http_proxy_finalize_request 记录一条日志，标识正常结
+                                据长度为0或读到EOF等，之后就会调用该函数。  束与后端服务器的交互，然后函数返回。
+                                由于nginx会自动完成与后端服务器交互的清理
+                                工作，所以该函数一般仅做下日志，标识响应正
+                                常结束。
+    reinit_request              对交互重新初始化，比如当nginx发现一台后端   ngx_http_proxy_reinit_request 设置初始值，设置回调指针，
+                                服务器出错无法正常完成处理，需要尝试请求    处理比较简单。
+                                另一台后端服务器时就会调用该函数。
+    abort_request               异常结束与后端服务器的交互后就会调用该函    ngx_http_proxy_abort_request 记录一条日志，标识异常结束
+                                数。大部分情况下，该函数仅做下日志，        与后端服务器的交互，然后函数返回。
+                                标识响应异常结束。
+    =======================     ==========================================  ========================================================
+
+它们之间的调用顺序如下:
+
+.. image:: ../../_static/s_nginx_upstream_sort.jpg
+
+
+Load-Balance 模块
+---------------------------------------
+
+Load-Balance 模块是一个辅助模块，它之作用于upstream模块，它的目标是: ``如何从多台backend中选择一个合适的服务器来处理请求``
+
+它需要处理四个回调函数:
+
+.. cssclass:: table-bordered
+.. table::
+
+    ===========================     ==========================================  =============================================================
+    回调函数                        函数功能                                    upstream代理模块
+    ===========================     ==========================================  =============================================================
+    uscf->peer.init_upstream        解析配置文件过程中被调用，根据upstream里    ngx_http_upstream_init_round_robin
+                                    各个server配置项做初始准备工作，另外的核心  设置：us->peer.init = ngx_http_upstream_init_round_rob
+                                    工作是设置回调指针us->peer.init。配置文件   in_peer;  ngx_http_upstream_init_ip_hash
+                                    解析完后就不再被调用。                      设置：us->peer.init = ngx_http_upstream_init_ip_hash_peer
+    us->peer.init                   在每一次nginx准备转发客户端请求到后端服务   ngx_http_upstream_init_round_robin_peer
+                                    器前都会调用该函数，该函数为本次转发选择合  设置：r->upstream->peer.get = ngx_http_upstream_get_round
+                                    适的后端服务器做初始准备工作，另外的核心工  _robin_peer; r->upstream->peer.free = ngx_http_upstream
+                                    作是设置回调指针r->upstream->peer.get和     _free_round_robin_peer; ngx_http_upstream_init_ip_hash_peer
+                                    r->upstream->peer.free等。                  设置：r->upstream->peer.get = ngx_http_upstream_get_ip_hash
+                                                                                _peer; r->upstream->peer.free为空。
+    r->upstream->peer.get           在每一次nginx准备转发客户端请求到后端服务   ngx_http_upstream_get_round_robin_peer 加权选择当前权值最高
+                                    器前都会调用该函数，该函数实现具体的为本    （即从各方面综合比较更有能力处理当前请求）的后端服务器。
+                                    次转发选择合适后端服务器的算法逻辑，即完    ngx_http_upstream_get_ip_hash_peer 根据ip哈希值选择后端服务器
+                                    成选择获取合适后端服务器的功能。
+    r->upstream->peer.free          在每一次nginx完成与后端服务器之间的交互后   ngx_http_upstream_free_round_robin_peer 更新相关数值，
+                                    都会调用该函数。如果选择算法有前后依赖性，  比如rrp->current等。  空
+                                    比如加权选择，那么需要做一些数值更新操作；
+                                    如果选择算法没有前后依赖性，比如ip哈希，
+                                    那么该函数可为空；
+    ===========================     ==========================================  =============================================================
+
 
 other
 ---------------------------------------
@@ -340,7 +432,7 @@ ngx_http_core_conf::
         void        **loc_conf;
         uint32_t      limit_except;
         void        **limit_except_loc_conf;
-        ngx_http_handler_pt  handler;
+        ngx_http_handler_pt  handler;           /* 如果这个location 设置了upstream 转发，那么这个回调钩子就处理转发 */
         /* location name length for inclusive location with inherited alias */
         size_t        alias;
         ngx_str_t     root;                    /* root, alias */

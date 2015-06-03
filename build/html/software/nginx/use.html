@@ -843,6 +843,12 @@ nginx 会关闭这个连接</td>
 <tr class="row-odd"><td>tcp_nopush &lt;on&gt;</td>
 <td>是否开启FreeDSB的TCP_NOPUSH 或Linux 的TCP_CORK功能</td>
 </tr>
+<tr class="row-even"><td>proxy_buffering &lt;on&gt;</td>
+<td>proxy服务器接收后端upstream响应的时候，是否使用buffer先把response缓存起
+来，等upstream处理完了，再全部send到客户端. 打开的好处是， 只要代理nginx
+和后端nginx交互完后，就可以关闭这条链接，减少upstream服务器开销，这对于
+客户端响应很慢的情况来说，是很有利的，后端之间的链接，不用等客户端响应</td>
+</tr>
 </tbody>
 </table>
 <div class="line-block">
