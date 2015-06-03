@@ -120,3 +120,21 @@ csv很容易在多个平台之间乱码，使用如下代码可以减少乱码�
             pass
     fp.close()
 
+
+unicode转码
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+普通字符串怎么变成unicode::
+
+    > s = u'\u4f60\u597d'
+    > print s
+    你好
+    > s = '\u4f60\u597d'
+    > print s
+    '\u4f60\u597d'
+    > print s.encode('utf-8')
+    '\u4f60\u597d'
+    > print s.decode('utf-8')
+    '\u4f60\u597d'
+    > print s.decode('unicode-escape')
+    你好

@@ -321,6 +321,10 @@ http模块
     keepalive_timeout <time>            keepalive 超时时间
     keepalive_requests <num>            一个keepalive 连接上默认最多能发送的request 个数
     tcp_nopush <on>                     是否开启FreeDSB的TCP_NOPUSH 或Linux 的TCP_CORK功能
+    proxy_buffering <on>                proxy服务器接收后端upstream响应的时候，是否使用buffer先把response缓存起
+                                        来，等upstream处理完了，再全部send到客户端. 打开的好处是， 只要代理nginx
+                                        和后端nginx交互完后，就可以关闭这条链接，减少upstream服务器开销，这对于
+                                        客户端响应很慢的情况来说，是很有利的，后端之间的链接，不用等客户端响应
     ================================    ==========================================================================
 
 |
