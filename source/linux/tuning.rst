@@ -91,7 +91,7 @@ http server tuning
     net.ipv4.tcp_syncookies                         **1** 与性能无关，用于解决SYN攻击, 给每一个请求连接的IP地址分配一个
                                                     Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是受到了攻击,
                                                     以后从这个IP地址来的包会被一概丢弃。
-    net.ipv4.tcp_keepalive_time                     **1800** 保活定时器的间隔, 时间约短，server回收资源越快, 每个alive最大
+    net.ipv4.tcp_keepalive_time                     **600** 保活定时器的间隔, 时间约短，server回收资源越快, 每个alive最大
                                                     探测时间= (tcp_keepalive_intvl * tcp_keepalive_probes)
     net.ipv4.tcp_keepalive_intvl                    **30** 
     net.ipv4.tcp_keepalive_probes                   **3** 如果HTTP服务开启了keepalive, 这个参数就起作用了. server每两小时发送

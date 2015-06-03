@@ -33,7 +33,7 @@
     <link rel="top" title="Notebook" href="../index.html" />
     <link rel="up" title="计算机网络" href="index.html" />
     <link rel="next" title="socket TCP 编程" href="socket.html" />
-    <link rel="prev" title="arp协议" href="arp.html" />
+    <link rel="prev" title="hack" href="hack.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -111,7 +111,7 @@
               
                 
   <li>
-    <a href="arp.html" title="Previous Chapter: arp协议"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; arp协议</span>
+    <a href="hack.html" title="Previous Chapter: hack"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; hack</span>
     </a>
   </li>
   <li>
@@ -226,6 +226,15 @@ d = {a:b
 requests.get(&#39;http://www.google.com&#39;, timeout=2)
 
 如果没有开vpn, 这个请求也不会2秒后报错， 因为大部分时间block 在DNS查询， 这步查询不受requests 的timeout影响。
+</pre></div>
+</div>
+<p><strong>URL 编码</strong></p>
+<p>url 编码只能使用utf-8, 所以在url中出现汉字，浏览器会自动把汉字转换成utf-8表示(每个字节前加%), 如:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.baidu.com?wq=春节
+</pre></div>
+</div>
+<p>浏览器处理过后，其实发送的是:</p>
+<div class="highlight-python"><div class="highlight"><pre>http://www.baidu.com?wq=%E6%98%A5%E8%8A%82
 </pre></div>
 </div>
 </div>
