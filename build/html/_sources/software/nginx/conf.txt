@@ -66,7 +66,7 @@ This is a max-optimizal nginx config::
 
 
         gzip on;
-        gzip_disable "msie6";       # 为IE6关闭gzip, 兼容老浏览器
+        gzip_disable "msie[1-6]";   # 为IE6关闭gzip, 兼容老浏览器
         gzip_min_length  1100;
         gzip_comp_level   6;
         gzip_buffers     16 8k;
@@ -103,6 +103,11 @@ This is a max-optimizal nginx config::
         uwsgi_send_timeout          60s;
         uwsgi_read_timeout          60s;
 
+
+        # uwsgi cache
+        # 配置uwsgi cache 后， nginx 会多启动两个进程 (cache manager process) 和 (cache loader process)
+        uwsgi_cache_path /tmp/uwsgi_cache levels=1:2 keys_zone=CACHE:10m inactive=10s;
+
         ##
         #proxy config
         ##
@@ -131,11 +136,21 @@ This is a max-optimizal nginx config::
         }
 
         server {
-            # listen 80 backlog=1024 deferred keepalive=on fastopen=100;
+            # listen 80 backlog=2048 deferred keepalive=on fastopen=100;
             listen 80 backlog=1024 deferred;
             server_name     localhost;
 
             location / {
+                uwsgi_pass  mysite;
+            }
+
+            location /cached {
+                uwsgi_cache CACHE;
+                uwsgi_buffering on;
+                uwsgi_cache_key $scheme$request_method$host$request_uri$args;
+                uwsgi_pass  mysite;
+                uwsgi_cache_valid 200 20s;
+
                 uwsgi_pass  mysite;
             }
 

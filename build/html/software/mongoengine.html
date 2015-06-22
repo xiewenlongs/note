@@ -73,8 +73,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -90,7 +92,8 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">mongoengine</a><ul>
-<li><a class="reference internal" href="#id1">问题</a></li>
+<li><a class="reference internal" href="#id1">配置从读主写</a></li>
+<li><a class="reference internal" href="#id2">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -135,7 +138,8 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">mongoengine</a><ul>
-<li><a class="reference internal" href="#id1">问题</a></li>
+<li><a class="reference internal" href="#id1">配置从读主写</a></li>
+<li><a class="reference internal" href="#id2">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -155,7 +159,18 @@
 </pre></div>
 </div>
 <div class="section" id="id1">
-<h2>问题<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>配置从读主写<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="n">connect</span>
+<span class="kn">from</span> <span class="nn">pymongo</span> <span class="kn">import</span> <span class="n">ReadPreference</span>
+<span class="n">connect</span><span class="p">(</span><span class="s">&#39;mydb&#39;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">&#39;mongodb://server1:27017,server2:27017,server3:27017&#39;</span><span class="p">,</span>
+        <span class="n">replicaSet</span><span class="o">=</span><span class="s">&#39;replset&#39;</span><span class="p">,</span>
+        <span class="n">read_preference</span><span class="o">=</span><span class="n">ReadPreference</span><span class="o">.</span><span class="n">SECONDARY_PREFERRED</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>mongoengine 可以理解为对pymongo的封装，跟pymongo比，它最大的消耗在 <tt class="docutils literal"><span class="pre">从pymongo查询的结果，转换为Document实例</span></tt>,
 这确实很费资源</p>
 <p>mongoengine 在文档实例save的时候，会调用validate来验证每一个field,  这步没有必要，比较耗时</p>

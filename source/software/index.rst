@@ -9,7 +9,9 @@
    github
    goaccess
    hadoop
+   list
    lucene
+   maven
    mongo
    mongoengine
    mysql
@@ -18,5 +20,7 @@
    nginx/index
    sentry
    solr
+   supervisord
+   uwsgi
    vim
    webbench

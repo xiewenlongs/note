@@ -79,10 +79,15 @@ http server tuning
     net.ipv4.tcp_synack_retries                     **2** 为了打开对端的连接，内核需要发送一个SYN并附带一个回应前面一个SYN的
                                                     ACK。也就是所谓三次握手中的第二次握手。这个设置决定了内核放弃连接之前发
                                                     送SYN+ACK包的数量。
+    net.ipv4.tcp_tw_recycle                         **0** 启动 timewait 快速回收, 这个值打开会有一定的危险，还是关闭比较好,
+                                                    而且处于timewait状态的socket占用内存很少，现在机器不差这点内存。并且有
+                                                    tcp_max_tw_buckets 来限制总timewait数，唯一的缺点就是log里报:
+                                                    time wait bucket table overflow
     net.ipv4.tcp_syn_retries                        **2** 在内核放弃建立连接之前发送SYN包的数量。
     net.ipv4.tcp_fin_timeout                        **15** 服务器一个socket 在FIN-WAIT2 状态维护的时间
-    net.ipv4.tcp_max_tw_buckets                     **180000** 服务器TIME-WAIT状态套接字的数量限制，如果超过这个数量，
-                                                    新来的TIME-WAIT套接字会直接释放 (过多的TIME-WAIT 套接字很影响服务器性能)
+    net.ipv4.tcp_max_tw_buckets                     **18000** 服务器TIME-WAIT状态套接字的数量限制，如果超过这个数量，
+                                                    新来的TIME-WAIT套接字会直接释放 (过多的TIME-WAIT 套接字很影响服务器性能),
+                                                    默认是180000, 太大了.过多的timewait 是浪费资源
     net.ipv4.tcp_max_syn_backlog                    **181920** listen 函数的backlog参数
     net.core.netdev_max_backlog                     **262144** 当网卡接收包的速度大于内核处理速度，会有一个队列放这些包，
                                                     这个值是队列的最大值

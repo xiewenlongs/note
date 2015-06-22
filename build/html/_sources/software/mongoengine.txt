@@ -15,6 +15,18 @@ mongoengine 是纯python框架，实现了mongo的ORM, 整体结构如下
     父类Document 中的方法访问cls._fields 就可以知道自定义了哪些field
 
 
+配置从读主写
+~~~~~~~~~~~~~~~~~~~~~~~
+
+example::
+
+    from mongoengine import connect
+    from pymongo import ReadPreference
+    connect('mydb', host='mongodb://server1:27017,server2:27017,server3:27017',
+            replicaSet='replset',
+            read_preference=ReadPreference.SECONDARY_PREFERRED)
+
+
 问题
 ~~~~~~~~~~~~~~~~~~~~~~~
 

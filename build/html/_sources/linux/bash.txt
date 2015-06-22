@@ -42,3 +42,7 @@ scripts example
 log 跨机器传输(retry): :download:`example </_src/decrypt_nginx_log.sh>`
 
 
+计算字符串的md5值
+---------------------------------------
+
+echo -n "863224020062594" |md5|awk '{print $1}'

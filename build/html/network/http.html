@@ -99,6 +99,7 @@
 <li><a class="reference internal" href="#id2">上传文件</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#pipeline">pipeline</a></li>
 <li><a class="reference internal" href="#faq">FAQ</a></li>
 </ul>
 </li>
@@ -151,6 +152,7 @@
 <li><a class="reference internal" href="#id2">上传文件</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#pipeline">pipeline</a></li>
 <li><a class="reference internal" href="#faq">FAQ</a></li>
 </ul>
 </li>
@@ -217,6 +219,12 @@ d = {a:b
 的是该部分数据的描述。</p>
 <p>接下来才是数据。</p>
 </div>
+</div>
+<div class="section" id="pipeline">
+<h2>pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h2>
+<p>Http1.1 引入了两个提高性能的特性: <tt class="docutils literal"><span class="pre">keepalive</span></tt> 和 <tt class="docutils literal"><span class="pre">pipeline</span></tt>.</p>
+<p><strong>pipeline</strong> 就是可以在一个connection上，并行的发送多个http请求，后一个请求不用等前一个请求处理完毕. 但是这个特性很遗憾,
+没有被大部分程序使用</p>
 </div>
 <div class="section" id="faq">
 <h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h2>

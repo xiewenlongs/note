@@ -244,65 +244,72 @@ file locks                      (-x) unlimited
 ACK。也就是所谓三次握手中的第二次握手。这个设置决定了内核放弃连接之前发
 送SYN+ACK包的数量。</td>
 </tr>
-<tr class="row-even"><td>net.ipv4.tcp_syn_retries</td>
+<tr class="row-even"><td>net.ipv4.tcp_tw_recycle</td>
+<td><strong>0</strong> 启动 timewait 快速回收, 这个值打开会有一定的危险，还是关闭比较好,
+而且处于timewait状态的socket占用内存很少，现在机器不差这点内存。并且有
+tcp_max_tw_buckets 来限制总timewait数，唯一的缺点就是log里报:
+time wait bucket table overflow</td>
+</tr>
+<tr class="row-odd"><td>net.ipv4.tcp_syn_retries</td>
 <td><strong>2</strong> 在内核放弃建立连接之前发送SYN包的数量。</td>
 </tr>
-<tr class="row-odd"><td>net.ipv4.tcp_fin_timeout</td>
+<tr class="row-even"><td>net.ipv4.tcp_fin_timeout</td>
 <td><strong>15</strong> 服务器一个socket 在FIN-WAIT2 状态维护的时间</td>
 </tr>
-<tr class="row-even"><td>net.ipv4.tcp_max_tw_buckets</td>
-<td><strong>180000</strong> 服务器TIME-WAIT状态套接字的数量限制，如果超过这个数量，
-新来的TIME-WAIT套接字会直接释放 (过多的TIME-WAIT 套接字很影响服务器性能)</td>
+<tr class="row-odd"><td>net.ipv4.tcp_max_tw_buckets</td>
+<td><strong>18000</strong> 服务器TIME-WAIT状态套接字的数量限制，如果超过这个数量，
+新来的TIME-WAIT套接字会直接释放 (过多的TIME-WAIT 套接字很影响服务器性能),
+默认是180000, 太大了.过多的timewait 是浪费资源</td>
 </tr>
-<tr class="row-odd"><td>net.ipv4.tcp_max_syn_backlog</td>
+<tr class="row-even"><td>net.ipv4.tcp_max_syn_backlog</td>
 <td><strong>181920</strong> listen 函数的backlog参数</td>
 </tr>
-<tr class="row-even"><td>net.core.netdev_max_backlog</td>
+<tr class="row-odd"><td>net.core.netdev_max_backlog</td>
 <td><strong>262144</strong> 当网卡接收包的速度大于内核处理速度，会有一个队列放这些包，
 这个值是队列的最大值</td>
 </tr>
-<tr class="row-odd"><td>net.ipv4.ip_local_port_range</td>
+<tr class="row-even"><td>net.ipv4.ip_local_port_range</td>
 <td><strong>1024 65535</strong> 定义了作为客户端， port的取值范围。 如果服务器要请求
 其他server(作为客户端), 那么这个值还是有必要的</td>
 </tr>
-<tr class="row-even"><td>net.ipv4.tcp_syncookies</td>
+<tr class="row-odd"><td>net.ipv4.tcp_syncookies</td>
 <td><strong>1</strong> 与性能无关，用于解决SYN攻击, 给每一个请求连接的IP地址分配一个
 Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是受到了攻击,
 以后从这个IP地址来的包会被一概丢弃。</td>
 </tr>
-<tr class="row-odd"><td>net.ipv4.tcp_keepalive_time</td>
+<tr class="row-even"><td>net.ipv4.tcp_keepalive_time</td>
 <td><strong>600</strong> 保活定时器的间隔, 时间约短，server回收资源越快, 每个alive最大
 探测时间= (tcp_keepalive_intvl * tcp_keepalive_probes)</td>
 </tr>
-<tr class="row-even"><td>net.ipv4.tcp_keepalive_intvl</td>
+<tr class="row-odd"><td>net.ipv4.tcp_keepalive_intvl</td>
 <td><strong>30</strong></td>
 </tr>
-<tr class="row-odd"><td>net.ipv4.tcp_keepalive_probes</td>
+<tr class="row-even"><td>net.ipv4.tcp_keepalive_probes</td>
 <td><strong>3</strong> 如果HTTP服务开启了keepalive, 这个参数就起作用了. server每两小时发送
 一次 探测包，如果这个包没有回应，这个参数指定重试多少次, 默认是9 (太多)</td>
 </tr>
-<tr class="row-even"><td>net.core.rmem_max</td>
+<tr class="row-odd"><td>net.core.rmem_max</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
-<tr class="row-odd"><td>net.core.rmem_default</td>
+<tr class="row-even"><td>net.core.rmem_default</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
-<tr class="row-even"><td>net.ipv4.tcp_rmem</td>
+<tr class="row-odd"><td>net.ipv4.tcp_rmem</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
-<tr class="row-odd"><td>net.ipv4.udp_rmem_min</td>
+<tr class="row-even"><td>net.ipv4.udp_rmem_min</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
-<tr class="row-even"><td>net.core.wmem_max</td>
+<tr class="row-odd"><td>net.core.wmem_max</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
-<tr class="row-odd"><td>net.core.wmem_default</td>
+<tr class="row-even"><td>net.core.wmem_default</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
-<tr class="row-even"><td>net.ipv4.tcp_wmem</td>
+<tr class="row-odd"><td>net.ipv4.tcp_wmem</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
-<tr class="row-odd"><td>net.ipv4.udp_wmem_min</td>
+<tr class="row-even"><td>net.ipv4.udp_wmem_min</td>
 <td>这个值在一定程度上影响了并发量，但需要根据具体业务来调整</td>
 </tr>
 </tbody>

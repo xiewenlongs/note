@@ -115,11 +115,10 @@ core模块
                                         所以这个指令相当于已经废弃
     user <user>                         worker进程的owner
     worker_processes <num>              指定worker进程个数, 可以设置为``auto``, nginx自动检测CPU核心数
-    worker_rlimit_nofile <int>          设置一个worker进程可以打开的最大文件句柄数
+    worker_rlimit_nofile <int>          **102400**  设置一个worker进程可以打开的最大文件句柄数
     worker_priority <num>               nginx进程优先级, 默认-10. 值越低, 优先级越高。 注意优先级不要设置太高，否则
                                         系统调用的优先级会被比下去
     worker_cpu_affinity <...>           CPU亲和性
-    worker_rlimit_nofile                改变每个process最大可以打开的文件句柄数
     worker_rlimit_core                  coredump 文件的最大大小
     worker_rlimit_sigpending            只对RTSIG 系统有用。On systems that support rtsig connection processing
                                         method, changes the limit on the number of signals that may be queued
@@ -201,12 +200,12 @@ http模块
     error_page                         http_core            error_page 500 502 503 504 /50x.html;
     try_files                          http_core            try file
     error_log                          http_core            指定error log路径
-    open_file_cache <max> <inact>      http_core            open_file_cache 会告诉 Nginx 去缓存打开的文件，“未找到”的错误，有关文件的元
-                                                            数据和他们的权限，等等。这样做的好处是，一个高需求的文件要求时，Nginx 的可以
-                                                            立即开始发送数据；而且也知道立即发送一个 404,但是，有一个不太理想的缺
-                                                            点：如果磁盘上有变化，服务器不会立即作出反应。 最多缓存<max>个， 非活跃的缓存
-                                                            <inact>秒后从缓存剔除
-    open_file_cache_valid <time>       http_core            而活动（最近要求的文件）每<time>秒重新验证一次。
+    open_file_cache <max> <inact>      http_core            **max=102400 inactive=20s**  open_file_cache 会告诉 Nginx 去缓存打开的文件，
+                                                            “未找到”的错误，有关文件的元 数据和他们的权限，等等。这样做的好处是，一个高
+                                                            需求的文件要求时，Nginx 的可以 立即开始发送数据；而且也知道立即发送一个 404,
+                                                            但是，有一个不太理想的缺点：如果磁盘上有变化，服务器不会立即作出反应。 最多
+                                                            缓存<max>个， 非活跃的缓存 <inact>秒后从缓存剔除
+    open_file_cache_valid <time>       http_core            **30s** 而活动（最近要求的文件）每<time>秒重新验证一次。
     open_file_cache_min_uses           http_core            如果定义活跃的item, 这个指令就是定义: 在<inact>时间内至少访问过 <time>次
     open_file_cache_errors             http_core            缓存404
     resolver                           http_core            配置nginx 内部的DNS服务器
@@ -254,7 +253,8 @@ http模块
                                         **fastopen**: 打开TCP fastopen选项, TCP fastopen特性只有kernel 版本大于3才支持
                                         这个参数水很深，不要随便设置
 
-                                        **backlog <num>**: 默认511
+                                        **backlog <num>**: 默认512, 修改完net.core.somaxconn之后一定要修改这个，否则
+                                        等于没改
 
                                         **deferred**: 默认新来一个TCP连接，三次握手后master进程就唤醒worker进程来
                                         接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接
@@ -318,7 +318,8 @@ http模块
     lingering_time                      ???
     lingering_timeout                   ???
     keepalive_disable <...>             对某些浏览器禁用 keepalive 功能
-    keepalive_timeout <time>            keepalive 超时时间
+    keepalive_timeout <time>            keepalive 超时时间, 每个http1.1的连接， 默认nginx都是长连接,超时时间由
+                                        这个值来定
     keepalive_requests <num>            一个keepalive 连接上默认最多能发送的request 个数
     tcp_nopush <on>                     是否开启FreeDSB的TCP_NOPUSH 或Linux 的TCP_CORK功能
     proxy_buffering <on>                proxy服务器接收后端upstream响应的时候，是否使用buffer先把response缓存起
@@ -385,7 +386,6 @@ MIME
     multi_accept <on>               当事件模型通知有新请求时，尽可能对本次调度中客户端的所有TCP请求都建立连接
     worker_connections              每个worker 的连接池大小。 所以:
                                     ``nginx能接收的总的连接数 = worker_connections * worker_processes``
-    keepalive_timeout               unknown
     ============================    ==========================================================================
 
 
@@ -595,6 +595,22 @@ IfIsEvil: http://wiki.nginx.org/IfIsEvil
     }
 
 意思是， 除了GET POST DELETE 方法外，其他一切请求都deny
+
+
+---------------------------------------
+扩展
+---------------------------------------
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================    ==========================================================================
+    模块                                作用
+    ================================    ==========================================================================
+    nginx_upstream_check_module         upstream 集群健康监测模块
+    ================================    ==========================================================================
+
+
 
 
 ---------------------------------------

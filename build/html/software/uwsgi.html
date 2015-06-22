@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>uwsgi &mdash; Notebook</title>
+    
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="shortcut icon" href="../_static/logo.ico"/>
+    <link rel="top" title="Notebook" href="../index.html" />
+    <link rel="up" title="技术" href="index.html" />
+    <link rel="next" title="vim" href="vim.html" />
+    <link rel="prev" title="supervisord" href="supervisord.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+  <div id="navbar" class="navbar navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          notebook</a>
+        <span class="navbar-text navbar-version pull-left"><b>1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">uwsgi</a><ul>
+<li><a class="reference internal" href="#nginx-uwsgi">nginx 和 uwsgi 应用交互</a></li>
+<li><a class="reference internal" href="#id1">uwsgi插件</a><ul>
+<li><a class="reference internal" href="#route-cache">route-cache</a></li>
+<li><a class="reference internal" href="#alarm">alarm</a></li>
+<li><a class="reference internal" href="#id2">其他插件</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">交互式启动uwsgi</a></li>
+<li><a class="reference internal" href="#id4">标准配置</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="supervisord.html" title="Previous Chapter: supervisord"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; supervisord</span>
+    </a>
+  </li>
+  <li>
+    <a href="vim.html" title="Next Chapter: vim"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">vim &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">uwsgi</a><ul>
+<li><a class="reference internal" href="#nginx-uwsgi">nginx 和 uwsgi 应用交互</a></li>
+<li><a class="reference internal" href="#id1">uwsgi插件</a><ul>
+<li><a class="reference internal" href="#route-cache">route-cache</a></li>
+<li><a class="reference internal" href="#alarm">alarm</a></li>
+<li><a class="reference internal" href="#id2">其他插件</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">交互式启动uwsgi</a></li>
+<li><a class="reference internal" href="#id4">标准配置</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9">
+      
+  <div class="section" id="uwsgi">
+<h1>uwsgi<a class="headerlink" href="#uwsgi" title="Permalink to this headline">¶</a></h1>
+<p>uwsgi 是一种协议， uWSGI是一个纯c写的web容器。 uWSGI实现了wsgi协议和uwsgi协议, 并且它的速度很快</p>
+<div class="section" id="nginx-uwsgi">
+<h2>nginx 和 uwsgi 应用交互<a class="headerlink" href="#nginx-uwsgi" title="Permalink to this headline">¶</a></h2>
+<p>在nginx中配置uwsgi时，会有这么一行:</p>
+<div class="highlight-python"><div class="highlight"><pre>include     uwsgi_params;
+</pre></div>
+</div>
+<p>这里面其实定义了很多变量:</p>
+<div class="highlight-python"><div class="highlight"><pre>uwsgi_param  QUERY_STRING       $query_string;
+uwsgi_param  REQUEST_METHOD     $request_method;
+uwsgi_param  CONTENT_TYPE       $content_type;
+uwsgi_param  CONTENT_LENGTH     $content_length;
+uwsgi_param  REQUEST_URI        $request_uri;
+uwsgi_param  PATH_INFO          $document_uri;
+uwsgi_param  DOCUMENT_ROOT      $document_root;
+uwsgi_param  SERVER_PROTOCOL    $server_protocol;
+uwsgi_param  HTTPS              $https if_not_empty;
+uwsgi_param  REMOTE_ADDR        $remote_addr;
+uwsgi_param  REMOTE_PORT        $remote_port;
+</pre></div>
+</div>
+<p>也许就是利用环境变量传递这些值给uwsgi 应用的， uwsgi 会把这些变量转换成http header, 放在request里, 所以: <tt class="docutils literal"><span class="pre">如果有些值，</span>
+<span class="pre">nginx</span> <span class="pre">层有，但是django层看不到，</span> <span class="pre">那么可以利用nginx</span> <span class="pre">的uwsgi_param指令，把值传到django里</span></tt></p>
+</div>
+<div class="section" id="id1">
+<h2>uwsgi插件<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>uwsgi 默认编译了很多插件在里面， 可以用 <tt class="docutils literal"><span class="pre">uwsgi</span> <span class="pre">--plugins-list</span></tt> 命令来查看有哪些可以使用的插件</p>
+<div class="section" id="route-cache">
+<h3>route-cache<a class="headerlink" href="#route-cache" title="Permalink to this headline">¶</a></h3>
+<p>conf:</p>
+<div class="highlight-python"><div class="highlight"><pre>[uwsgi]
+chdir = .
+# plugins = router_cache
+module = mysite.wsgi:application
+master = True
+processes = 1
+stats = /tmp/test_stat.sock
+http = :9090
+harakiri = 8
+
+cpu_affinity = 1
+log-micros = true
+cache2 = name=mycache,items=300,hash=murmur2
+route = ^/feedback cache:key=${REQUEST_METHOD}${REQUEST_URI}${QUERY_STRING},name=mycache,content_type=application/json
+route = ^/feedback cachestore:key=${REQUEST_METHOD}${REQUEST_URI}${QUERY_STRING},name=mycache,expires=10
+route = ^/feedback log:hey i am printing $1
+
+
+# route = ^/$ cache:key=myhome_for_${cookie[PHPSESSID]},name=mycache
+# ; store each successfull request (200 http status code) for &#39;/&#39;
+# route = ^/$ cachestore:key=myhome_for_${cookie[PHPSESSID]},name=mycache
+autoload = true
+</pre></div>
+</div>
+</div>
+<div class="section" id="alarm">
+<h3>alarm<a class="headerlink" href="#alarm" title="Permalink to this headline">¶</a></h3>
+<p>uwsgi 可以设置报警， 就是if then, example:</p>
+<div class="highlight-python"><div class="highlight"><pre>alarm-backlog = mailme cmd:mail -s &#39;uWSGI alarm&#39; -a &#39;From: foobar@example.com&#39; admin@example.com
+</pre></div>
+</div>
+<p>有用的alarm条件有这几个:</p>
+<ul class="simple">
+<li>log-alarm: 用regex监控log</li>
+<li>larm-backlog: 如果backlog表满了</li>
+<li>alarm-segfault: uwsgi 段错误了</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">注意，uwsgi缓存只会以文本缓存response的内容, 所以查询缓存并返回给client的时候，它默认是以text/html返回的。可以用
+content_type指令来指定</p>
+</div>
+<p>uwsgi 的缓存可以监控状态:: <a class="reference external" href="https://pypi.python.org/pypi/uwsgicachetop">https://pypi.python.org/pypi/uwsgicachetop</a></p>
+</div>
+<div class="section" id="id2">
+<h3>其他插件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><strong>Legion(军团系统)</strong></p>
+<p>uwsgi的集群， 当不适用前端web server时， uwsgi也可以配高可用，就是这套集群系统。 但是还是nginx的upstream集比较安全可靠.</p>
+<p><strong>cheaper</strong></p>
+<p>根据uwsgi 负载, 动态资源分配(workprocess 数量内存占用...)</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>交互式启动uwsgi<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>command:</p>
+<div class="highlight-python"><div class="highlight"><pre>uwsgi --chdir . --file mysite/wsgi.py --callable application  --master --processes 1 --http :9090 --harakiri 10
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>标准配置<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>example:</p>
+<div class="highlight-python"><div class="highlight"><pre>[uwsgi]
+chdir = .
+chmod-socket=664
+module = mysite.wsgi:application
+master = True
+processes = %(%k * 4)
+pidfile = /tmp/%n.pid
+uwsgi-socket = /tmp/%n.sock
+# http 监控(返回json)
+# stats = 127.0.0.1:1717
+stats = /tmp/%n_stat.sock
+# uwsgi 退出的时候，清理环境, 如unix文件/ pid文件h
+vacuum = True
+harakiri = 50
+harakiri-verbose = True
+single-interpreter = True
+memory-report = True
+max-requests = 10000
+listen = 8192
+
+log-truncate = True
+disable-logging = True
+# logformat = i am a logline reporting &quot;%(method) %(uri) %(proto)&quot; returning with status %(status)
+daemonize = /home/log/uwsgi/%n_uwsgi.log
+procname-master = uwsgi --ini %n.ini (master)
+procname = uwsgi --ini %n.ini
+
+need-app = True
+
+# where n is the number of cpus to dedicate per-worker
+cpu_affinity = 1
+
+# 只对tcp有效
+# so-keepalive = True
+
+# 设置worker一定时间自动重启(second), 默认不自动重启
+# max-worker-lifetime = 600
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/software/uwsgi.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

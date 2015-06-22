@@ -73,8 +73,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -92,11 +94,14 @@
 <li><a class="reference internal" href="#">django</a><ul>
 <li><a class="reference internal" href="#id1">测试</a></li>
 <li><a class="reference internal" href="#manager-py">manager.py 工具</a><ul>
-<li><a class="reference internal" href="#diffsettings">diffsettings</a></li>
+<li><a class="reference internal" href="#diffsettings">diffsettings</a><ul>
+<li><a class="reference internal" href="#id2">优化</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">其他</a><ul>
-<li><a class="reference internal" href="#id3">信号</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">其他</a><ul>
+<li><a class="reference internal" href="#id4">信号</a></li>
 </ul>
 </li>
 </ul>
@@ -145,11 +150,14 @@
 <li><a class="reference internal" href="#">django</a><ul>
 <li><a class="reference internal" href="#id1">测试</a></li>
 <li><a class="reference internal" href="#manager-py">manager.py 工具</a><ul>
-<li><a class="reference internal" href="#diffsettings">diffsettings</a></li>
+<li><a class="reference internal" href="#diffsettings">diffsettings</a><ul>
+<li><a class="reference internal" href="#id2">优化</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">其他</a><ul>
-<li><a class="reference internal" href="#id3">信号</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">其他</a><ul>
+<li><a class="reference internal" href="#id4">信号</a></li>
 </ul>
 </li>
 </ul>
@@ -185,12 +193,18 @@
 <div class="section" id="diffsettings">
 <h3>diffsettings<a class="headerlink" href="#diffsettings" title="Permalink to this headline">¶</a></h3>
 <p>显示setting.py 文件与初始 setting.py 的不同</p>
-</div>
-</div>
 <div class="section" id="id2">
-<h2>其他<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h4>优化<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>如果不使用django的session, 那么在settings里把session的中间件注掉，减少开销</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="section" id="id3">
-<h3>信号<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h2>其他<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>信号<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>django 的信号，其实就是定义一个全局类， 这个类的作用就是观察者， 可以注册
 一堆callback, 最后通过send()方法来调用每个signal 上的callback. <strong>它的作用就是解藕, 无其他作用</strong></p>
 <img alt="../_images/django-signal.png" class="align-center" src="../_images/django-signal.png" />

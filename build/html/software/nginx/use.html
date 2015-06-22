@@ -128,7 +128,8 @@
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id18">问题</a></li>
+<li><a class="reference internal" href="#id18">扩展</a></li>
+<li><a class="reference internal" href="#id19">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -209,7 +210,8 @@
 <li><a class="reference internal" href="#nginx-limit-except">限制请求方法</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id18">问题</a></li>
+<li><a class="reference internal" href="#id18">扩展</a></li>
+<li><a class="reference internal" href="#id19">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -408,7 +410,7 @@ With reduced resolution, gettimeofday() is only called once per specified this.<
 <td>指定worker进程个数, 可以设置为``auto``, nginx自动检测CPU核心数</td>
 </tr>
 <tr class="row-odd"><td>worker_rlimit_nofile &lt;int&gt;</td>
-<td>设置一个worker进程可以打开的最大文件句柄数</td>
+<td><strong>102400</strong>  设置一个worker进程可以打开的最大文件句柄数</td>
 </tr>
 <tr class="row-even"><td>worker_priority &lt;num&gt;</td>
 <td>nginx进程优先级, 默认-10. 值越低, 优先级越高。 注意优先级不要设置太高，否则
@@ -417,23 +419,20 @@ With reduced resolution, gettimeofday() is only called once per specified this.<
 <tr class="row-odd"><td>worker_cpu_affinity &lt;...&gt;</td>
 <td>CPU亲和性</td>
 </tr>
-<tr class="row-even"><td>worker_rlimit_nofile</td>
-<td>改变每个process最大可以打开的文件句柄数</td>
-</tr>
-<tr class="row-odd"><td>worker_rlimit_core</td>
+<tr class="row-even"><td>worker_rlimit_core</td>
 <td>coredump 文件的最大大小</td>
 </tr>
-<tr class="row-even"><td>worker_rlimit_sigpending</td>
+<tr class="row-odd"><td>worker_rlimit_sigpending</td>
 <td>只对RTSIG 系统有用。On systems that support rtsig connection processing
 method, changes the limit on the number of signals that may be queued
 (RLIMIT_SIGPENDING) for worker processes. Used to increase the limit without
 restarting the main process</td>
 </tr>
-<tr class="row-odd"><td>working_directory &lt;path&gt;</td>
+<tr class="row-even"><td>working_directory &lt;path&gt;</td>
 <td>Defines the current working directory for a worker process. It is primarily
 used when writing a core-file</td>
 </tr>
-<tr class="row-even"><td>env &lt;...&gt;</td>
+<tr class="row-odd"><td>env &lt;...&gt;</td>
 <td>默认的，nginx的worker进程会清除从parent继承来的所有环境变量, 这个指令可以保留
 部分变量</td>
 </tr>
@@ -619,15 +618,15 @@ Nagle&#8217;s 算法， Nagle 是避免传输数据小，网络带宽无法有�
 </tr>
 <tr class="row-odd"><td>open_file_cache &lt;max&gt; &lt;inact&gt;</td>
 <td>http_core</td>
-<td>open_file_cache 会告诉 Nginx 去缓存打开的文件，“未找到”的错误，有关文件的元
-数据和他们的权限，等等。这样做的好处是，一个高需求的文件要求时，Nginx 的可以
-立即开始发送数据；而且也知道立即发送一个 404,但是，有一个不太理想的缺
-点：如果磁盘上有变化，服务器不会立即作出反应。 最多缓存&lt;max&gt;个， 非活跃的缓存
-&lt;inact&gt;秒后从缓存剔除</td>
+<td><strong>max=102400 inactive=20s</strong>  open_file_cache 会告诉 Nginx 去缓存打开的文件，
+“未找到”的错误，有关文件的元 数据和他们的权限，等等。这样做的好处是，一个高
+需求的文件要求时，Nginx 的可以 立即开始发送数据；而且也知道立即发送一个 404,
+但是，有一个不太理想的缺点：如果磁盘上有变化，服务器不会立即作出反应。 最多
+缓存&lt;max&gt;个， 非活跃的缓存 &lt;inact&gt;秒后从缓存剔除</td>
 </tr>
 <tr class="row-even"><td>open_file_cache_valid &lt;time&gt;</td>
 <td>http_core</td>
-<td>而活动（最近要求的文件）每&lt;time&gt;秒重新验证一次。</td>
+<td><strong>30s</strong> 而活动（最近要求的文件）每&lt;time&gt;秒重新验证一次。</td>
 </tr>
 <tr class="row-odd"><td>open_file_cache_min_uses</td>
 <td>http_core</td>
@@ -713,7 +712,8 @@ server就成为默认server(server_name没有匹配)</p>
 xx.xx.xx.xx这个IP接口， 设置bind则绑定</p>
 <p><strong>fastopen</strong>: 打开TCP fastopen选项, TCP fastopen特性只有kernel 版本大于3才支持
 这个参数水很深，不要随便设置</p>
-<p><strong>backlog &lt;num&gt;</strong>: 默认511</p>
+<p><strong>backlog &lt;num&gt;</strong>: 默认512, 修改完net.core.somaxconn之后一定要修改这个，否则
+等于没改</p>
 <p class="last"><strong>deferred</strong>: 默认新来一个TCP连接，三次握手后master进程就唤醒worker进程来
 接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接
 上真来了数据，才唤醒worker, 它减轻了worker的负担。降低服务端进行
@@ -835,7 +835,8 @@ nginx 会关闭这个连接</td>
 <td>对某些浏览器禁用 keepalive 功能</td>
 </tr>
 <tr class="row-odd"><td>keepalive_timeout &lt;time&gt;</td>
-<td>keepalive 超时时间</td>
+<td>keepalive 超时时间, 每个http1.1的连接， 默认nginx都是长连接,超时时间由
+这个值来定</td>
 </tr>
 <tr class="row-even"><td>keepalive_requests &lt;num&gt;</td>
 <td>一个keepalive 连接上默认最多能发送的request 个数</td>
@@ -959,9 +960,6 @@ nginx 会关闭这个连接</td>
 <tr class="row-even"><td>worker_connections</td>
 <td>每个worker 的连接池大小。 所以:
 <tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt></td>
-</tr>
-<tr class="row-odd"><td>keepalive_timeout</td>
-<td>unknown</td>
 </tr>
 </tbody>
 </table>
@@ -1143,7 +1141,26 @@ open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
 </div>
 </div>
 <div class="section" id="id18">
-<h2>问题<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<h2>扩展<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">模块</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>nginx_upstream_check_module</td>
+<td>upstream 集群健康监测模块</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id19">
+<h2>问题<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
 <p>nginx 配置 keepalive_time = 0 后， server端处理完请求会有大量TIME-WAIT。但是只要把这个值设为不为0， 就不会有TIME-WAIT了</p>
 </div>
 </div>
