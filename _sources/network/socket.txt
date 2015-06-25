@@ -126,7 +126,7 @@ Connection reset by peer
 就会导致 Connection reset by peer. 这种情况可能是:
 
 1. 客户端关掉页面， 服务器还不知道
-2. 服务器的并发连接数超过了其承载量,服务器会将其中一些连接关闭 (nginx 这样实现的?, 待确认)
+2. 服务器的并发连接数超过了其承载量,服务器会将其中一些连接关闭 (见net.ipv4.tcp_abort_on_overflow)
 
 
 |

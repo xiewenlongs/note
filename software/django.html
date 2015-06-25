@@ -73,8 +73,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -90,13 +92,17 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">django</a><ul>
-<li><a class="reference internal" href="#id1">测试</a></li>
-<li><a class="reference internal" href="#manager-py">manager.py 工具</a><ul>
-<li><a class="reference internal" href="#diffsettings">diffsettings</a></li>
+<li><a class="reference internal" href="#id1">中间件</a></li>
+<li><a class="reference internal" href="#session">session</a><ul>
+<li><a class="reference internal" href="#id2">配置</a></li>
+<li><a class="reference internal" href="#cache">cache</a></li>
+<li><a class="reference internal" href="#id3">清理</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">其他</a><ul>
-<li><a class="reference internal" href="#id3">信号</a></li>
+<li><a class="reference internal" href="#id4">测试</a></li>
+<li><a class="reference internal" href="#id5">优化</a></li>
+<li><a class="reference internal" href="#id6">其他</a><ul>
+<li><a class="reference internal" href="#id7">信号</a></li>
 </ul>
 </li>
 </ul>
@@ -143,13 +149,17 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">django</a><ul>
-<li><a class="reference internal" href="#id1">测试</a></li>
-<li><a class="reference internal" href="#manager-py">manager.py 工具</a><ul>
-<li><a class="reference internal" href="#diffsettings">diffsettings</a></li>
+<li><a class="reference internal" href="#id1">中间件</a></li>
+<li><a class="reference internal" href="#session">session</a><ul>
+<li><a class="reference internal" href="#id2">配置</a></li>
+<li><a class="reference internal" href="#cache">cache</a></li>
+<li><a class="reference internal" href="#id3">清理</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">其他</a><ul>
-<li><a class="reference internal" href="#id3">信号</a></li>
+<li><a class="reference internal" href="#id4">测试</a></li>
+<li><a class="reference internal" href="#id5">优化</a></li>
+<li><a class="reference internal" href="#id6">其他</a><ul>
+<li><a class="reference internal" href="#id7">信号</a></li>
 </ul>
 </li>
 </ul>
@@ -163,7 +173,85 @@
   <div class="section" id="django">
 <h1>django<a class="headerlink" href="#django" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>测试<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>中间件<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>django 自带了一下中间件:</p>
+<p><a class="reference internal" href="#django-session"><em>django.contrib.sessions.middleware.SessionMiddleware</em></a></p>
+</div>
+<div class="section" id="session">
+<span id="django-session"></span><h2>session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>使用django session 需要在middle中配置: <tt class="docutils literal"><span class="pre">django.contrib.sessions.middleware.SessionMiddleware</span></tt></p>
+<p>这个中间件的作用是:</p>
+<div class="highlight-python"><div class="highlight"><pre>在request之前，给request对象增加一个session属性，是sessionStore类型(这个类型可以在setting中用SESSION_ENGINE来配置)
+在response之后，查看response的status, 如果不等于500， 就把session对象存储下来(看SESSION_ENGINE来决定用什么存)
+</pre></div>
+</div>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">配置</th>
+<th class="head">作用</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SESSION_COOKIE_NAME</td>
+<td><strong>sessionid</strong> 默认的session字段名</td>
+</tr>
+<tr class="row-odd"><td>SESSION_CACHE_ALIAS</td>
+<td><strong>default</strong> session 使用cache时，用哪个cache配置</td>
+</tr>
+<tr class="row-even"><td>SESSION_COOKIE_AGE</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>SESSION_COOKIE_DOMAIN</td>
+<td><strong>None</strong> http协议里session 的domain字段。 允许跨域session</td>
+</tr>
+<tr class="row-even"><td>SESSION_COOKIE_HTTPONLY</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>SESSION_COOKIE_PATH</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>SESSION_COOKIE_SECURE</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>SESSION_ENGINE</td>
+<td><strong>django.contrib.sessions.backends.db</strong> django自带以下engine:
+django.contrib.sessions.backends.db:  用mysql实现的session
+django.contrib.sessions.backends.file: 用file
+django.contrib.sessions.backends.cache: 用mem, 不持久
+django.contrib.sessions.backends.cached_db: 用mem + mysql</td>
+</tr>
+<tr class="row-even"><td>SESSION_EXPIRE_AT_BROWSER_CLOSE</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>SESSION_FILE_PATH</td>
+<td>file session 使用保存session的路径</td>
+</tr>
+<tr class="row-even"><td>SESSION_SAVE_EVERY_REQUEST</td>
+<td><strong>False</strong> 是否每个请求都store一遍session, 默认只有session改变的时候才store</td>
+</tr>
+<tr class="row-odd"><td>SESSION_SERIALIZER</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="cache">
+<h3>cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h3>
+<p>默认django自带的session cached engine, 都是使用django.core.cache的功能来实现cache</p>
+</div>
+<div class="section" id="id3">
+<h3>清理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>session 会每次生成一条记录， 用 <tt class="docutils literal"><span class="pre">clearsessions</span></tt> 可以清理过期的session. 可以把这条命令加在crontab里</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>测试<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>测试类</p>
 <ul>
 <li><p class="first">django.utils.unittest.TestCase  基本测试类</p>
@@ -180,17 +268,16 @@
 </li>
 </ul>
 </div>
-<div class="section" id="manager-py">
-<h2>manager.py 工具<a class="headerlink" href="#manager-py" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="diffsettings">
-<h3>diffsettings<a class="headerlink" href="#diffsettings" title="Permalink to this headline">¶</a></h3>
-<p>显示setting.py 文件与初始 setting.py 的不同</p>
+<div class="section" id="id5">
+<h2>优化<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>如果不使用django的session, 那么在settings里把session的中间件注掉，减少开销</li>
+</ul>
 </div>
-</div>
-<div class="section" id="id2">
-<h2>其他<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>信号<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h2>其他<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>信号<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>django 的信号，其实就是定义一个全局类， 这个类的作用就是观察者， 可以注册
 一堆callback, 最后通过send()方法来调用每个signal 上的callback. <strong>它的作用就是解藕, 无其他作用</strong></p>
 <img alt="../_images/django-signal.png" class="align-center" src="../_images/django-signal.png" />

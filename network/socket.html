@@ -73,8 +73,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -253,7 +255,7 @@ main(int argc, char **argv)
 就会导致 Connection reset by peer. 这种情况可能是:</p>
 <ol class="arabic simple">
 <li>客户端关掉页面， 服务器还不知道</li>
-<li>服务器的并发连接数超过了其承载量,服务器会将其中一些连接关闭 (nginx 这样实现的?, 待确认)</li>
+<li>服务器的并发连接数超过了其承载量,服务器会将其中一些连接关闭 (见net.ipv4.tcp_abort_on_overflow)</li>
 </ol>
 <div class="line-block">
 <div class="line"><br /></div>
