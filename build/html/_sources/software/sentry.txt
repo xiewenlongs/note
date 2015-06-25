@@ -107,12 +107,12 @@ sentry
 configure as this::
 
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp-inc.alibaba-inc.com'
+    EMAIL_HOST = 'smtp.163.com'
     EMAIL_HOST_PASSWORD = 'yourpassword'
-    EMAIL_HOST_USER = 'service@umeng.com'
+    EMAIL_HOST_USER = 'service@163.com'
     EMAIL_PORT = your_port
     EMAIL_USE_TLS = True
-    SERVER_EMAIL = 'service@umeng.com'
+    SERVER_EMAIL = 'service@163.com'
 
 
 **Cannot receive email notifytion After configure email**:

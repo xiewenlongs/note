@@ -617,5 +617,4 @@ IfIsEvil: http://wiki.nginx.org/IfIsEvil
 问题
 ---------------------------------------
 
-nginx 配置 keepalive_time = 0 后， server端处理完请求会有大量TIME-WAIT。但是只要把这个值设为不为0， 就不会有TIME-WAIT了
 

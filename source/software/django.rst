@@ -4,6 +4,69 @@ django
 
 
 ---------------------------------------
+中间件
+---------------------------------------
+
+django 自带了一下中间件:
+
+:ref:`django.contrib.sessions.middleware.SessionMiddleware <django_session>`
+
+
+.. _django_session:
+
+---------------------------------------
+session
+---------------------------------------
+
+配置
+~~~~~~~~~~~~~~~~~~~~~~~
+
+使用django session 需要在middle中配置: ``django.contrib.sessions.middleware.SessionMiddleware``
+
+这个中间件的作用是::
+
+    在request之前，给request对象增加一个session属性，是sessionStore类型(这个类型可以在setting中用SESSION_ENGINE来配置)
+    在response之后，查看response的status, 如果不等于500， 就把session对象存储下来(看SESSION_ENGINE来决定用什么存)
+
+
+.. cssclass:: table-bordered
+.. table::
+
+    ================================    ==========================================================================
+    配置                                作用
+    ================================    ==========================================================================
+    SESSION_COOKIE_NAME                 **sessionid** 默认的session字段名
+    SESSION_CACHE_ALIAS                 **default** session 使用cache时，用哪个cache配置
+    SESSION_COOKIE_AGE
+    SESSION_COOKIE_DOMAIN               **None** http协议里session 的domain字段。 允许跨域session
+    SESSION_COOKIE_HTTPONLY
+    SESSION_COOKIE_PATH
+    SESSION_COOKIE_SECURE
+    SESSION_ENGINE                      **django.contrib.sessions.backends.db** django自带以下engine:
+                                        django.contrib.sessions.backends.db:  用mysql实现的session
+                                        django.contrib.sessions.backends.file: 用file
+                                        django.contrib.sessions.backends.cache: 用mem, 不持久
+                                        django.contrib.sessions.backends.cached_db: 用mem + mysql
+    SESSION_EXPIRE_AT_BROWSER_CLOSE
+    SESSION_FILE_PATH                   file session 使用保存session的路径
+    SESSION_SAVE_EVERY_REQUEST          **False** 是否每个请求都store一遍session, 默认只有session改变的时候才store
+    SESSION_SERIALIZER
+    ================================    ==========================================================================
+
+
+cache
+~~~~~~~~~~~~~~~~~~~~~~~
+
+默认django自带的session cached engine, 都是使用django.core.cache的功能来实现cache
+
+
+清理
+~~~~~~~~~~~~~~~~~~~~~~~
+
+session 会每次生成一条记录， 用 ``clearsessions`` 可以清理过期的session. 可以把这条命令加在crontab里
+
+
+---------------------------------------
 测试
 ---------------------------------------
 
@@ -23,16 +86,6 @@ django
 
 
 ---------------------------------------
-manager.py 工具
----------------------------------------
-
-
-diffsettings
-~~~~~~~~~~~~~~~~~~~~~~~
-
-显示setting.py 文件与初始 setting.py 的不同
-
-
 优化
 ---------------------------------------
 

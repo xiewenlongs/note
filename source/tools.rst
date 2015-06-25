@@ -26,8 +26,8 @@ paste
 
 
 广告终结者
-浏览器广告插件
-http://www.adtchrome.com/
+
+浏览器广告插件 http://www.adtchrome.com/
 
 
 Mac下提高效率的工具

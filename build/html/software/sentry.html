@@ -32,8 +32,8 @@
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="Notebook" href="../index.html" />
     <link rel="up" title="技术" href="index.html" />
-    <link rel="next" title="vim" href="vim.html" />
-    <link rel="prev" title="struct" href="nginx/struct.html" />
+    <link rel="next" title="solr" href="solr.html" />
+    <link rel="prev" title="FAQ" href="nginx/faq.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -76,6 +76,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -109,11 +110,11 @@
               
                 
   <li>
-    <a href="nginx/struct.html" title="Previous Chapter: struct"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; struct</span>
+    <a href="nginx/faq.html" title="Previous Chapter: FAQ"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; FAQ</span>
     </a>
   </li>
   <li>
-    <a href="vim.html" title="Next Chapter: vim"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">vim &raquo;</span>
+    <a href="solr.html" title="Next Chapter: solr"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">solr &raquo;</span>
     </a>
   </li>
               
@@ -258,12 +259,12 @@ crash 掉</li>
 <h3>报警邮件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>configure as this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">EMAIL_BACKEND</span> <span class="o">=</span> <span class="s">&#39;django.core.mail.backends.smtp.EmailBackend&#39;</span>
-<span class="n">EMAIL_HOST</span> <span class="o">=</span> <span class="s">&#39;smtp-inc.alibaba-inc.com&#39;</span>
+<span class="n">EMAIL_HOST</span> <span class="o">=</span> <span class="s">&#39;smtp.163.com&#39;</span>
 <span class="n">EMAIL_HOST_PASSWORD</span> <span class="o">=</span> <span class="s">&#39;yourpassword&#39;</span>
-<span class="n">EMAIL_HOST_USER</span> <span class="o">=</span> <span class="s">&#39;service@umeng.com&#39;</span>
+<span class="n">EMAIL_HOST_USER</span> <span class="o">=</span> <span class="s">&#39;service@163.com&#39;</span>
 <span class="n">EMAIL_PORT</span> <span class="o">=</span> <span class="n">your_port</span>
 <span class="n">EMAIL_USE_TLS</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">SERVER_EMAIL</span> <span class="o">=</span> <span class="s">&#39;service@umeng.com&#39;</span>
+<span class="n">SERVER_EMAIL</span> <span class="o">=</span> <span class="s">&#39;service@163.com&#39;</span>
 </pre></div>
 </div>
 <p><strong>Cannot receive email notifytion After configure email</strong>:</p>
