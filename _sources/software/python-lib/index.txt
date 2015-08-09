@@ -8,3 +8,4 @@ python库
    :titlesonly:
 
    urllib3
+   numpy

@@ -94,6 +94,7 @@
 <li><a class="reference internal" href="#">supervisord</a><ul>
 <li><a class="reference internal" href="#id1">原理</a></li>
 <li><a class="reference internal" href="#id2">使用</a></li>
+<li><a class="reference internal" href="#id3">插件</a></li>
 </ul>
 </li>
 </ul>
@@ -140,6 +141,7 @@
 <li><a class="reference internal" href="#">supervisord</a><ul>
 <li><a class="reference internal" href="#id1">原理</a></li>
 <li><a class="reference internal" href="#id2">使用</a></li>
+<li><a class="reference internal" href="#id3">插件</a></li>
 </ul>
 </li>
 </ul>
@@ -196,6 +198,16 @@ avail  exit   maintail  pid   reload  reread  shutdown  status  tail  version
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">supervisord现在没法reload每个subprocess, 它现在的做法只能restart subprocess</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>插件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><strong>superlance</strong> 是一款supervisord的插件，使用它，可以让supervisord子进程退出时，发送邮件到指定邮箱
+配置如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>[eventlistener:fatalmailbatch]
+command=/python2.7/bin/fatalmailbatch --toEmail=&quot;your@company.com&quot; --fromEmail=&quot;send@company.com&quot; --smtpHost=&quot;smtp.163.com&quot; --userName=&quot;send@company.com&quot; --password=&quot;passwd&quot; --subject=&quot;[supervisord]: fatal error&quot;
+events=PROCESS_STATE,TICK_60
+</pre></div>
 </div>
 </div>
 </div>

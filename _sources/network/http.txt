@@ -112,3 +112,6 @@ url 编码只能使用utf-8, 所以在url中出现汉字，浏览器会自动把
 浏览器处理过后，其实发送的是::
 
     http://www.baidu.com?wq=%E6%98%A5%E8%8A%82
+
+**http basic auth**
+这是http协议的一个feature, 它把账号和密码放在header里(未加密)，向server发出请求, 如果验证失败，就返回401

@@ -46,3 +46,12 @@ rewrite VS 重定向
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 nginx 的rewrite 指令，就是返回一个重定向。所以对于客户端，访问rewrite的url, 会导致两次请求。
+
+
+在log中记录header
+~~~~~~~~~~~~~~~~~~~~~~~
+
+记录requests 的header使用 ``$http_<name>`` 变量, 记录response的header使用 ``$sent_http_<name>`` 变量, 如下::
+
+    underscores_in_headers on;
+    log_format STAT '[$time_local]`$http_x_up_calling_line_id`"$request"`"$http_user_agent"`$status`[$remote_addr]`$http_range`"$http_referer"`$request_time`$body_bytes_sent`$http_deviceid`$http_x_forwarded_for`$host`$http_cookie |token=`$http_HTTP_AUTHORIZATION`';

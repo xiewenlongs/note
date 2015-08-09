@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>linux 笔记 &mdash; Notebook</title>
+    <title>screen &mdash; Notebook</title>
     
     <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,8 +31,9 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="shortcut icon" href="../_static/logo.ico"/>
     <link rel="top" title="Notebook" href="../index.html" />
-    <link rel="next" title="bash" href="bash.html" />
-    <link rel="prev" title="webbench" href="../software/webbench.html" />
+    <link rel="up" title="linux 笔记" href="index.html" />
+    <link rel="next" title="linux 调优" href="tuning.html" />
+    <link rel="prev" title="regex" href="regex.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -71,7 +72,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software/index.html">技术</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">linux 笔记</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">linux 笔记</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
@@ -90,7 +91,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">linux 笔记</a></li>
+<li><a class="reference internal" href="#">screen</a></li>
 </ul>
 </ul>
 </li>
@@ -100,11 +101,11 @@
               
                 
   <li>
-    <a href="../software/webbench.html" title="Previous Chapter: webbench"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; webbench</span>
+    <a href="regex.html" title="Previous Chapter: regex"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; regex</span>
     </a>
   </li>
   <li>
-    <a href="bash.html" title="Next Chapter: bash"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">bash &raquo;</span>
+    <a href="tuning.html" title="Next Chapter: linux 调优"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">linux 调优 &raquo;</span>
     </a>
   </li>
               
@@ -132,24 +133,46 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">linux 笔记</a></li>
+<li><a class="reference internal" href="#">screen</a></li>
 </ul>
 
         </div>
       </div>
     <div class="col-md-9">
       
-  <div class="section" id="linux">
-<h1>linux 笔记<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="bash.html">bash</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html">基础</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regex.html">regex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="screen.html">screen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tuning.html">linux 调优</a></li>
-<li class="toctree-l1"><a class="reference internal" href="iptable.html">防火墙</a></li>
-</ul>
+  <div class="section" id="screen">
+<h1>screen<a class="headerlink" href="#screen" title="Permalink to this headline">¶</a></h1>
+<p>screen 配置的不好，有可能导致vim花屏， screen 标准配置:</p>
+<div class="highlight-python"><div class="highlight"><pre>bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+escape ^Ee
+
+# the following two lines give a two-line status, with the current window highlighted
+hardstatus alwayslastline
+hardstatus string &#39;%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]&#39;
+
+# # huge scrollback buffer
+defscrollback 5000
+
+# no welcome message
+startup_message off
+
+# 256 colors
+attrcolor b &quot;.I&quot;
+termcapinfo xterm &#39;Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm&#39;
+defbce on
+
+# mouse tracking allows to switch region focus by clicking
+# mousetrack on
+
+# default windows
+screen -t Shell1  1 bash
+
+select 0
+bind c screen 1 # window numbering starts at 1 not 0
+bind 0 select 10
+</pre></div>
 </div>
 </div>
 
@@ -166,7 +189,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/linux/index.txt"
+  <a href="../_sources/linux/screen.txt"
      rel="nofollow">Source</a>
 </div>
       

@@ -2,7 +2,11 @@
 uwsgi
 ===============================================
 
-uwsgi 是一种协议， uWSGI是一个纯c写的web容器。 uWSGI实现了wsgi协议和uwsgi协议, 并且它的速度很快
+uwsgi 是一种协议， uWSGI是一个纯c写的web容器。 uWSGI实现了wsgi协议和uwsgi协议, 并且它的速度很快.
+uwsgi 默认是在当前python 下编译的，如果你有多个python版本环境， 有两种方式可以解决:
+
+1. 在每个python下编译安装各自的uwsgi
+2. 编译uwsgi用 ``Bonus: multiple Python versions for the same uWSGI binary``, 不绑定uwsgi到具体的python版本
 
 
 nginx 和 uwsgi 应用交互
@@ -108,6 +112,47 @@ command::
     uwsgi --chdir . --file mysite/wsgi.py --callable application  --master --processes 1 --http :9090 --harakiri 10
 
 
+常见问题
+---------------------------------------
+
+
+当设置了 ``max-requests`` 后，每个worker会在收到那么多请求后自动重启，会在uwsgi log 里写入这么几行::
+
+    Fire in the hole
+    Sat Jul 11 13:48:19 2015 - Fire in the hole !!! (60 seconds to detonation)
+    Gracefully killing worker 1 (pid: 22813)...
+    Sat Jul 11 13:48:19 2015 - stopping gevent signals watchers for worker 1 (pid: 22813)...
+    Sat Jul 11 13:48:19 2015 - stopping gevent sockets watchers for worker 1 (pid: 22813)...
+    Sat Jul 11 13:48:19 2015 - main gevent watchers stopped for worker 1 (pid: 22813)...
+    Sat Jul 11 13:48:19 2015 - worker 1 (pid: 22813) core 93 is managing "GET /"
+    Sat Jul 11 13:48:19 2015 - worker 1 (pid: 22813) core 95 is managing "GET /"
+
+
+
+如果同时使用 ``gevent`` 和 ``cpu_affinity`` 时，有可能导致worker进程不能被有效回收，
+导致可工作的worker越来越少，最终服务挂掉. 这个可以从uwsgi log里看到， respawn的worker id 越来越固定
+
+未解决
+~~~~~~~~~~~~~~~~~~~~~~~
+
+调优: ``If you are running only a single application you can disable multiple interpreters.`` 为什么???
+
+
+
+进阶
+---------------------------------------
+
+减负线程: https://uwsgi-docs.readthedocs.org/en/latest/OffloadSubsystem.html
+
+
+Harakiri 模式
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Harakiri有两种模式:
+
+1. 每个worker在接受每个request前，调用alarm， 这种方式是不可靠的。因为handler里面可能调用alarm来取消当前设置的超时
+2. master 进程创建一个shared memory zone, 每个worker处理请求之前，在pool中记录start时间， 结束后删除。另外有一个monitor进程，不停去检测pool
+   中超时的worker, 找到后kill
 
 
 标准配置
@@ -145,7 +190,8 @@ example::
     need-app = True
 
     # where n is the number of cpus to dedicate per-worker
-    cpu_affinity = 1
+    # 和gevent配合使用，可能会导致worker不被回收， 可用的worker会慢慢减少，减到1个，server就会挂掉
+    # cpu_affinity = 1
 
     # 只对tcp有效
     # so-keepalive = True

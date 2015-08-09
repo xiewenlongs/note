@@ -30,6 +30,17 @@ paste
 浏览器广告插件 http://www.adtchrome.com/
 
 
+**jq**
+
+终端命令行工具，解析json
+
+
+**fluidapp**
+
+一款能把页面打包成app的应用，把打包的页面生成一个app,放在Dock上. 例如：把Gmail打包
+http://fluidapp.com/
+
+
 Mac下提高效率的工具
 ---------------------------------------
 
