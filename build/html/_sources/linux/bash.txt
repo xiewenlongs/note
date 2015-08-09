@@ -45,4 +45,35 @@ log 跨机器传输(retry): :download:`example </_src/decrypt_nginx_log.sh>`
 计算字符串的md5值
 ---------------------------------------
 
-echo -n "863224020062594" |md5|awk '{print $1}'
+echo -n "863224020062594" | md5 | awk '{print $1}'
+
+
+终端发送邮件
+---------------------------------------
+
+1. 安装sendmail包
+2. 配置sendmail /etc/mail.rc::
+
+    set from=<from@com> smtp=<stmp.com>
+    set smtp-auth-user=<from@com> smtp-auth-password=<password> smtp-auth=login
+
+
+3. 启动sendmail服务::
+
+    service sendmail start
+
+
+4. mail -s 'this is test' yourmail@com
+
+
+tips
+---------------------------------------
+
+要在远端最快启动一个静态文件服务器，用以下命令::
+
+    python -m SimpleHTTPServer 7777
+
+
+tcpdump 过滤抓包::
+
+    sudo tcpdump -t -XX -i eth0 src host 10.32.30.138  and port 80

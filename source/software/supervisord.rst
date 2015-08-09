@@ -54,3 +54,13 @@ client支持的命令有::
 
 .. warning::
     supervisord现在没法reload每个subprocess, 它现在的做法只能restart subprocess
+
+插件
+---------------------------------------
+
+**superlance** 是一款supervisord的插件，使用它，可以让supervisord子进程退出时，发送邮件到指定邮箱
+配置如下::
+
+    [eventlistener:fatalmailbatch]
+    command=/python2.7/bin/fatalmailbatch --toEmail="your@company.com" --fromEmail="send@company.com" --smtpHost="smtp.163.com" --userName="send@company.com" --password="passwd" --subject="[supervisord]: fatal error"
+    events=PROCESS_STATE,TICK_60

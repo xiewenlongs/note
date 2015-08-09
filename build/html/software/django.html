@@ -103,8 +103,10 @@
 <li><a class="reference internal" href="#id5">优化</a></li>
 <li><a class="reference internal" href="#id6">其他</a><ul>
 <li><a class="reference internal" href="#id7">信号</a></li>
+<li><a class="reference internal" href="#sitemap">sitemap</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id8">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -160,8 +162,10 @@
 <li><a class="reference internal" href="#id5">优化</a></li>
 <li><a class="reference internal" href="#id6">其他</a><ul>
 <li><a class="reference internal" href="#id7">信号</a></li>
+<li><a class="reference internal" href="#sitemap">sitemap</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id8">问题</a></li>
 </ul>
 </li>
 </ul>
@@ -176,6 +180,20 @@
 <h2>中间件<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>django 自带了一下中间件:</p>
 <p><a class="reference internal" href="#django-session"><em>django.contrib.sessions.middleware.SessionMiddleware</em></a></p>
+<p>django.middleware.common.CommonMiddleware:</p>
+<div class="highlight-python"><div class="highlight"><pre>自动补全/
+UA forbidden
+etags
+</pre></div>
+</div>
+<p>django.middleware.gzip.GZipMiddleware:</p>
+<div class="highlight-python"><div class="highlight"><pre>使用gzip对response.content进行压缩
+</pre></div>
+</div>
+<p>django.contrib.auth.middleware.AuthenticationMiddleware:</p>
+<div class="highlight-python"><div class="highlight"><pre>提供了app(auth), 其中包括url (login, logout, password_change)
+</pre></div>
+</div>
 </div>
 <div class="section" id="session">
 <span id="django-session"></span><h2>session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h2>
@@ -272,6 +290,7 @@ django.contrib.sessions.backends.cached_db: 用mem + mysql</td>
 <h2>优化<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>如果不使用django的session, 那么在settings里把session的中间件注掉，减少开销</li>
+<li>可以使用其他模板引擎， 如jinja2, 但要注意， django的contrib里的app, 都是用DTL实现的</li>
 </ul>
 </div>
 <div class="section" id="id6">
@@ -304,6 +323,15 @@ django.contrib.sessions.backends.cached_db: 用mem + mysql</td>
 </pre></div>
 </div>
 </div>
+<div class="section" id="sitemap">
+<h3>sitemap<a class="headerlink" href="#sitemap" title="Permalink to this headline">¶</a></h3>
+<p>django 有sitemap模块，可以让你用类的方式，自动生成sitemap.xml, 供search engine 使用</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>问题<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>有些django版本，创建了新app并写了models后，无法migrate来创建数据库，提示已migrated. 这种情况下， 在新app目录下，删除掉
+migrations目录即可</p>
 </div>
 </div>
 

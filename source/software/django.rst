@@ -11,6 +11,24 @@ django 自带了一下中间件:
 
 :ref:`django.contrib.sessions.middleware.SessionMiddleware <django_session>`
 
+django.middleware.common.CommonMiddleware::
+
+    自动补全/
+    UA forbidden
+    etags
+
+
+django.middleware.gzip.GZipMiddleware::
+
+    使用gzip对response.content进行压缩
+
+
+django.contrib.auth.middleware.AuthenticationMiddleware::
+
+    提供了app(auth), 其中包括url (login, logout, password_change)
+
+
+
 
 .. _django_session:
 
@@ -91,6 +109,8 @@ session 会每次生成一条记录， 用 ``clearsessions`` 可以清理过期�
 
 * 如果不使用django的session, 那么在settings里把session的中间件注掉，减少开销
 
+* 可以使用其他模板引擎， 如jinja2, 但要注意， django的contrib里的app, 都是用DTL实现的
+
 
 ---------------------------------------
 其他
@@ -132,3 +152,18 @@ django 的信号，其实就是定义一个全局类， 这个类的作用就是
 .. code-block:: console
 
     $ pip install -U mongoengine
+
+
+sitemap
+~~~~~~~~~~~~~~~~~~~~~~~
+
+django 有sitemap模块，可以让你用类的方式，自动生成sitemap.xml, 供search engine 使用
+
+
+
+---------------------------------------
+问题
+---------------------------------------
+
+有些django版本，创建了新app并写了models后，无法migrate来创建数据库，提示已migrated. 这种情况下， 在新app目录下，删除掉
+migrations目录即可

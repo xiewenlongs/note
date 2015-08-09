@@ -8,5 +8,6 @@ linux 笔记
    bash
    core
    regex
+   screen
    tuning
    iptable
