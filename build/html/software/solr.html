@@ -1,181 +1,269 @@
+
+
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>solr &mdash; Notebook</title>
+  
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>solr &mdash; Notebook</title>
-    
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+  
+  
     <link rel="shortcut icon" href="../_static/logo.ico"/>
-    <link rel="top" title="Notebook" href="../index.html" />
-    <link rel="up" title="技术" href="index.html" />
-    <link rel="next" title="vim" href="vim.html" />
-    <link rel="prev" title="sentry" href="sentry.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
+  
 
-  </head>
-  <body>
+  
 
-  <div id="navbar" class="navbar navbar-default ">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../index.html">
-          notebook</a>
-        <span class="navbar-text navbar-version pull-left"><b>1</b></span>
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Notebook" href="../index.html"/>
+        <link rel="up" title="技术" href="index.html"/>
+        <link rel="next" title="supervisord" href="supervisord.html"/>
+        <link rel="prev" title="sentry" href="sentry.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> notebook
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
       </div>
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
-</ul>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../program_lang/c.html">C语言</a><ul class="simple">
 </ul>
 </li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">solr</a><ul>
-<li><a class="reference internal" href="#id1">安装</a><ul>
-<li><a class="reference internal" href="#requirements">requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../program_lang/java.html">java</a><ul class="simple">
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">介绍</a><ul>
-<li><a class="reference internal" href="#id3">solr 家目录</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id4">使用</a><ul>
-<li><a class="reference internal" href="#id5">下载solr</a></li>
-<li><a class="reference internal" href="#id6">部署solr</a></li>
-<li><a class="reference internal" href="#schema">定义schema</a></li>
-<li><a class="reference internal" href="#id7">solr常用命令</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id8">扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../program_lang/python.html">python</a><ul class="simple">
 </ul>
 </li>
 </ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../network/arp.html">arp协议</a><ul class="simple">
 </ul>
 </li>
-              
-            
-            
-              
-                
-  <li>
-    <a href="sentry.html" title="Previous Chapter: sentry"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; sentry</span>
-    </a>
-  </li>
-  <li>
-    <a href="vim.html" title="Next Chapter: vim"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">vim &raquo;</span>
-    </a>
-  </li>
-              
-            
-            
-            
-            
-          </ul>
+<li class="toctree-l2"><a class="reference internal" href="../network/hack.html">hack</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../network/http.html">http</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../network/socket.html">socket TCP 编程</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="django.html">django</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="github.html">github</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="goaccess.html">goaccess</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hadoop.html">hadoop</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="list.html">list</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lucene.html">lucene</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="maven.html">maven</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mongo.html">mongo</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mongoengine.html">mongoengine</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mysql.html">mysql</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nginx/index.html">nginx</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nginx/conf.html">demo config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/use.html">use</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/implement.html">implement</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/struct.html">struct</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/faq.html">FAQ</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="oss.html">云存储</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python-lib/index.html">python库</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-lib/urllib3.html">urllib3</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="python-lib/numpy.html">numpy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scrapy.html">scrapy</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sentry.html">sentry</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">solr</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervisord.html">supervisord</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uwsgi.html">uwsgi</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vim.html">vim</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="webbench.html">webbench</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../linux/bash.html">bash</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/core.html">基础</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/regex.html">regex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/screen.html">screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/tuning.html">linux 调优</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/iptable.html">防火墙</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../arithmetic/hash.html">哈希算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arithmetic/other.html">常见算法</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mind/diary.html">感悟</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mind/logion.html">箴言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mind/note.html">读书笔记</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a><ul class="simple">
+</ul>
+</li>
+</ul>
 
           
-            
-<form class="navbar-form navbar-right" action="../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
-  </div>
-
-<div class="container">
-  <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">solr</a><ul>
-<li><a class="reference internal" href="#id1">安装</a><ul>
-<li><a class="reference internal" href="#requirements">requirements</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id2">介绍</a><ul>
-<li><a class="reference internal" href="#id3">solr 家目录</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id4">使用</a><ul>
-<li><a class="reference internal" href="#id5">下载solr</a></li>
-<li><a class="reference internal" href="#id6">部署solr</a></li>
-<li><a class="reference internal" href="#schema">定义schema</a></li>
-<li><a class="reference internal" href="#id7">solr常用命令</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id8">扩展</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
+        
       </div>
-    <div class="col-md-9">
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
       
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">notebook</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">技术</a> &raquo;</li>
+      
+    <li>solr</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/software/solr.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
   <div class="section" id="solr">
 <h1>solr<a class="headerlink" href="#solr" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
@@ -209,7 +297,7 @@
 <h2>介绍<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
 <h3>solr 家目录<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>下载solr并解压后，那个目录是solr的安装目录。解压完就相当于安装完了，之后，需要定一个 <tt class="docutils literal"><span class="pre">solr</span> <span class="pre">家目录</span></tt>, 用来放置多个core文件的目录</p>
+<p>下载solr并解压后，那个目录是solr的安装目录。解压完就相当于安装完了，之后，需要定一个 <code class="docutils literal"><span class="pre">solr</span> <span class="pre">家目录</span></code>, 用来放置多个core文件的目录</p>
 <p>solr 启动的时候，必须指定家目录。 家目录有两个作用, 一是指定配置文件，二是放置index索引文件. 家目录结构一般如下:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;solr-home-directory&gt;/
 |
@@ -235,9 +323,8 @@
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<blockquote>
-<div>schema.xml 和 managed-schema 的功能一样，都是管理solr schema 的配置文件。具体solr使用哪个，要由solrconfig.xml里的</div></blockquote>
-<p class="last">&lt;schemaFactory class=&#8221;ManagedIndexSchemaFactory&#8221;&gt; 标签来控制. managed-schema是允许solr动态来修改schema</p>
+<p class="last">schema.xml 和 managed-schema 的功能一样，都是管理solr schema 的配置文件。具体solr使用哪个，要由solrconfig.xml里的
+&lt;schemaFactory class=&#8221;ManagedIndexSchemaFactory&#8221;&gt; 标签来控制. managed-schema是允许solr动态来修改schema</p>
 </div>
 <p>solr 有两种模式:</p>
 <div class="highlight-python"><div class="highlight"><pre>SolrCloud       collections
@@ -274,9 +361,8 @@ standalone      cores
 搜索类型定义等。schema.xml的配置直接影响搜索结果的准确性与效率。</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<blockquote>
-<div>默认&lt;home&gt;/&lt;core&gt;/conf/solrconfig.xml 里 schemaFactory=ManagedIndexSchemaFactory, 这样的话solr使用接口管理schema,</div></blockquote>
-<p class="last">所以conf/schema.xml并不起作用。 修改schemaFactory=ClassicIndexSchemaFactory, 然后再创造schema.xml, 并重启solr</p>
+<p class="last">默认&lt;home&gt;/&lt;core&gt;/conf/solrconfig.xml 里 schemaFactory=ManagedIndexSchemaFactory, 这样的话solr使用接口管理schema,
+所以conf/schema.xml并不起作用。 修改schemaFactory=ClassicIndexSchemaFactory, 然后再创造schema.xml, 并重启solr</p>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -529,28 +615,69 @@ that avoids logging every request</li>
 </div>
 
 
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="supervisord.html" class="btn btn-neutral float-right" title="supervisord" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sentry.html" class="btn btn-neutral" title="sentry" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
-      
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-        <br/>
-        
-<div id="sourcelink">
-  <a href="../_sources/software/solr.txt"
-     rel="nofollow">Source</a>
-</div>
-      
-    </p>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
     <p>
-        &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+        &copy; Copyright 2015, xiewenlongs@gmail.com.
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
 </footer>
-  </body>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

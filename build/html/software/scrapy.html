@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>scrapy &mdash; Notebook</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/logo.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Notebook" href="../index.html"/>
+        <link rel="up" title="技术" href="index.html"/>
+        <link rel="next" title="sentry" href="sentry.html"/>
+        <link rel="prev" title="numpy" href="python-lib/numpy.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> notebook
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../program_lang/index.html">编程语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../program_lang/c.html">C语言</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../program_lang/java.html">java</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../program_lang/python.html">python</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../network/arp.html">arp协议</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../network/hack.html">hack</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../network/http.html">http</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../network/socket.html">socket TCP 编程</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="django.html">django</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="github.html">github</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="goaccess.html">goaccess</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hadoop.html">hadoop</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="list.html">list</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lucene.html">lucene</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="maven.html">maven</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mongo.html">mongo</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mongoengine.html">mongoengine</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mysql.html">mysql</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nginx/index.html">nginx</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nginx/conf.html">demo config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/use.html">use</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/implement.html">implement</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/struct.html">struct</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nginx/faq.html">FAQ</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="oss.html">云存储</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python-lib/index.html">python库</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="python-lib/urllib3.html">urllib3</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="python-lib/numpy.html">numpy</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">scrapy</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sentry.html">sentry</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="solr.html">solr</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="supervisord.html">supervisord</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uwsgi.html">uwsgi</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="vim.html">vim</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="webbench.html">webbench</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../linux/bash.html">bash</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/core.html">基础</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/regex.html">regex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/screen.html">screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/tuning.html">linux 调优</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/iptable.html">防火墙</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../arithmetic/hash.html">哈希算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arithmetic/other.html">常见算法</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mind/diary.html">感悟</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mind/logion.html">箴言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mind/note.html">读书笔记</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a><ul class="simple">
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">notebook</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">技术</a> &raquo;</li>
+      
+    <li>scrapy</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/software/scrapy.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="scrapy">
+<h1>scrapy<a class="headerlink" href="#scrapy" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="feature">
+<h2>feature<a class="headerlink" href="#feature" title="Permalink to this headline">¶</a></h2>
+<p>scrapy 有以下特性:</p>
+<ul class="simple">
+<li>内建的支持数据提取（css selector  和 xpath expressions)</li>
+<li>内建的交互shell, 供debug xpath和css表达式</li>
+<li>编码检测，自动识别</li>
+<li>扩展性强(signals, middlewares, extensions, pipeline)</li>
+<li>很多内建的扩展</li>
+<li>cookies and session handling</li>
+<li>HTTP features like compression, authentication, caching</li>
+<li>user-agent spoofing</li>
+<li>robots.txt</li>
+<li>crawl depth restriction</li>
+<li>and more</li>
+<li>内建一个telnet控制台，用来查看running中的scrapy进程状态</li>
+<li>内建一些直接能用的类，如Sitemap Spider, 如自动下载图片的spider</li>
+</ul>
+</div>
+<div class="section" id="or">
+<h2>深度 or 广度<a class="headerlink" href="#or" title="Permalink to this headline">¶</a></h2>
+<p>scrapy 默认是深度遍历， 如果想改成广度遍历，添加:</p>
+<div class="highlight-python"><div class="highlight"><pre>DEPTH_PRIORITY = 1
+SCHEDULER_DISK_QUEUE = &#39;scrapy.squeues.PickleFifoDiskQueue&#39;
+SCHEDULER_MEMORY_QUEUE = &#39;scrapy.squeues.FifoMemoryQueue
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>爬虫封禁<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>爬虫可能被网站封掉，最终极的方案是“商业合作”， 在这之前，有一些技巧可以做:</p>
+<ul class="simple">
+<li>收集一个UA池来轮询发请求</li>
+<li>禁用cookies (某些网站使用cookie来检测爬虫行为)</li>
+<li>使用delay来防止IP封禁(见DOWNLOAD_DELAY)</li>
+<li>使用代理IP池， 免费的有TOR, 收费的有http://proxymesh.com/</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>问题<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>模拟用户登录
+<a class="reference external" href="http://doc.scrapy.org/en/latest/topics/request-response.html#topics-request-response-ref-request-userlogin">http://doc.scrapy.org/en/latest/topics/request-response.html#topics-request-response-ref-request-userlogin</a></p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sentry.html" class="btn btn-neutral float-right" title="sentry" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="python-lib/numpy.html" class="btn btn-neutral" title="numpy" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, xiewenlongs@gmail.com.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
