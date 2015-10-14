@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="../../_static/logo.ico"/>
     <link rel="top" title="Notebook" href="../../index.html" />
     <link rel="up" title="python库" href="index.html" />
-    <link rel="next" title="nginx" href="../nginx/index.html" />
+    <link rel="next" title="numpy" href="numpy.html" />
     <link rel="prev" title="python库" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -73,8 +73,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -107,7 +109,7 @@
     </a>
   </li>
   <li>
-    <a href="../nginx/index.html" title="Next Chapter: nginx"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">nginx &raquo;</span>
+    <a href="numpy.html" title="Next Chapter: numpy"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">numpy &raquo;</span>
     </a>
   </li>
               
@@ -148,7 +150,7 @@
       
   <div class="section" id="urllib3">
 <h1>urllib3<a class="headerlink" href="#urllib3" title="Permalink to this headline">¶</a></h1>
-<p>urllib3 是一个python版的http请求库，跟urllib比，它支持 <tt class="docutils literal"><span class="pre">文件上传</span></tt>, <tt class="docutils literal"><span class="pre">重用连接</span></tt> 和 <tt class="docutils literal"><span class="pre">retry</span></tt> 功能</p>
+<p>urllib3 是一个python版的http请求库，跟urllib比，它支持 <code class="docutils literal"><span class="pre">文件上传</span></code>, <code class="docutils literal"><span class="pre">重用连接</span></code> 和 <code class="docutils literal"><span class="pre">retry</span></code> 功能</p>
 <p>调用例子:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">urllib3</span>
 <span class="n">http</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">()</span>
@@ -163,7 +165,7 @@
 </div>
 <div class="section" id="id1">
 <h2>实现<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>urllib3 是对 <tt class="docutils literal"><span class="pre">httplib</span></tt> 的包装， 发请求的时候，拼凑http请求; 收到回复的时候，解析response; timeout 也是用httplib
+<p>urllib3 是对 <code class="docutils literal"><span class="pre">httplib</span></code> 的包装， 发请求的时候，拼凑http请求; 收到回复的时候，解析response; timeout 也是用httplib
 库的timeout参数</p>
 <img alt="../../_images/software_python-lib_urllib3_impleanment.png" src="../../_images/software_python-lib_urllib3_impleanment.png" />
 </div>
@@ -206,7 +208,7 @@ send request 方法， 而是使用其内部的connection_from_host来获取conn
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

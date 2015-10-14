@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -192,7 +192,7 @@ ngx_feature_test=&quot;int  n, dp; struct dvpoll  dvp;
 . auto/feature
 </pre></div>
 </div>
-<p>this pice checking <tt class="docutils literal"><span class="pre">/dev/poll</span></tt> feature. It generate a test.c file and compile it. If successed, it echo one preprocess
+<p>this pice checking <code class="docutils literal"><span class="pre">/dev/poll</span></code> feature. It generate a test.c file and compile it. If successed, it echo one preprocess
 macro into auto_headers.h</p>
 </div>
 <div class="section" id="architecture">
@@ -279,7 +279,7 @@ ngx_http_index_handler (index)</td>
 </table>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">其中每一个phase里每个handler的顺序是可能改变的， 由 <tt class="docutils literal"><span class="pre">ngx_module_t</span> <span class="pre">*ngx_modules</span></tt> 来定(auto configure 生成的)</p>
+<p class="last">其中每一个phase里每个handler的顺序是可能改变的， 由 <code class="docutils literal"><span class="pre">ngx_module_t</span> <span class="pre">*ngx_modules</span></code> 来定(auto configure 生成的)</p>
 </div>
 </div>
 <div class="section" id="modules">
@@ -342,7 +342,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-core"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-core"><span>链接</span></a></td>
 </tr>
 <tr class="row-odd"><td>errlog</td>
 <td>CORE</td>
@@ -394,7 +394,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-event"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-event"><span>链接</span></a></td>
 </tr>
 <tr class="row-odd"><td>epoll</td>
 <td>EVENT</td>
@@ -407,7 +407,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-epoll"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-epoll"><span>链接</span></a></td>
 </tr>
 <tr class="row-even"><td>regex</td>
 <td>CORE</td>
@@ -420,7 +420,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-regex"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-regex"><span>链接</span></a></td>
 </tr>
 <tr class="row-odd"><td>http</td>
 <td>CORE</td>
@@ -433,7 +433,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-http"><em>连接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-http"><span>连接</span></a></td>
 </tr>
 <tr class="row-even"><td>_core</td>
 <td>HTTP</td>
@@ -446,7 +446,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#id1"><em>链接</em></a></td>
+<td><a class="reference internal" href="#id1"><span>链接</span></a></td>
 </tr>
 <tr class="row-odd"><td>_log</td>
 <td>HTTP</td>
@@ -459,7 +459,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-log"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-log"><span>链接</span></a></td>
 </tr>
 <tr class="row-even"><td>_upstream</td>
 <td>HTTP</td>
@@ -472,7 +472,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-upstream"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-upstream"><span>链接</span></a></td>
 </tr>
 <tr class="row-odd"><td>_static</td>
 <td>HTTP</td>
@@ -498,7 +498,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-gzip-st"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-gzip-st"><span>链接</span></a></td>
 </tr>
 <tr class="row-odd"><td>_autoindex</td>
 <td>HTTP</td>
@@ -511,7 +511,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-autoindex"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-autoindex"><span>链接</span></a></td>
 </tr>
 <tr class="row-even"><td>_index</td>
 <td>HTTP</td>
@@ -524,7 +524,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-index"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-index"><span>链接</span></a></td>
 </tr>
 <tr class="row-odd"><td>_auth_basic</td>
 <td>HTTP</td>
@@ -537,7 +537,7 @@ master</th>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td><a class="reference internal" href="#ngx-ctx-bauth"><em>链接</em></a></td>
+<td><a class="reference internal" href="#ngx-ctx-bauth"><span>链接</span></a></td>
 </tr>
 <tr class="row-even"><td>_access</td>
 <td>HTTP</td>
@@ -982,7 +982,7 @@ master</th>
 </div>
 <dl class="docutils">
 <dt>并且一个请求来的时候，会先检测它的handler是否为空，如果不为空，就调用handler然后直接返回(相当于交由backend处理). 但这个</dt>
-<dd><tt class="docutils literal"><span class="pre">交由backend处理</span></tt>, 就是各种upstream模块的工作了， 一个upstream模块需要实现7个回调函数</dd>
+<dd><code class="docutils literal"><span class="pre">交由backend处理</span></code>, 就是各种upstream模块的工作了， 一个upstream模块需要实现7个回调函数</dd>
 </dl>
 <table border="1" class="table-bordered docutils">
 <colgroup>
@@ -1057,7 +1057,7 @@ Memcache），将客户端的HTTP请求信息转换为对
 </div>
 <div class="section" id="load-balance">
 <h2>Load-Balance 模块<a class="headerlink" href="#load-balance" title="Permalink to this headline">¶</a></h2>
-<p>Load-Balance 模块是一个辅助模块，它之作用于upstream模块，它的目标是: <tt class="docutils literal"><span class="pre">如何从多台backend中选择一个合适的服务器来处理请求</span></tt></p>
+<p>Load-Balance 模块是一个辅助模块，它之作用于upstream模块，它的目标是: <code class="docutils literal"><span class="pre">如何从多台backend中选择一个合适的服务器来处理请求</span></code></p>
 <p>它需要处理四个回调函数:</p>
 <table border="1" class="table-bordered docutils">
 <colgroup>
@@ -1120,16 +1120,16 @@ ngx_http_upstream_get_ip_hash_peer 根据ip哈希值选择后端服务器</td>
 <h2>other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="location-tree">
 <h3>location tree<a class="headerlink" href="#location-tree" title="Permalink to this headline">¶</a></h3>
-<p>对于每一个server, 里面可能有多个location 配置, 所有location 有两种可能: <tt class="docutils literal"><span class="pre">正则匹配</span></tt> 和 <tt class="docutils literal"><span class="pre">精确匹配(以它开头)</span></tt>
+<p>对于每一个server, 里面可能有多个location 配置, 所有location 有两种可能: <code class="docutils literal"><span class="pre">正则匹配</span></code> 和 <code class="docutils literal"><span class="pre">精确匹配(以它开头)</span></code>
 最简单的做法是， nginx实现一个数组，把所有location配置塞进去。一个请求到来的时候，依次遍历数组去判断.</p>
-<p>但是nginx要实现一个feature: 先处理 <tt class="docutils literal"><span class="pre">精确匹配</span></tt>, 再处理 <tt class="docutils literal"><span class="pre">正则匹配</span></tt>. 并且遍历数组的效率明显偏低. 所以解析完一个server
+<p>但是nginx要实现一个feature: 先处理 <code class="docutils literal"><span class="pre">精确匹配</span></code>, 再处理 <code class="docutils literal"><span class="pre">正则匹配</span></code>. 并且遍历数组的效率明显偏低. 所以解析完一个server
 下的所有location配置以后， nginx 构造了两个变量:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ngx_http_location_tree_node_t</span>   <span class="o">*</span><span class="n">static_locations</span><span class="p">;</span>
 <span class="n">ngx_http_core_loc_conf_t</span>       <span class="o">**</span><span class="n">regex_locations</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>static_locations 是一个平衡排序三叉树，保存了 <tt class="docutils literal"><span class="pre">精确匹配</span></tt> 的所有location, 而regex_locations是一个数组,
-保存了 <tt class="docutils literal"><span class="pre">正则匹配</span></tt>.  一个请求来的时候，先遍历精确匹配的三叉树(效率很高), 如果不匹配再遍历正则匹配的数组</p>
+<p>static_locations 是一个平衡排序三叉树，保存了 <code class="docutils literal"><span class="pre">精确匹配</span></code> 的所有location, 而regex_locations是一个数组,
+保存了 <code class="docutils literal"><span class="pre">正则匹配</span></code>.  一个请求来的时候，先遍历精确匹配的三叉树(效率很高), 如果不匹配再遍历正则匹配的数组</p>
 <img alt="../../_images/s_nginx_location_tree.jpg" src="../../_images/s_nginx_location_tree.jpg" />
 </div>
 <div class="section" id="conf-context-of-modules">
@@ -1437,7 +1437,7 @@ typedef struct {
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

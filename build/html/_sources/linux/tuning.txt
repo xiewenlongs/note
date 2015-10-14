@@ -134,12 +134,12 @@ http server tuning
 
 **高并发配置模板**
 
-    - :net.ipv4.tcp_no_metrics_save = 1
-      默认情况下一个tcp连接关闭后,把这个连接曾经有的参数比如慢启动门限snd_sthresh,拥塞窗口snd_cwnd 还有srtt等信息保存到dst_entry中, 只要dst_entry 没有失效,下次新建立相同连接的时候就可以使用保存的参数来初始化这个连接.通常情况下是关闭的。
+- :net.ipv4.tcp_no_metrics_save = 1
+  默认情况下一个tcp连接关闭后,把这个连接曾经有的参数比如慢启动门限snd_sthresh,拥塞窗口snd_cwnd 还有srtt等信息保存到dst_entry中, 只要dst_entry 没有失效,下次新建立相同连接的时候就可以使用保存的参数来初始化这个连接.通常情况下是关闭的。
 
-    - :net.unix.max_dgram_qlen = 1024
-      unix socket 最大队列，默认为10, 明显不够
+- :net.unix.max_dgram_qlen = 1024
+  unix socket 最大队列，默认为10, 明显不够
 
 **其他**
 
-    socket 连接中，打开TCP_DEFER_ACCEPT 选项
+socket 连接中，打开TCP_DEFER_ACCEPT 选项

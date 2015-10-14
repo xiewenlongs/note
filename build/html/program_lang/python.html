@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -187,9 +187,9 @@
 <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>定义了一个类A, 定义了一个实例a, 其中 a是类A的一个实例, 但其实类A也是实例( <tt class="docutils literal"><span class="pre">类也是实例</span></tt> ), 它
+<p>定义了一个类A, 定义了一个实例a, 其中 a是类A的一个实例, 但其实类A也是实例( <code class="docutils literal"><span class="pre">类也是实例</span></code> ), 它
 是谁的实例呢，是元类的实例(默认所有类的元类是type)。 当解析器解析到 class A 时，就在内存中创建了
-一个对象 A, 只不过这个对象是 <tt class="docutils literal"><span class="pre">类对象</span></tt>, 它可以创造实例</p>
+一个对象 A, 只不过这个对象是 <code class="docutils literal"><span class="pre">类对象</span></code>, 它可以创造实例</p>
 <div class="section" id="id2">
 <h3>定义一个元类<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>默认所有类的元类是 type, 要定义一个元类，必须继承自type, 并重写__new__方法, __new__方法在解析到classs
@@ -261,7 +261,7 @@ Cls.objects.reverse()
 </div>
 <div class="section" id="pythonhttp">
 <h2>自实现python版的http框架<a class="headerlink" href="#pythonhttp" title="Permalink to this headline">¶</a></h2>
-<p>示例:  <a class="reference download internal" href="../_downloads/server.py"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
+<p>示例:  <a class="reference download internal" href="../_downloads/server.py"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
 </div>
 <div class="section" id="id5">
 <h2>常见问题<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
@@ -323,7 +323,7 @@ Cls.objects.reverse()
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

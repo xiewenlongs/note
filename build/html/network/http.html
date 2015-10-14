@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -181,25 +181,25 @@
 <blockquote>
 <div><ol class="arabic simple">
 <li>GET请求的参数， 是放在请求行里的</li>
-<li>请求中得换行是 <tt class="docutils literal"><span class="pre">0d0a</span></tt>, 空格是 <tt class="docutils literal"><span class="pre">20</span></tt></li>
+<li>请求中得换行是 <code class="docutils literal"><span class="pre">0d0a</span></code>, 空格是 <code class="docutils literal"><span class="pre">20</span></code></li>
 <li>http请求是由服务端先close, 最后服务端维护2MSL</li>
 </ol>
 </div></blockquote>
 </div>
 <div class="section" id="post">
 <h2>POST<a class="headerlink" href="#post" title="Permalink to this headline">¶</a></h2>
-<p>POST发送数据时，分为 <tt class="docutils literal"><span class="pre">表单</span></tt> 和 <tt class="docutils literal"><span class="pre">JSON</span></tt> 两种，以下是两种的区别</p>
+<p>POST发送数据时，分为 <code class="docutils literal"><span class="pre">表单</span></code> 和 <code class="docutils literal"><span class="pre">JSON</span></code> 两种，以下是两种的区别</p>
 <img alt="../_images/network_http_post.png" class="align-center" src="../_images/network_http_post.png" />
 <div class="section" id="vs-json">
 <h3>表单 vs JSON<a class="headerlink" href="#vs-json" title="Permalink to this headline">¶</a></h3>
-<p>到底是使用 <tt class="docutils literal"><span class="pre">表单</span></tt> 还是 <tt class="docutils literal"><span class="pre">json</span></tt> 发送数据呢，其实区别不大。如果你要传输的数据有很强的格式，如:</p>
+<p>到底是使用 <code class="docutils literal"><span class="pre">表单</span></code> 还是 <code class="docutils literal"><span class="pre">json</span></code> 发送数据呢，其实区别不大。如果你要传输的数据有很强的格式，如:</p>
 <div class="highlight-python"><div class="highlight"><pre>a = b
 c = [1,2,3]
 d = {a:b
      c:d}
 </pre></div>
 </div>
-<p>那么最好用 <tt class="docutils literal"><span class="pre">json</span></tt> 方式来传输数据；如果你要传输的数据很简单，就用 <tt class="docutils literal"><span class="pre">表单</span></tt> 格式吧,
+<p>那么最好用 <code class="docutils literal"><span class="pre">json</span></code> 方式来传输数据；如果你要传输的数据很简单，就用 <code class="docutils literal"><span class="pre">表单</span></code> 格式吧,
 <a class="reference external" href="http://stackoverflow.com/questions/11281117/x-www-form-urlencoded-vs-json-http-post">相关连接</a></p>
 </div>
 <div class="section" id="id2">
@@ -212,7 +212,7 @@ d = {a:b
 <p class="last">上传文件的时候，必须用multipart格式(非www-form-data), 并且其他数据必须用表单，不能用JSON,参见:
 <a class="reference external" href="http://www.faqs.org/rfcs/rfc2388.html">http://www.faqs.org/rfcs/rfc2388.html</a></p>
 </div>
-<p>其中， <tt class="docutils literal"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data;</span> <span class="pre">boundary=---------------------------7db15a14291cce</span></tt> 说明
+<p>其中， <code class="docutils literal"><span class="pre">Content-Type:</span> <span class="pre">multipart/form-data;</span> <span class="pre">boundary=---------------------------7db15a14291cce</span></code> 说明
 了这个请求是“multipart/form-data”格式的，且“boundary”是 “&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;7db15a14291cce”这个字符串。</p>
 <p>不难想象，“boundary”是用来隔开表单中不同部分数据的。例子中的表单就有 2 部分数据，
 用“boundary”隔开。“boundary”一般由系统随机产生，但也可以简单的用“&#8212;&#8212;&#8212;&#8212;-”来代替。 紧接着 boundary
@@ -222,7 +222,7 @@ d = {a:b
 </div>
 <div class="section" id="pipeline">
 <h2>pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h2>
-<p>Http1.1 引入了两个提高性能的特性: <tt class="docutils literal"><span class="pre">keepalive</span></tt> 和 <tt class="docutils literal"><span class="pre">pipeline</span></tt>.</p>
+<p>Http1.1 引入了两个提高性能的特性: <code class="docutils literal"><span class="pre">keepalive</span></code> 和 <code class="docutils literal"><span class="pre">pipeline</span></code>.</p>
 <p><strong>pipeline</strong> 就是可以在一个connection上，并行的发送多个http请求，后一个请求不用等前一个请求处理完毕. 但是这个特性很遗憾,
 没有被大部分程序使用</p>
 </div>
@@ -270,7 +270,7 @@ requests.get(&#39;http://www.google.com&#39;, timeout=2)
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

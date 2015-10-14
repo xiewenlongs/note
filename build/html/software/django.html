@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -179,7 +179,7 @@
 <div class="section" id="id1">
 <h2>中间件<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>django 自带了一下中间件:</p>
-<p><a class="reference internal" href="#django-session"><em>django.contrib.sessions.middleware.SessionMiddleware</em></a></p>
+<p><a class="reference internal" href="#django-session"><span>django.contrib.sessions.middleware.SessionMiddleware</span></a></p>
 <p>django.middleware.common.CommonMiddleware:</p>
 <div class="highlight-python"><div class="highlight"><pre>自动补全/
 UA forbidden
@@ -199,7 +199,7 @@ etags
 <span id="django-session"></span><h2>session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
 <h3>配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>使用django session 需要在middle中配置: <tt class="docutils literal"><span class="pre">django.contrib.sessions.middleware.SessionMiddleware</span></tt></p>
+<p>使用django session 需要在middle中配置: <code class="docutils literal"><span class="pre">django.contrib.sessions.middleware.SessionMiddleware</span></code></p>
 <p>这个中间件的作用是:</p>
 <div class="highlight-python"><div class="highlight"><pre>在request之前，给request对象增加一个session属性，是sessionStore类型(这个类型可以在setting中用SESSION_ENGINE来配置)
 在response之后，查看response的status, 如果不等于500， 就把session对象存储下来(看SESSION_ENGINE来决定用什么存)
@@ -265,7 +265,7 @@ django.contrib.sessions.backends.cached_db: 用mem + mysql</td>
 </div>
 <div class="section" id="id3">
 <h3>清理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>session 会每次生成一条记录， 用 <tt class="docutils literal"><span class="pre">clearsessions</span></tt> 可以清理过期的session. 可以把这条命令加在crontab里</p>
+<p>session 会每次生成一条记录， 用 <code class="docutils literal"><span class="pre">clearsessions</span></code> 可以清理过期的session. 可以把这条命令加在crontab里</p>
 </div>
 </div>
 <div class="section" id="id4">
@@ -355,7 +355,7 @@ migrations目录即可</p>
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

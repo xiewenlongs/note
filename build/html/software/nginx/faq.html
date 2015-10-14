@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -193,7 +193,7 @@ javascript脚本不运行或者运行不正常. 该问题与IE6处理缓存数�
 </div>
 <div class="section" id="logheader">
 <h2>在log中记录header<a class="headerlink" href="#logheader" title="Permalink to this headline">¶</a></h2>
-<p>记录requests 的header使用 <tt class="docutils literal"><span class="pre">$http_&lt;name&gt;</span></tt> 变量, 记录response的header使用 <tt class="docutils literal"><span class="pre">$sent_http_&lt;name&gt;</span></tt> 变量, 如下:</p>
+<p>记录requests 的header使用 <code class="docutils literal"><span class="pre">$http_&lt;name&gt;</span></code> 变量, 记录response的header使用 <code class="docutils literal"><span class="pre">$sent_http_&lt;name&gt;</span></code> 变量, 如下:</p>
 <div class="highlight-python"><div class="highlight"><pre>underscores_in_headers on;
 log_format STAT &#39;[$time_local]`$http_x_up_calling_line_id`&quot;$request&quot;`&quot;$http_user_agent&quot;`$status`[$remote_addr]`$http_range`&quot;$http_referer&quot;`$request_time`$body_bytes_sent`$http_deviceid`$http_x_forwarded_for`$host`$http_cookie |token=`$http_HTTP_AUTHORIZATION`&#39;;
 </pre></div>
@@ -221,7 +221,7 @@ log_format STAT &#39;[$time_local]`$http_x_up_calling_line_id`&quot;$request&quo
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

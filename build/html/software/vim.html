@@ -33,14 +33,14 @@
     <link rel="top" title="Notebook" href="../index.html" />
     <link rel="up" title="技术" href="index.html" />
     <link rel="next" title="webbench" href="webbench.html" />
-    <link rel="prev" title="sentry" href="sentry.html" />
+    <link rel="prev" title="uwsgi" href="uwsgi.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -73,8 +73,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../network/index.html">计算机网络</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">技术</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linux/index.html">linux 笔记</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arithmetic/index.html">算法</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../mind/index.html">思考</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sources.html">资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools.html">Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">学习计划</a></li>
 </ul>
 </ul>
@@ -112,7 +114,7 @@
               
                 
   <li>
-    <a href="sentry.html" title="Previous Chapter: sentry"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; sentry</span>
+    <a href="uwsgi.html" title="Previous Chapter: uwsgi"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; uwsgi</span>
     </a>
   </li>
   <li>
@@ -197,11 +199,11 @@
 <div class="highlight-python"><div class="highlight"><pre>:version
 </pre></div>
 </div>
-<p>来查看 是否有 <tt class="docutils literal"><span class="pre">+multi_byte</span></tt> 选项，如果没有，说明编译vim的时候，没有加
+<p>来查看 是否有 <code class="docutils literal"><span class="pre">+multi_byte</span></code> 选项，如果没有，说明编译vim的时候，没有加
 入 &#8211;with-features=big</p>
 <div class="section" id="id3">
 <h3>文件编码转换<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">其他编码</span></tt> ==&gt; <tt class="docutils literal"><span class="pre">utf-8</span></tt>:</p>
+<p><code class="docutils literal"><span class="pre">其他编码</span></code> ==&gt; <code class="docutils literal"><span class="pre">utf-8</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>:set encoding=utf-8
 :w!
 </pre></div>
@@ -249,7 +251,7 @@ filetype plugin indent on
 </div>
 <div class="section" id="snipmate">
 <h3>snipmate<a class="headerlink" href="#snipmate" title="Permalink to this headline">¶</a></h3>
-<p>根据文件扩展名， 进行代码片段补全. 只需要在 <tt class="docutils literal"><span class="pre">~/.vim/bundle/snipmate.vim/snippets/</span></tt>
+<p>根据文件扩展名， 进行代码片段补全. 只需要在 <code class="docutils literal"><span class="pre">~/.vim/bundle/snipmate.vim/snippets/</span></code>
 目录下创建响应的 xxx.snippets 文件， 在里面自定义片段即可</p>
 </div>
 <div class="section" id="python-mode">
@@ -289,7 +291,7 @@ filetype plugin indent on
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

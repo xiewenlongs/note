@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -269,7 +269,7 @@ crash 掉</li>
 </div>
 <p><strong>Cannot receive email notifytion After configure email</strong>:</p>
 <p>Enter email test web(<a class="reference external" href="http://localhost:9000/manage/status/mail/">http://localhost:9000/manage/status/mail/</a>) and type [send a test email]. If it report
-<tt class="docutils literal"><span class="pre">STARTTLS</span> <span class="pre">extension</span> <span class="pre">not</span> <span class="pre">supported</span> <span class="pre">by</span> <span class="pre">server</span></tt> ,  you must set <tt class="docutils literal"><span class="pre">EMAIL_USE_TLS</span> <span class="pre">=</span> <span class="pre">False</span></tt> in your sentry configure</p>
+<code class="docutils literal"><span class="pre">STARTTLS</span> <span class="pre">extension</span> <span class="pre">not</span> <span class="pre">supported</span> <span class="pre">by</span> <span class="pre">server</span></code> ,  you must set <code class="docutils literal"><span class="pre">EMAIL_USE_TLS</span> <span class="pre">=</span> <span class="pre">False</span></code> in your sentry configure</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -299,7 +299,7 @@ Running migrations for djcelery:
 </div>
 <p><strong>sentry After start sentry web, cannot mark event to reslove</strong>:</p>
 <p>This maybe cause by SENTRY_URL_PREFIX configure. If your add resversal proxy in front of sentry, you must set
-<tt class="docutils literal"><span class="pre">SENTRY_URL_PREFIX</span></tt> to the IP of resversal proxy</p>
+<code class="docutils literal"><span class="pre">SENTRY_URL_PREFIX</span></code> to the IP of resversal proxy</p>
 </div>
 </div>
 
@@ -323,7 +323,7 @@ Running migrations for djcelery:
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

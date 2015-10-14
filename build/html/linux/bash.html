@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -92,7 +92,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">bash</a><ul>
-<li><a class="reference internal" href="#ps1">PS1</a></li>
+<li><a class="reference internal" href="#ps1">PS1 命令行提示符</a></li>
 <li><a class="reference internal" href="#history">history 在多终端下的表现</a></li>
 <li><a class="reference internal" href="#id1">history 设置</a></li>
 <li><a class="reference internal" href="#scripts-example">scripts example</a></li>
@@ -143,7 +143,7 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">bash</a><ul>
-<li><a class="reference internal" href="#ps1">PS1</a></li>
+<li><a class="reference internal" href="#ps1">PS1 命令行提示符</a></li>
 <li><a class="reference internal" href="#history">history 在多终端下的表现</a></li>
 <li><a class="reference internal" href="#id1">history 设置</a></li>
 <li><a class="reference internal" href="#scripts-example">scripts example</a></li>
@@ -161,10 +161,10 @@
   <div class="section" id="bash">
 <h1>bash<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="ps1">
-<h2>PS1<a class="headerlink" href="#ps1" title="Permalink to this headline">¶</a></h2>
-<p>export PS1=&#8217;ne[1;37m[e[me[1;32mue[me[1;33m&#64;e[me[1;35mHe[m e[4m`pwd`e[me[1;37m]e[me[1;36me[mn$&#8217;</p>
-<div class="line-block">
-<div class="line"><br /></div>
+<h2>PS1 命令行提示符<a class="headerlink" href="#ps1" title="Permalink to this headline">¶</a></h2>
+<p>在~/.bashrc中加入:</p>
+<div class="highlight-python"><div class="highlight"><pre>export PS1=&#39;\n\e[1;37m[\e[m\e[1;32m\u\e[m\e[1;33m@\e[m\e[1;35m\H\e[m \e[4m`pwd`\e[m\e[1;37m]\e[m\e[1;36m\e[m\n\$&#39;
+</pre></div>
 </div>
 </div>
 <div class="section" id="history">
@@ -177,10 +177,8 @@
 <li>During startup bash will read the history file. The content of the history file is now in the memory of the bash process.</li>
 <li>During normal use only the history in memory is manipulated.</li>
 <li>During shutdown the history in memory is written to the history file, overwriting any previous content of the history file.</li>
+<li>可以在 ~/.bashrc 里，加入 <code class="docutils literal"><span class="pre">shopt</span> <span class="pre">-s</span> <span class="pre">histappend</span></code>, 来防止多terminator 相互覆盖.bash_history， 但是时间戳会乱</li>
 </ul>
-<blockquote>
-<div>可以在 ~/.bashrc 里，加入 <tt class="docutils literal"><span class="pre">shopt</span> <span class="pre">-s</span> <span class="pre">histappend</span></tt>, 来防止多terminator 相互覆盖.bash_history，
-但是时间戳会乱</div></blockquote>
 </div>
 <div class="section" id="id1">
 <h2>history 设置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -194,11 +192,14 @@
 </div>
 <div class="section" id="scripts-example">
 <h2>scripts example<a class="headerlink" href="#scripts-example" title="Permalink to this headline">¶</a></h2>
-<p>log 跨机器传输(retry): <a class="reference download internal" href="../_downloads/decrypt_nginx_log.sh"><tt class="xref download docutils literal"><span class="pre">example</span></tt></a></p>
+<p>log 跨机器传输(retry): <a class="reference download internal" href="../_downloads/decrypt_nginx_log.sh"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
 </div>
 <div class="section" id="md5">
 <h2>计算字符串的md5值<a class="headerlink" href="#md5" title="Permalink to this headline">¶</a></h2>
-<p>echo -n &#8220;863224020062594&#8221; | md5 | awk &#8216;{print $1}&#8217;</p>
+<p>在终端输入:</p>
+<div class="highlight-python"><div class="highlight"><pre>echo -n &quot;863224020062594&quot; | md5 | awk &#39;{print $1}&#39;
+</pre></div>
+</div>
 </div>
 <div class="section" id="id2">
 <h2>终端发送邮件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -222,14 +223,18 @@ set smtp-auth-user=&lt;from@com&gt; smtp-auth-password=&lt;password&gt; smtp-aut
 </div>
 <div class="section" id="tips">
 <h2>tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h2>
-<p>要在远端最快启动一个静态文件服务器，用以下命令:</p>
+<ul>
+<li><p class="first">要在远端最快启动一个静态文件服务器，用以下命令:</p>
 <div class="highlight-python"><div class="highlight"><pre>python -m SimpleHTTPServer 7777
 </pre></div>
 </div>
-<p>tcpdump 过滤抓包:</p>
+</li>
+<li><p class="first">tcpdump 过滤抓包:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo tcpdump -t -XX -i eth0 src host 10.32.30.138  and port 80
 </pre></div>
 </div>
+</li>
+</ul>
 </div>
 </div>
 
@@ -253,7 +258,7 @@ set smtp-auth-user=&lt;from@com&gt; smtp-auth-password=&lt;password&gt; smtp-aut
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

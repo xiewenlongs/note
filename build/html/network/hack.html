@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -174,7 +174,7 @@
 <p><strong>Http-Alive</strong></p>
 <p>善用Http服务的Keep-Alive来进行攻击，如果发送大量请求需要创建大量同Http服务的连接, 那么连接数太大时，容易被服务器上游的防火墙防御, 所以最要用已建立的连接，发送大量请求</p>
 <p><strong>HEAD请求</strong></p>
-<p>如果靠发送大量的GET, POST请求来进行攻击，服务端对每个GET/POST请求都会response, 那么服务器的response可能在还没有攻击完成前，就把hacker机器的带宽沾满了,从而无法继续进行攻击. 而HEAD请求不同， 它只要求server返回HTTP头部, 详情见 <a class="reference internal" href="http.html#http-protocol-head"><em>HTTP HEAD协议</em></a></p>
+<p>如果靠发送大量的GET, POST请求来进行攻击，服务端对每个GET/POST请求都会response, 那么服务器的response可能在还没有攻击完成前，就把hacker机器的带宽沾满了,从而无法继续进行攻击. 而HEAD请求不同， 它只要求server返回HTTP头部, 详情见 <a class="reference internal" href="http.html#http-protocol-head"><span>HTTP HEAD协议</span></a></p>
 <p><strong>Choose your target wisely</strong></p>
 <p>Dos攻击的目的是消耗server的CPU和RAM, 所以挑选请求的时候，要挑选CPU密集型的请求，如搜索(搜索词语注意随机性)</p>
 <p><strong>Keep dead工具</strong></p>
@@ -225,7 +225,7 @@
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>

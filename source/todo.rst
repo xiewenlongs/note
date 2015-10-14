@@ -81,6 +81,8 @@ sentry
 
 ``《数据之颠》``
 
+《just for fun》
+
 《游戏改变世界》
 
 《http权威指南》

@@ -40,7 +40,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body>
+  <body role="document">
 
   <div id="navbar" class="navbar navbar-default ">
     <div class="container">
@@ -334,7 +334,7 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>configure 脚本的主要目的是 <tt class="docutils literal"><span class="pre">检测编译依赖库是否存在</span></tt> , <tt class="docutils literal"><span class="pre">生成ngx_modules.c文件</span></tt></p>
+<p>configure 脚本的主要目的是 <code class="docutils literal"><span class="pre">检测编译依赖库是否存在</span></code> , <code class="docutils literal"><span class="pre">生成ngx_modules.c文件</span></code></p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -476,9 +476,9 @@ used when writing a core-file</td>
 <tr class="row-even"><td>accept_mutex &lt;on&gt;</td>
 <td>event_core</td>
 <td><ol class="first arabic simple">
-<li><tt class="docutils literal"><span class="pre">避免惊群效果</span></tt> (每个 accept 上一把锁);</li>
+<li><code class="docutils literal"><span class="pre">避免惊群效果</span></code> (每个 accept 上一把锁);</li>
 </ol>
-<p class="last">2. <tt class="docutils literal"><span class="pre">负载平衡</span></tt> (如果当前worker的请求量已达到worker_connections的7/8，
+<p class="last">2. <code class="docutils literal"><span class="pre">负载平衡</span></code> (如果当前worker的请求量已达到worker_connections的7/8，
 则这个worker 不参与竞争新来的request) ,默认是on</p>
 </td>
 </tr>
@@ -718,7 +718,7 @@ xx.xx.xx.xx这个IP接口， 设置bind则绑定</p>
 接待。 设置这个参数后，三次握手完成master并不立 刻唤醒worker, 而是这个连接
 上真来了数据，才唤醒worker, 它减轻了worker的负担。降低服务端进行
 epoll_ctl、epoll_wait（linux下）的次数（系统调用）和降低服务端保持的连接句柄数
-<tt class="docutils literal"><span class="pre">需要根据业务特征来决定</span></tt></p>
+<code class="docutils literal"><span class="pre">需要根据业务特征来决定</span></code></p>
 </td>
 </tr>
 <tr class="row-odd"><td>server_name &lt;...&gt;</td>
@@ -744,7 +744,7 @@ epoll_ctl、epoll_wait（linux下）的次数（系统调用）和降低服务�
 <td>重定向的时候，把原请求里的HOST, 换成server_name写的第一个主机名</td>
 </tr>
 <tr class="row-odd"><td>location &lt;...&gt;</td>
-<td>用请求中的url来匹配, 见 <a class="reference internal" href="#nginx-location"><em>location</em></a></td>
+<td>用请求中的url来匹配, 见 <a class="reference internal" href="#nginx-location"><span>location</span></a></td>
 </tr>
 <tr class="row-even"><td>alias &lt;path&gt;</td>
 <td>指定文件路径</td>
@@ -765,7 +765,7 @@ epoll_ctl、epoll_wait（linux下）的次数（系统调用）和降低服务�
 <td>按顺序尝试每一个path</td>
 </tr>
 <tr class="row-even"><td>limit_except {...}</td>
-<td>按http方法, 限制客户端请求种类, 见 <a class="reference internal" href="#nginx-limit-except"><em>limit_except</em></a></td>
+<td>按http方法, 限制客户端请求种类, 见 <a class="reference internal" href="#nginx-limit-except"><span>limit_except</span></a></td>
 </tr>
 <tr class="row-odd"><td>limit_rate &lt;num&gt;</td>
 <td>对每一个TCP连接限速</td>
@@ -948,8 +948,8 @@ nginx 会关闭这个连接</td>
 </tr>
 <tr class="row-even"><td>accept_mutex &lt;on&gt;</td>
 <td><ol class="first last arabic simple">
-<li><tt class="docutils literal"><span class="pre">避免惊群效果</span></tt> (每个 accept 上一把锁);</li>
-<li><tt class="docutils literal"><span class="pre">负载平衡</span></tt> (如果当前worker的请求量已达到worker_connections的7/8，
+<li><code class="docutils literal"><span class="pre">避免惊群效果</span></code> (每个 accept 上一把锁);</li>
+<li><code class="docutils literal"><span class="pre">负载平衡</span></code> (如果当前worker的请求量已达到worker_connections的7/8，
 则这个worker 不参与竞争新来的request)</li>
 </ol>
 </td>
@@ -959,7 +959,7 @@ nginx 会关闭这个连接</td>
 </tr>
 <tr class="row-even"><td>worker_connections</td>
 <td>每个worker 的连接池大小。 所以:
-<tt class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></tt></td>
+<code class="docutils literal"><span class="pre">nginx能接收的总的连接数</span> <span class="pre">=</span> <span class="pre">worker_connections</span> <span class="pre">*</span> <span class="pre">worker_processes</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -969,7 +969,7 @@ nginx 会关闭这个连接</td>
 <h2>反向代理<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <img alt="../../_images/s_nginx_rproxy.png" src="../../_images/s_nginx_rproxy.png" />
 <p>Nginx代理和squid代理机制不太一样， 客户端发送请求， nginx代理服务器接收完整个请求，才向upstream转发请求， 这样做的目的
-主要是 <tt class="docutils literal"><span class="pre">降低upstream</span></tt> 的压力. 因为客户端到nginx代理之间一般式走外网， 速度较慢。 而代理和upstream之间一般式走内网，
+主要是 <code class="docutils literal"><span class="pre">降低upstream</span></code> 的压力. 因为客户端到nginx代理之间一般式走外网， 速度较慢。 而代理和upstream之间一般式走内网，
 速度很快</p>
 <div class="section" id="buffer">
 <h3>buffer<a class="headerlink" href="#buffer" title="Permalink to this headline">¶</a></h3>
@@ -978,12 +978,12 @@ transmitted to the client. If the clients are assumed to be fast, buffering can 
 data to the client as soon as possible. With buffers, the Nginx proxy will temporarily store the backend&#8217;s response
 and then feed this data to the client. If the client is slow, this allows the Nginx server to close the connection
 to the backend sooner. It can then handle distributing the data to the client at whatever pace is possible.</p>
-<p>If you want turn it off, you should set <tt class="docutils literal"><span class="pre">proxy_buffering</span></tt> to off</p>
+<p>If you want turn it off, you should set <code class="docutils literal"><span class="pre">proxy_buffering</span></code> to off</p>
 <p>refer: <a class="reference external" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching">https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching</a></p>
 </div>
 <div class="section" id="id13">
 <h3>负载均衡<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<p>upstream负载均衡有两种机制: <tt class="docutils literal"><span class="pre">ip_hash</span></tt> 和 <tt class="docutils literal"><span class="pre">weight</span></tt></p>
+<p>upstream负载均衡有两种机制: <code class="docutils literal"><span class="pre">ip_hash</span></code> 和 <code class="docutils literal"><span class="pre">weight</span></code></p>
 <p>ip_hash 是nginx按客户端ip, 自动的把请求打在上游集群中特定一台, 配置如下:</p>
 <div class="highlight-python"><div class="highlight"><pre>upstream backend {
     ip_hash
@@ -1049,7 +1049,7 @@ server {
 <h2>性能调优<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id15">
 <h3>内核参数调优<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
-<p>见 <a class="reference internal" href="../../linux/tuning.html#http-core-tuning"><em>内核调优</em></a></p>
+<p>见 <a class="reference internal" href="../../linux/tuning.html#http-core-tuning"><span>内核调优</span></a></p>
 </div>
 <div class="section" id="debug-nginx">
 <h3>debug nginx<a class="headerlink" href="#debug-nginx" title="Permalink to this headline">¶</a></h3>
@@ -1065,16 +1065,16 @@ server {
 <h2>其他<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="location">
 <span id="nginx-location"></span><h3>location 配置<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">=</span></tt> 匹配符， 完全匹配才处理， e.g:</p>
+<p><code class="docutils literal"><span class="pre">=</span></code> 匹配符， 完全匹配才处理， e.g:</p>
 <div class="highlight-python"><div class="highlight"><pre>location = / {
      # 完全匹配才处理, 只处理url/
      ...
 }
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">~</span></tt> 匹配符， 表示执行一个正则匹配, 大小写敏感</p>
-<p><tt class="docutils literal"><span class="pre">~*</span></tt> 匹配符， 表示执行一个正则匹配, 大小写不敏感</p>
-<p><tt class="docutils literal"><span class="pre">^~</span></tt> 表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录</p>
+<p><code class="docutils literal"><span class="pre">~</span></code> 匹配符， 表示执行一个正则匹配, 大小写敏感</p>
+<p><code class="docutils literal"><span class="pre">~*</span></code> 匹配符， 表示执行一个正则匹配, 大小写不敏感</p>
+<p><code class="docutils literal"><span class="pre">^~</span></code> 表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录</p>
 <p>可以使用正则, e.g:</p>
 <div class="highlight-python"><div class="highlight"><pre>location  = / {
      # 只匹配&quot;/&quot;.
@@ -1112,7 +1112,7 @@ access_log /spool/logs/nginx-access.log gzip buffer=32k;
 open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
 </pre></div>
 </div>
-<p>默认的error日志，在logs/error.log. 默认的access日志， 在logs/access.log. 可以通过 <tt class="docutils literal"><span class="pre">log_format</span></tt> 指令来定义format, 然后
+<p>默认的error日志，在logs/error.log. 默认的access日志， 在logs/access.log. 可以通过 <code class="docutils literal"><span class="pre">log_format</span></code> 指令来定义format, 然后
 在access_log指令里用.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -1184,7 +1184,7 @@ open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
     </p>
     <p>
         &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
     </p>
   </div>
 </footer>
