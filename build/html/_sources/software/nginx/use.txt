@@ -148,8 +148,7 @@ event模块
                                                             默认off. 如果同一时间过来的请求量太大，一个worker进程会花费很多在accept上，
                                                             所以这时应该关闭
     accept_mutex <on>                  event_core           1. ``避免惊群效果`` (每个 accept 上一把锁);
-                                                            2. ``负载平衡`` (如果当前worker的请求量已达到worker_connections的7/8，
-                                                            则这个worker 不参与竞争新来的request) ,默认是on
+                                                            2. ``负载平衡`` (如果当前worker的请求量已达到worker_connections的7/8， 则这个worker 不参与竞争新来的request) ,默认是on
     accept_mutex_delay                 event_core           和accept_mutex 配合用, 如果一个worker进程未拥有accept mutex，它至少延迟这么
                                                             长时间之后再尝试抢夺, 默认500ms
     epoll_events <num>                 epoll                ??????, 默认512
