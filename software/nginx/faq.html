@@ -1,157 +1,506 @@
+
+
 <!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FAQ &mdash; Notebook</title>
+  
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>FAQ &mdash; Notebook</title>
-    
-    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-3.2.0/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-3.2.0/css/bootstrap-theme.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+  
+  
     <link rel="shortcut icon" href="../../_static/logo.ico"/>
-    <link rel="top" title="Notebook" href="../../index.html" />
-    <link rel="up" title="nginx" href="index.html" />
-    <link rel="next" title="sentry" href="../sentry.html" />
-    <link rel="prev" title="struct" href="struct.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
+  
 
-  </head>
-  <body>
+  
 
-  <div id="navbar" class="navbar navbar-default ">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../../index.html">
-          notebook</a>
-        <span class="navbar-text navbar-version pull-left"><b>1</b></span>
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Notebook" href="../../index.html"/>
+        <link rel="up" title="nginx" href="index.html"/>
+        <link rel="next" title="云存储" href="../oss.html"/>
+        <link rel="prev" title="struct" href="struct.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../index.html" class="icon icon-home"> notebook
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
       </div>
 
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../program_lang/index.html">编程语言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../network/index.html">计算机网络</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">技术</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">linux 笔记</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a></li>
-</ul>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../program_lang/index.html">编程语言</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../program_lang/c.html">C语言</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../program_lang/c.html#id1">高级</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#id2">自实现锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#prog-c-pool">内存池</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#id4">哈希表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#ui">终端下UI库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#id5">正则表达式</a></li>
 </ul>
 </li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">FAQ</a><ul>
-<li><a class="reference internal" href="#ie">压缩指令对老IE浏览器支持的问题</a></li>
-<li><a class="reference internal" href="#nginx">使用nginx防盗链</a></li>
-<li><a class="reference internal" href="#rewrite-vs">rewrite VS 重定向</a></li>
-<li><a class="reference internal" href="#logheader">在log中记录header</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../program_lang/c.html#id6">代码优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#id7">牛逼宏定义</a></li>
 </ul>
 </li>
 </ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../program_lang/java.html">java</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../program_lang/java.html#faq">FAQ</a></li>
 </ul>
 </li>
-              
-            
-            
-              
-                
-  <li>
-    <a href="struct.html" title="Previous Chapter: struct"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm">&laquo; struct</span>
-    </a>
-  </li>
-  <li>
-    <a href="../sentry.html" title="Next Chapter: sentry"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm">sentry &raquo;</span>
-    </a>
-  </li>
-              
-            
-            
-            
-            
-          </ul>
+<li class="toctree-l2"><a class="reference internal" href="../../program_lang/python.html">python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../program_lang/python.html#id1">元编程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/python.html#id2">定义一个元类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/python.html#id3">使用元类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/python.html#id4">注意</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../program_lang/python.html#magic">magic 方法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/python.html#get">__get__</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../program_lang/python.html#pythonhttp">自实现python版的http框架</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../program_lang/python.html#id5">常见问题</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/python.html#csv">如何生成跨平台不乱码的csv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/python.html#unicode">unicode转码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../network/index.html">计算机网络</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../network/arp.html">arp协议</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../network/arp.html#id1">arp 命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/arp.html#id2">arp 攻击</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../network/arp.html#id3">在交换机层做静态arp表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/arp.html#port-security">打开交换机的Port Security功能</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../network/hack.html">hack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../network/hack.html#dos">Dos 攻击</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../network/hack.html#id1">如何攻击</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/hack.html#id2">防范</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/hack.html#csrf">csrf 攻击</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../network/http.html">http</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../network/http.html#head">HEAD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/http.html#get">GET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/http.html#post">POST</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../network/http.html#vs-json">表单 vs JSON</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../network/http.html#id2">上传文件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/http.html#pipeline">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/http.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../network/socket.html">socket TCP 编程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../network/socket.html#tcp">TCP 协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/socket.html#id4">建立连接</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../network/socket.html#id5">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../network/socket.html#connection-reset-by-peer">Connection reset by peer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">技术</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../django.html">django</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../django.html#id1">中间件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../django.html#session">session</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../django.html#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../django.html#cache">cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../django.html#id3">清理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../django.html#id4">测试</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../django.html#id5">优化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../django.html#id6">其他</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../django.html#id7">信号</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../django.html#sitemap">sitemap</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../django.html#id8">问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../github.html">github</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../github.html#faq">FAQ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../goaccess.html">goaccess</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../goaccess.html#id1">第一步: 配置文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../goaccess.html#id2">第二步: 执行</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../hadoop.html">hadoop</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hadoop.html#web">Web 管理窗口</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hadoop.html#hdfs">HDFS 接口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hadoop.html#mapper">mapper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hadoop.html#partitioner">partitioner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hadoop.html#reduce">reduce</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hadoop.html#id1">运行</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../list.html">list</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id1">监控类</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html#id2">文字类</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lucene.html">lucene</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lucene.html#baseful-use">Baseful Use</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maven.html">maven</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maven.html#archetype">archetype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maven.html#quick-start">quick-start</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mongo.html">mongo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../mongo.html#id1">性能调优</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mongo.html#id2">使用覆盖索引</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mongo.html#id3">索引在内存中</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mongo.html#replica-set">replica set</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mongo.html#id4">机制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../mongo.html#id5">步骤</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../mongo.html#todo">TODO</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../mongo.html#query">query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mongoengine.html">mongoengine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../mongoengine.html#id1">配置从读主写</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../mongoengine.html#id2">问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mysql.html">mysql</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../mysql.html#slave">重置slave</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">nginx</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="conf.html">demo config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="use.html">use</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id1">简介</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id2">安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id6">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id12">反向代理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id14">性能调优</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id16">其他</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id18">扩展</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use.html#id19">问题</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="implement.html">implement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="implement.html#configure-script">configure script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="implement.html#architecture">Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="implement.html#modules">modules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="implement.html#upstream">upstream 模块</a></li>
+<li class="toctree-l4"><a class="reference internal" href="implement.html#load-balance">Load-Balance 模块</a></li>
+<li class="toctree-l4"><a class="reference internal" href="implement.html#other">other</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="struct.html">struct</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-str-t">ngx_str_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-list-t">ngx_list_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-table-elt-t">ngx_table_elt_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-module-t">ngx_module_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-log-t">ngx_log_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-pool-t">ngx_pool_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-buf-t">ngx_buf_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-chain-t">ngx_chain_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct.html#ngx-hash-t">ngx_hash_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">FAQ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ie">压缩指令对老IE浏览器支持的问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nginx">使用nginx防盗链</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rewrite-vs">rewrite VS 重定向</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logheader">在log中记录header</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../oss.html">云存储</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../oss.html#id2">阿里云</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../python-lib/index.html">python库</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../python-lib/urllib3.html">urllib3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../python-lib/urllib3.html#id1">实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../python-lib/urllib3.html#id2">协议</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../python-lib/numpy.html">numpy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../scrapy.html">scrapy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scrapy.html#feature">feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scrapy.html#or">深度 or 广度</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scrapy.html#id1">爬虫封禁</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scrapy.html#id2">问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../sentry.html">sentry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../sentry.html#id1">配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../sentry.html#id2">安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sentry.html#id3">启动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../sentry.html#id4">报警邮件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../sentry.html#id5">问题</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../solr.html">solr</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../solr.html#id1">安装</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../solr.html#requirements">requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../solr.html#id2">介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../solr.html#id3">solr 家目录</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../solr.html#id4">使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../solr.html#id5">下载solr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../solr.html#id6">部署solr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../solr.html#schema">定义schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../solr.html#id7">solr常用命令</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../solr.html#id8">扩展</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../supervisord.html">supervisord</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../supervisord.html#id1">原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../supervisord.html#id2">使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../supervisord.html#id3">插件</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../uwsgi.html">uwsgi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../uwsgi.html#nginx-uwsgi">nginx 和 uwsgi 应用交互</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwsgi.html#id1">uwsgi插件</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../uwsgi.html#route-cache">route-cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../uwsgi.html#alarm">alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../uwsgi.html#id2">其他插件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../uwsgi.html#id3">交互式启动uwsgi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../uwsgi.html#id4">常见问题</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../uwsgi.html#id5">未解决</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../uwsgi.html#id6">进阶</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../uwsgi.html#harakiri">Harakiri 模式</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../uwsgi.html#id7">标准配置</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../vim.html">vim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../vim.html#id1">vim命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../vim.html#id2">编码</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../vim.html#id3">文件编码转换</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../vim.html#id4">插件</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../vim.html#vundle">Vundle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vim.html#snipmate">snipmate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vim.html#python-mode">python-mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../webbench.html">webbench</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../webbench.html#use">use</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">linux 笔记</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../linux/bash.html">bash</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/bash.html#ps1">PS1 命令行提示符</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/bash.html#history">history 在多终端下的表现</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/bash.html#id1">history 设置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/bash.html#scripts-example">scripts example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/bash.html#md5">计算字符串的md5值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/bash.html#id2">终端发送邮件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/bash.html#tips">tips</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../linux/core.html">基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/core.html#id2">进程</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../linux/regex.html">regex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../linux/screen.html">screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../linux/tuning.html">linux 调优</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/tuning.html#id1">通用调优</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../linux/tuning.html#ulimit">ulimit 限制</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../linux/tuning.html#id2">查看系统当前的并发连接数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../linux/tuning.html#id3">内核调优</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../linux/iptable.html">防火墙</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/iptable.html#id2">开一个端口</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/iptable.html#id3">保存配置</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../arithmetic/index.html">算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../arithmetic/hash.html">哈希算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../arithmetic/other.html">常见算法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../arithmetic/other.html#id2">一个数组求最大最小值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../arithmetic/other.html#id3">找出海量数据最大的前10个数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../mind/index.html">思考</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../mind/diary.html">感悟</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/diary.html#id2">用户反馈时间戳错乱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../mind/logion.html">箴言</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mind/note.html">读书笔记</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id2">黑客与画家</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#google">google 时代工作方法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id3">一万小时天才理论</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id4">魔鬼搭讪学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id5">害羞心理学</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id6">如何进行关键对话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id7">哈佛凌晨四点半</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id8">少有人走的路</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id9">如何阅读一本书</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../mind/note.html#id10">零成本创业</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../sources.html">资源</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../sources.html#id2">电子书</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sources.html#kindle">Kindle 电子书</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../sources.html#id3">电影</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#mac">Mac下提供效率的工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html#id1">Mac下提高效率的工具</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">学习计划</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../todo.html#id2">框架使用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../todo.html#tornadoweb">tornadoweb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../todo.html#openresty">OpenResty</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../todo.html#sentry">sentry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../todo.html#id3">读书</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../todo.html#id4">网络课程</a></li>
+</ul>
+</li>
+</ul>
 
           
-            
-<form class="navbar-form navbar-right" action="../../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
-  </div>
-
-<div class="container">
-  <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">FAQ</a><ul>
-<li><a class="reference internal" href="#ie">压缩指令对老IE浏览器支持的问题</a></li>
-<li><a class="reference internal" href="#nginx">使用nginx防盗链</a></li>
-<li><a class="reference internal" href="#rewrite-vs">rewrite VS 重定向</a></li>
-<li><a class="reference internal" href="#logheader">在log中记录header</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
+        
       </div>
-    <div class="col-md-9">
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
       
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">notebook</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">技术</a> &raquo;</li>
+      
+          <li><a href="index.html">nginx</a> &raquo;</li>
+      
+    <li>FAQ</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/software/nginx/faq.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
   <div class="section" id="faq">
 <h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="ie">
@@ -193,7 +542,7 @@ javascript脚本不运行或者运行不正常. 该问题与IE6处理缓存数�
 </div>
 <div class="section" id="logheader">
 <h2>在log中记录header<a class="headerlink" href="#logheader" title="Permalink to this headline">¶</a></h2>
-<p>记录requests 的header使用 <tt class="docutils literal"><span class="pre">$http_&lt;name&gt;</span></tt> 变量, 记录response的header使用 <tt class="docutils literal"><span class="pre">$sent_http_&lt;name&gt;</span></tt> 变量, 如下:</p>
+<p>记录requests 的header使用 <code class="docutils literal"><span class="pre">$http_&lt;name&gt;</span></code> 变量, 记录response的header使用 <code class="docutils literal"><span class="pre">$sent_http_&lt;name&gt;</span></code> 变量, 如下:</p>
 <div class="highlight-python"><div class="highlight"><pre>underscores_in_headers on;
 log_format STAT &#39;[$time_local]`$http_x_up_calling_line_id`&quot;$request&quot;`&quot;$http_user_agent&quot;`$status`[$remote_addr]`$http_range`&quot;$http_referer&quot;`$request_time`$body_bytes_sent`$http_deviceid`$http_x_forwarded_for`$host`$http_cookie |token=`$http_HTTP_AUTHORIZATION`&#39;;
 </pre></div>
@@ -202,28 +551,69 @@ log_format STAT &#39;[$time_local]`$http_x_up_calling_line_id`&quot;$request&quo
 </div>
 
 
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../oss.html" class="btn btn-neutral float-right" title="云存储" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="struct.html" class="btn btn-neutral" title="struct" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
-      
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-        <br/>
-        
-<div id="sourcelink">
-  <a href="../../_sources/software/nginx/faq.txt"
-     rel="nofollow">Source</a>
-</div>
-      
-    </p>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
     <p>
-        &copy; Copyright 2015, xiewenlongs@gmail.com.<br/>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.<br/>
+        &copy; Copyright 2015, xiewenlongs@gmail.com.
     </p>
   </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
 </footer>
-  </body>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

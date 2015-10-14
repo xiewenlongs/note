@@ -63,8 +63,8 @@ solr 启动的时候，必须指定家目录。 家目录有两个作用, 一是
 
 
 .. warning::
-      schema.xml 和 managed-schema 的功能一样，都是管理solr schema 的配置文件。具体solr使用哪个，要由solrconfig.xml里的
-  <schemaFactory class="ManagedIndexSchemaFactory"> 标签来控制. managed-schema是允许solr动态来修改schema
+    schema.xml 和 managed-schema 的功能一样，都是管理solr schema 的配置文件。具体solr使用哪个，要由solrconfig.xml里的
+    <schemaFactory class="ManagedIndexSchemaFactory"> 标签来控制. managed-schema是允许solr动态来修改schema
 
 
 solr 有两种模式::
@@ -106,8 +106,8 @@ SOLR加载数据，创建索引和数据时，核心数据结构的配置文件�
 搜索类型定义等。schema.xml的配置直接影响搜索结果的准确性与效率。
 
 .. warning::
-      默认<home>/<core>/conf/solrconfig.xml 里 schemaFactory=ManagedIndexSchemaFactory, 这样的话solr使用接口管理schema,
-  所以conf/schema.xml并不起作用。 修改schemaFactory=ClassicIndexSchemaFactory, 然后再创造schema.xml, 并重启solr
+    默认<home>/<core>/conf/solrconfig.xml 里 schemaFactory=ManagedIndexSchemaFactory, 这样的话solr使用接口管理schema,
+    所以conf/schema.xml并不起作用。 修改schemaFactory=ClassicIndexSchemaFactory, 然后再创造schema.xml, 并重启solr
 
 
 |
