@@ -83,6 +83,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#id4">哈希表</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ui">终端下UI库</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">正则表达式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bug">内存覆盖bug</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">代码优化</a><ul>
@@ -390,6 +391,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../linux/core.html#id2">进程</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../linux/fs.html">文件系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../linux/fs.html#linux-ext">linux ext文件系统结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../linux/fs.html#tip">tip</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../linux/regex.html">regex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../linux/screen.html">screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../linux/tuning.html">linux 调优</a><ul>
@@ -536,6 +542,41 @@
 <p>PCRE:  很多开源项目都用它来支持正则，如: nginx, apache</p>
 <p>示例:  <a class="reference download internal" href="../_downloads/c_pcre_lib.c"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
 <p>相关链接:  <a class="reference external" href="http://www.pcre.org/pcre.txt">http://www.pcre.org/pcre.txt</a></p>
+</div>
+<div class="section" id="bug">
+<h3>内存覆盖bug<a class="headerlink" href="#bug" title="Permalink to this headline">¶</a></h3>
+<p>strcpy函数并不会检测参数范围，如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>include &lt;stdio.h&gt;
+int main ()
+{
+    int flag;
+    char buf[10];
+
+    strcpy (buf, argv[1]);
+
+    if (strcmp (“abc123”, buf) == 0) {
+        flag = 1;
+    } else
+        flag = 0;
+
+    if (flag) {
+        printf (“successful”);
+    }
+}
+</pre></div>
+</div>
+<p>这是一个验证密码的程序, 有办法让你不知道密码，也能登陆。只要输入的字符串足够长就行, 原理: <code class="docutils literal"><span class="pre">strcpy</span> <span class="pre">不会考虑第一个参数</span>
+<span class="pre">的内存大小，如果</span> <span class="pre">argv[1]足够大</span> <span class="pre">导致buf已经复制不下，那么会</span> <span class="pre">溢出复制。就是往内存中后续的</span> <span class="pre">地址复制。</span></code> 内存中存储可能如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>--------------
+| --内存中---|
+|____________|
+| buf 变量   |
+|____________|
+| flag 变量  |
+--------------
+</pre></div>
+</div>
+<p>当输入足够长， 利用strcpy函数不保证边界检测的特性， 后续的字符会覆盖下面的变量flag</p>
 </div>
 </div>
 <div class="section" id="id6">
