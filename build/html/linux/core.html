@@ -34,7 +34,7 @@
   
     <link rel="top" title="Notebook" href="../index.html"/>
         <link rel="up" title="linux 笔记" href="index.html"/>
-        <link rel="next" title="regex" href="regex.html"/>
+        <link rel="next" title="文件系统" href="fs.html"/>
         <link rel="prev" title="bash" href="bash.html"/> 
 
   
@@ -83,6 +83,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../program_lang/c.html#id4">哈希表</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../program_lang/c.html#ui">终端下UI库</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../program_lang/c.html#id5">正则表达式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../program_lang/c.html#bug">内存覆盖bug</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../program_lang/c.html#id6">代码优化</a><ul>
@@ -390,6 +391,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">进程</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="fs.html">文件系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fs.html#linux-ext">linux ext文件系统结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fs.html#tip">tip</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="regex.html">regex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="screen.html">screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tuning.html">linux 调优</a><ul>
@@ -503,9 +509,31 @@
 <h1>基础<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2>进程<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">僵尸进程的目的，是子进程退出后，保留子进程的执行状态，以供父进程获取</p>
+</li>
+<li><p class="first">任何长系统调用(会block的), 都有可能被信号中断， 像CHILD这样的信号。所以要检测EINTR(打断信号) 信号， 重启该系统调用</p>
+</li>
+<li><p class="first">多进程 vs 多线程</p>
 <ul class="simple">
-<li>僵尸进程的目的，是子进程退出后，保留子进程的执行状态，以供父进程获取</li>
-<li>任何长系统调用(会block的), 都有可能被信号中断， 像CHILD这样的信号。所以要检测EINTR(打断信号) 信号， 重启该系统调用</li>
+<li>线程比进程更轻</li>
+<li>线程间同步、通信更容易</li>
+<li>进程更好隔绝问题，一个进程挂了不会影响其他进程， 而一个线程挂了，会导致这个进程内的所有线程都挂</li>
+<li>程间切换比进程间切换更轻；</li>
+<li>一个进程能打开的文件描述符是有上限的，如果有单进程多线程方式来写web server, 那么文件描述符资源就会是问题</li>
+</ul>
+</li>
+<li><p class="first">linux 系统load的含义</p>
+<p>对于单核机器来说，load=1.0 表示cpu的使用率已满(进程调度器中, ready的进程为0， running的进程刚好占满了运行队列), 这种情况下， 再多执行一个进程，这个新进程都要等待CPU有空再分片到自己. 对于多核机器，是累加关系。双核CPU的满负载状态,load=2.0, 四核满负载load=4.0</p>
+</li>
+<li><p class="first">内核为每个进程维护着这个进程打开的文件表， 结构如下图</p>
+</li>
+</ul>
+<img alt="../_images/linux_core_proc_fd.jpg" src="../_images/linux_core_proc_fd.jpg" />
+<ul>
+<li><p class="first">为什么操作系统要分用户态和内核态</p>
+<p>由于操作系统和用户共享了计算机系统的硬件和软件,必须保证用户程序中的一个出错仅影响正在运行的程序。采用共享,许多进程可能会受到一个程序中的一个漏洞 (bug) 的不利影响。例如,如果一个进程陷入死循环,那么这个死循环可能会阻止很多其他进程 的正确操作。在多道程序设计中可能会发生更为微妙的错误,如一个错误的程序可能修改另一个程序、另一程序的数据,甚至操作系统本身。 如果没有保护来处理这些错误,那么计算机只能一次执行一个进程,否则所有输出都 值得怀疑。操作系统的合理设计必须确保错误程序(或恶意程序)不会造成其他程序执行错误。(用户空间不允许访问某些东西，如: 进程表)</p>
+</li>
 </ul>
 </div>
 </div>
@@ -516,7 +544,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="regex.html" class="btn btn-neutral float-right" title="regex" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="fs.html" class="btn btn-neutral float-right" title="文件系统" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bash.html" class="btn btn-neutral" title="bash" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

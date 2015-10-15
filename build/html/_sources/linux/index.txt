@@ -7,6 +7,7 @@ linux 笔记
 
    bash
    core
+   fs
    regex
    screen
    tuning

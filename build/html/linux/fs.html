@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bash &mdash; Notebook</title>
+  <title>文件系统 &mdash; Notebook</title>
   
 
   
@@ -34,8 +34,8 @@
   
     <link rel="top" title="Notebook" href="../index.html"/>
         <link rel="up" title="linux 笔记" href="index.html"/>
-        <link rel="next" title="基础" href="core.html"/>
-        <link rel="prev" title="linux 笔记" href="index.html"/> 
+        <link rel="next" title="regex" href="regex.html"/>
+        <link rel="prev" title="基础" href="core.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -376,18 +376,23 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">linux 笔记</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">bash</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ps1">PS1 命令行提示符</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#history">history 在多终端下的表现</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">history 设置</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scripts-example">scripts example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#md5">计算字符串的md5值</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">终端发送邮件</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tips">tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bash.html">bash</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bash.html#ps1">PS1 命令行提示符</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash.html#history">history 在多终端下的表现</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash.html#id1">history 设置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash.html#scripts-example">scripts example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash.html#md5">计算字符串的md5值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash.html#id2">终端发送邮件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bash.html#tips">tips</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="core.html">基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="core.html#id2">进程</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">文件系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linux-ext">linux ext文件系统结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tip">tip</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="regex.html">regex</a></li>
@@ -486,11 +491,11 @@
       
           <li><a href="index.html">linux 笔记</a> &raquo;</li>
       
-    <li>bash</li>
+    <li>文件系统</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/linux/bash.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/linux/fs.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -499,85 +504,20 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="bash">
-<h1>bash<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="ps1">
-<h2>PS1 命令行提示符<a class="headerlink" href="#ps1" title="Permalink to this headline">¶</a></h2>
-<p>在~/.bashrc中加入:</p>
-<div class="highlight-python"><div class="highlight"><pre>export PS1=&#39;\n\e[1;37m[\e[m\e[1;32m\u\e[m\e[1;33m@\e[m\e[1;35m\H\e[m \e[4m`pwd`\e[m\e[1;37m]\e[m\e[1;36m\e[m\n\$&#39;
-</pre></div>
+  <div class="section" id="id1">
+<h1>文件系统<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="linux-ext">
+<h2>linux ext文件系统结构<a class="headerlink" href="#linux-ext" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/linux_fs_ext_arch.jpg" src="../_images/linux_fs_ext_arch.jpg" />
 </div>
-</div>
-<div class="section" id="history">
-<h2>history 在多终端下的表现<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tip">
+<h2>tip<a class="headerlink" href="#tip" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>There is the history in the history file.</li>
-<li>There is the history in the memory of a bash process.</li>
-<li>The history in the memory of one bash process is not synced with the history in the memory of any other bash process.</li>
-<li>The history in the memory of a bash process is not synced with the history in the file, unless explicitly asked to or during some specific event (see below).</li>
-<li>During startup bash will read the history file. The content of the history file is now in the memory of the bash process.</li>
-<li>During normal use only the history in memory is manipulated.</li>
-<li>During shutdown the history in memory is written to the history file, overwriting any previous content of the history file.</li>
-<li>可以在 ~/.bashrc 里，加入 <code class="docutils literal"><span class="pre">shopt</span> <span class="pre">-s</span> <span class="pre">histappend</span></code>, 来防止多terminator 相互覆盖.bash_history， 但是时间戳会乱</li>
+<li>查看操作系统支持的文件系统</li>
 </ul>
-</div>
-<div class="section" id="id1">
-<h2>history 设置<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>HISTFILESIZE=2000</li>
-<li>HISTSIZE=2000</li>
-<li>HISTTIMEFORMAT=&#8221;%Y%m%d-%H:%M:%S: &#8221;   每个操作，加上时间戳</li>
-<li>export HISTTIMEFORMAT</li>
-<li>shopt -s histappend</li>
-</ul>
-</div>
-<div class="section" id="scripts-example">
-<h2>scripts example<a class="headerlink" href="#scripts-example" title="Permalink to this headline">¶</a></h2>
-<p>log 跨机器传输(retry): <a class="reference download internal" href="../_downloads/decrypt_nginx_log.sh"><code class="xref download docutils literal"><span class="pre">example</span></code></a></p>
-</div>
-<div class="section" id="md5">
-<h2>计算字符串的md5值<a class="headerlink" href="#md5" title="Permalink to this headline">¶</a></h2>
-<p>在终端输入:</p>
-<div class="highlight-python"><div class="highlight"><pre>echo -n &quot;863224020062594&quot; | md5 | awk &#39;{print $1}&#39;
+<div class="highlight-shell"><div class="highlight"><pre>ls  -l  /lib/moudules/<span class="k">$(</span>uname -r<span class="k">)</span> /kernel/fs
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
-<h2>终端发送邮件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic">
-<li><p class="first">安装sendmail包</p>
-</li>
-<li><p class="first">配置sendmail /etc/mail.rc:</p>
-<div class="highlight-python"><div class="highlight"><pre>set from=&lt;from@com&gt; smtp=&lt;stmp.com&gt;
-set smtp-auth-user=&lt;from@com&gt; smtp-auth-password=&lt;password&gt; smtp-auth=login
-</pre></div>
-</div>
-</li>
-<li><p class="first">启动sendmail服务:</p>
-<div class="highlight-python"><div class="highlight"><pre>service sendmail start
-</pre></div>
-</div>
-</li>
-<li><p class="first">mail -s &#8216;this is test&#8217; <a class="reference external" href="mailto:yourmail&#37;&#52;&#48;com">yourmail<span>&#64;</span>com</a></p>
-</li>
-</ol>
-</div>
-<div class="section" id="tips">
-<h2>tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p class="first">要在远端最快启动一个静态文件服务器，用以下命令:</p>
-<div class="highlight-python"><div class="highlight"><pre>python -m SimpleHTTPServer 7777
-</pre></div>
-</div>
-</li>
-<li><p class="first">tcpdump 过滤抓包:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo tcpdump -t -XX -i eth0 src host 10.32.30.138  and port 80
-</pre></div>
-</div>
-</li>
-<li><p class="first">在服务器上删除无用的log文件时, 最好使用 <code class="docutils literal"><span class="pre">echo</span> <span class="pre">&quot;&quot;</span> <span class="pre">&gt;</span> <span class="pre">access.log</span></code> 代替 <code class="docutils literal"><span class="pre">rm</span> <span class="pre">access.log</span></code>, 因为该文件可能还在被进程不停的写，这时候删除了inode, 但磁盘空间并没有释放， 还需要用lsof来找问题.</p>
-</li>
-</ul>
 </div>
 </div>
 
@@ -587,10 +527,10 @@ set smtp-auth-user=&lt;from@com&gt; smtp-auth-password=&lt;password&gt; smtp-aut
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="core.html" class="btn btn-neutral float-right" title="基础" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="regex.html" class="btn btn-neutral float-right" title="regex" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="linux 笔记" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="core.html" class="btn btn-neutral" title="基础" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
