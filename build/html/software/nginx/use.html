@@ -83,6 +83,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#id4">哈希表</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#ui">终端下UI库</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#id5">正则表达式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../program_lang/c.html#bug">内存覆盖bug</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../program_lang/c.html#id6">代码优化</a><ul>
@@ -245,9 +246,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#id6">配置</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id12">反向代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id14">性能调优</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id16">其他</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id18">扩展</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id19">问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">其他</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">扩展</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">问题</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="implement.html">implement</a><ul>
@@ -388,6 +389,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../linux/core.html">基础</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../linux/core.html#id2">进程</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../linux/fs.html">文件系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/fs.html#linux-ext">linux ext文件系统结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../linux/fs.html#tip">tip</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../linux/regex.html">regex</a></li>
@@ -1336,13 +1342,18 @@ server {
 <p>方法1: 打开 &#8211;with-debug</p>
 <p>方法2: Debugging nginx with DTrace pid provider</p>
 <p>相关链接: <a class="reference external" href="http://nginx.org/en/docs/nginx_dtrace_pid_provider.html">http://nginx.org/en/docs/nginx_dtrace_pid_provider.html</a></p>
+</div>
+<div class="section" id="id16">
+<h3>减少系统调用<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>系统调用的开销是比较大的，因为它会从用户态进入内核态，再退出, x这种切换是比较昂贵的. 我们可以通过配置nginx来减少不必要的系统调用，如: open/gettimeofday</p>
+<p>通过strace命令来查看nginx接受一个请求会调用哪些系统调用，然后分析可以通过配置关闭的调用, 如: gettimeofday</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 </div>
 </div>
-<div class="section" id="id16">
-<h2>其他<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h2>其他<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="location">
 <span id="nginx-location"></span><h3>location 配置<a class="headerlink" href="#location" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal"><span class="pre">=</span></code> 匹配符， 完全匹配才处理， e.g:</p>
@@ -1410,7 +1421,7 @@ open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
 <p>IfIsEvil: <a class="reference external" href="http://wiki.nginx.org/IfIsEvil">http://wiki.nginx.org/IfIsEvil</a></p>
 </div>
 <div class="section" id="nginx-limit-except">
-<span id="id17"></span><h3>限制请求方法<a class="headerlink" href="#nginx-limit-except" title="Permalink to this headline">¶</a></h3>
+<span id="id18"></span><h3>限制请求方法<a class="headerlink" href="#nginx-limit-except" title="Permalink to this headline">¶</a></h3>
 <p>配置:</p>
 <div class="highlight-python"><div class="highlight"><pre>limit_except GET POST DELETE {
     deny all;
@@ -1420,8 +1431,8 @@ open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
 <p>意思是， 除了GET POST DELETE 方法外，其他一切请求都deny</p>
 </div>
 </div>
-<div class="section" id="id18">
-<h2>扩展<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h2>扩展<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="table-bordered docutils">
 <colgroup>
 <col width="30%" />
@@ -1439,8 +1450,8 @@ open_log_file_cache max=1000 inactive=20s valid=1m min_uses=2;
 </tbody>
 </table>
 </div>
-<div class="section" id="id19">
-<h2>问题<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id20">
+<h2>问题<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

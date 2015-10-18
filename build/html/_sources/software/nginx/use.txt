@@ -498,6 +498,14 @@ debug nginx
 相关链接: http://nginx.org/en/docs/nginx_dtrace_pid_provider.html
 
 
+减少系统调用
+~~~~~~~~~~~~~~~~~~~~~~~
+
+系统调用的开销是比较大的，因为它会从用户态进入内核态，再退出, x这种切换是比较昂贵的. 我们可以通过配置nginx来减少不必要的系统调用，如: open/gettimeofday
+
+通过strace命令来查看nginx接受一个请求会调用哪些系统调用，然后分析可以通过配置关闭的调用, 如: gettimeofday
+
+
 |
 
 ---------------------------------------
