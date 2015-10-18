@@ -82,6 +82,7 @@
 <li class="toctree-l4"><a class="reference internal" href="program_lang/c.html#id4">哈希表</a></li>
 <li class="toctree-l4"><a class="reference internal" href="program_lang/c.html#ui">终端下UI库</a></li>
 <li class="toctree-l4"><a class="reference internal" href="program_lang/c.html#id5">正则表达式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="program_lang/c.html#bug">内存覆盖bug</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="program_lang/c.html#id6">代码优化</a><ul>
@@ -244,9 +245,9 @@
 <li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id6">配置</a></li>
 <li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id12">反向代理</a></li>
 <li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id14">性能调优</a></li>
-<li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id16">其他</a></li>
-<li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id18">扩展</a></li>
-<li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id19">问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id17">其他</a></li>
+<li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id19">扩展</a></li>
+<li class="toctree-l4"><a class="reference internal" href="software/nginx/use.html#id20">问题</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="software/nginx/implement.html">implement</a><ul>
@@ -389,6 +390,11 @@
 <li class="toctree-l3"><a class="reference internal" href="linux/core.html#id2">进程</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="linux/fs.html">文件系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="linux/fs.html#linux-ext">linux ext文件系统结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="linux/fs.html#tip">tip</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="linux/regex.html">regex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="linux/screen.html">screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="linux/tuning.html">linux 调优</a><ul>
@@ -445,7 +451,10 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Tools</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#mac">Mac下提供效率的工具</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Mac下提高效率的工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">开发工具</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#apiblueprint">apiblueprint</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">学习计划</a><ul>
@@ -515,9 +524,6 @@
 <p><strong>fluidapp</strong></p>
 <p>一款能把页面打包成app的应用，把打包的页面生成一个app,放在Dock上. 例如：把Gmail打包
 <a class="reference external" href="http://fluidapp.com/">http://fluidapp.com/</a></p>
-</div>
-<div class="section" id="id1">
-<h2>Mac下提高效率的工具<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://trello.com/">trello</a></p>
 <p>团队任务协作平台，类似于github的可视化issue页面. 有以下功能:</p>
 <ul class="simple">
@@ -525,6 +531,13 @@
 <li>添加comments</li>
 <li>label 一个任务的紧急度</li>
 </ul>
+</div>
+<div class="section" id="id1">
+<h2>开发工具<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="apiblueprint">
+<h3>apiblueprint<a class="headerlink" href="#apiblueprint" title="Permalink to this headline">¶</a></h3>
+<p>一种近似markdown的api文档编辑格式， 它只是一种格式，基于这种格式把apib文件渲染成html的工具有 <code class="docutils literal"><span class="pre">aglio</span></code>.</p>
+</div>
 </div>
 </div>
 
