@@ -78,4 +78,5 @@ tips
 
     sudo tcpdump -t -XX -i eth0 src host 10.32.30.138  and port 80
 
+
 - 在服务器上删除无用的log文件时, 最好使用 ``echo "" > access.log`` 代替 ``rm access.log``, 因为该文件可能还在被进程不停的写，这时候删除了inode, 但磁盘空间并没有释放， 还需要用lsof来找问题.
