@@ -12,3 +12,4 @@ linux 笔记
    screen
    tuning
    iptable
+   zsh
