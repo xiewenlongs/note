@@ -6,6 +6,7 @@
    :titlesonly:
 
    django
+   flask
    github
    goaccess
    hadoop
