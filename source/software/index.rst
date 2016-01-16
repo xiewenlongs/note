@@ -2,27 +2,10 @@
 =======================
 
 .. toctree::
-   :maxdepth: 2
-   :titlesonly:
+    :maxdepth: 2
+    :titlesonly:
+    :glob:
 
-   django
-   flask
-   github
-   goaccess
-   hadoop
-   list
-   lucene
-   maven
-   mongo
-   mongoengine
-   mysql
-   nginx/index
-   oss
-   python-lib/index
-   scrapy
-   sentry
-   solr
-   supervisord
-   uwsgi
-   vim
-   webbench
+    *
+    nginx/index
+    python-lib/index

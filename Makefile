@@ -22,6 +22,7 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext
 
 update: html
+	cp CNAME build/html
 	git add .
 	-git commit -m 'update doc'
 	git pull origin master

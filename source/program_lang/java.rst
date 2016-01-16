@@ -3,16 +3,13 @@ java
 ===============================================
 
 
-
 FAQ
 ---------------------------------------
 
 **Ivy is not avaliable**
 
-Ivy是ant的一个插件， 报这个错说明Ivy插件没有安装，或者没有配置好.
+Ivy是ant的一个插件， 报这个错说明Ivy插件没有安装，或者没有配置好. 解决方法:
 
-
-第一步，从官网下载Ivy tgz包并下载编译成jar包， 然后把Ivy.jar 拷贝到/usr/share/ant/lib/ 下
-
-第二步, 配置环境变量 ``ANT_HOME``,  export ANT_HOME=/usr/share/ant/
+    1. 从官网下载Ivy tgz包并下载编译成jar包， 然后把Ivy.jar 拷贝到/usr/share/ant/lib/ 下
+    2. 配置环境变量 **export ANT_HOME=/usr/share/ant/**
 

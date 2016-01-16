@@ -49,15 +49,15 @@ primary_domain = 'php'
 master_doc = 'index'
 
 # General information about the project.
-project = u'notebook'
-copyright = u'2015, xiewenlongs@gmail.com'
+project = u'一剑光寒起书楼'
+copyright = u'2016, xiewenlongs@gmail.com'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '1'
+version = ''
 # The full version, including alpha/beta/rc tags.
 release = '0'
 
@@ -172,13 +172,10 @@ html_favicon = '_static/logo.ico'
 # html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
-# html_show_sourcelink = True
-
-# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-# html_show_sphinx = True
-
-# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-# html_show_copyright = True
+html_show_sourcelink    = False
+html_copy_source        = False
+html_show_copyright     = False
+html_show_sphinx        = False
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the

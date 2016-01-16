@@ -9,9 +9,8 @@
 
 
 .. toctree::
-   :maxdepth: 2
-   :titlesonly:
+    :maxdepth: 2
+    :titlesonly:
+    :glob:
 
-   diary
-   logion
-   note
+    *

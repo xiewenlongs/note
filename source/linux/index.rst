@@ -3,13 +3,7 @@ linux 笔记
 ===============================================
 
 .. toctree::
-   :maxdepth: 1
+    :maxdepth: 1
+    :glob:
 
-   bash
-   core
-   fs
-   regex
-   screen
-   tuning
-   iptable
-   zsh
+    *
