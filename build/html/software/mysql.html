@@ -238,6 +238,7 @@
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">mysql</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#slave">重置slave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">存储引擎</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="oss.html">云存储</a><ul>
@@ -495,6 +496,25 @@
 <li>&gt;start slave;</li>
 <li>&gt;show slave statusG; 查看 slave_io_running 是否是yes</li>
 </ol>
+</div>
+<div class="section" id="id1">
+<h2>存储引擎<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>MyISAM 和 InnoDB索引 这两种索引都是用B+数来存储。 不同在于:</p>
+<ul>
+<li><p class="first">对于MyISAM存储，索引和数据分离， 索引使用B+树建立，叶子节点只保存磁盘上真正数据的地址</p>
+</li>
+<li><p class="first">而对于InnoDB不同， 它分两种情况: 主键索引 和 辅助索引</p>
+<ul class="simple">
+<li>主键索引B+树的叶子节点保存整条记录的完整信息</li>
+<li>辅助索引的叶子节点，保存的是相应记录对应主键的值。</li>
+</ul>
+<p>所以Innodb使用辅助索引查找时，会查询两遍。 但是用主键索引的查询，非常快。</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Innodb的主键长度不要太长，因为每个辅助索引，叶子节点都会把主键存一遍</p>
+</div>
 </div>
 </div>
 
