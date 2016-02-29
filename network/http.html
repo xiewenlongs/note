@@ -138,6 +138,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#id2">上传文件</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">验证</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pipeline">pipeline</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#faq">FAQ</a></li>
 </ul>
@@ -238,6 +239,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../software/mysql.html">mysql</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../software/mysql.html#slave">重置slave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/mysql.html#id1">存储引擎</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../software/oss.html">云存储</a><ul>
@@ -541,6 +543,43 @@ d = {a:b
 用“boundary”隔开。“boundary”一般由系统随机产生，但也可以简单的用“&#8212;&#8212;&#8212;&#8212;-”来代替。 紧接着 boundary
 的是该部分数据的描述。</p>
 <p>接下来才是数据。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>验证<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>http提供三种验证方式:</p>
+<table border="1" class="table-bordered docutils">
+<colgroup>
+<col width="17%" />
+<col width="53%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">方式</th>
+<th class="head">优点</th>
+<th class="head">缺点</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Basic</td>
+<td>nginx默认就支持</td>
+<td>账号密码是放在header里，以
+明文发送的</td>
+</tr>
+<tr class="row-odd"><td>Digest</td>
+<td>帐号密码捕获不到</td>
+<td>nginx默认不支持，并且无法
+防止replay</td>
+</tr>
+<tr class="row-even"><td>NTLM</td>
+<td>???</td>
+<td>只试用于HTTP1.1</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">最安全的解决方案，就是https</p>
 </div>
 </div>
 <div class="section" id="pipeline">
