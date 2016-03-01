@@ -138,6 +138,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../network/http.html#id2">上传文件</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../network/http.html#id3">验证</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../network/http.html#pipeline">pipeline</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../network/http.html#faq">FAQ</a></li>
 </ul>
@@ -238,7 +239,10 @@
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">mysql</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#slave">重置slave</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">存储引擎</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">存储引擎</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#auto-increment-id">Auto Increment ID</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="oss.html">云存储</a><ul>
@@ -514,6 +518,14 @@
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Innodb的主键长度不要太长，因为每个辅助索引，叶子节点都会把主键存一遍</p>
+</div>
+<div class="section" id="auto-increment-id">
+<h3>Auto Increment ID<a class="headerlink" href="#auto-increment-id" title="Permalink to this headline">¶</a></h3>
+<p>InnoDB引擎的 Auto Increment ID 可能不连续，导致不连续有两种情况:</p>
+<ul class="simple">
+<li>删除记录</li>
+<li>rollback 会话</li>
+</ul>
 </div>
 </div>
 </div>

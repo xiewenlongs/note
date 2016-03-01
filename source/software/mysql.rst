@@ -27,3 +27,13 @@ MyISAM 和 InnoDB索引 这两种索引都是用B+数来存储。 不同在于:
 
 .. warning::
     Innodb的主键长度不要太长，因为每个辅助索引，叶子节点都会把主键存一遍
+
+
+Auto Increment ID
+---------------------------------------
+
+InnoDB引擎的 Auto Increment ID 可能不连续，导致不连续有两种情况:
+
+- 删除记录
+- rollback 会话
+
