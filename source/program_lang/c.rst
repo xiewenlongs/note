@@ -108,3 +108,14 @@ strcpy函数并不会检测参数范围，如下
 .. code-block:: c
 
    #define ngx_tolower(c)      (u_char) ((c >= 'A' && c <= 'Z') ? (c | 0x20) : c)
+
+一条宏处理多个语句:
+
+.. code-block:: c
+
+    #define TEST(a, b) do {a++; b++}while (0)
+    这个简单的例子解释了宏定义中使用循化。这种方式，使这个宏一个处理多个语句，
+    如：if (arg == 0) 
+            TEST(a, b);		// if 一条语句，没有大括号。
+        else
+            .....
