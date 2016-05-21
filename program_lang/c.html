@@ -138,6 +138,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../network/http.html#id2">上传文件</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../network/http.html#id3">验证</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../network/http.html#pipeline">pipeline</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../network/http.html#faq">FAQ</a></li>
 </ul>
@@ -238,6 +239,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../software/mysql.html">mysql</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../software/mysql.html#slave">重置slave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../software/mysql.html#id1">存储引擎</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../software/mysql.html#auto-increment-id">Auto Increment ID</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../software/oss.html">云存储</a><ul>
@@ -576,6 +581,15 @@ int main ()
 <h2>牛逼宏定义<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>大小写转换:</p>
 <div class="highlight-c"><div class="highlight"><pre><span class="cp">#define ngx_tolower(c)      (u_char) ((c &gt;= &#39;A&#39; &amp;&amp; c &lt;= &#39;Z&#39;) ? (c | 0x20) : c)</span>
+</pre></div>
+</div>
+<p>一条宏处理多个语句:</p>
+<div class="highlight-c"><div class="highlight"><pre>#define TEST(a, b) do {a++; b++}while (0)
+这个简单的例子解释了宏定义中使用循化。这种方式，使这个宏一个处理多个语句，
+如：if (arg == 0)
+        TEST(a, b);         // if 一条语句，没有大括号。
+    else
+        .....
 </pre></div>
 </div>
 </div>
