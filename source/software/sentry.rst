@@ -99,6 +99,9 @@ sentry
 
 整个过程完成，现在可以用web登陆sentry了
 
+.. image:: ../../_static/s_sentry_finish.png
+
+
 |
 
 报警邮件
